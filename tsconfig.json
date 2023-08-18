@@ -14,6 +14,11 @@
     "noEmit": true,
     "jsx": "preserve",
 
+    "baseUrl": "./",
+    "paths": {
+      "": ["src/"],
+    },
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -23,6 +28,8 @@
     /* Allow JS */
     "allowJs": true,
   },
-  "include": ["src"],
+  "include": [
+    "src/*/", "vite.config.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
