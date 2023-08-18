@@ -1,8 +1,12 @@
-## Installation des outils
+# Installation des outils
+
+Projet en NPM
 
 - Vite
 - React
 - React-router-dom
+- Axios
+- Eslint
 - Typescript
 - Tailwindcss
 - DaisyUI
@@ -11,7 +15,7 @@
 
 ## Composants
 
-- FriendList
+- Contact
 - Profile
 - MatchMaking
 
