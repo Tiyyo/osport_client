@@ -1,16 +1,21 @@
-## Installation des outils
+# Installation des outils
+
+Projet en NPM
 
 - Vite
 - React
 - React-router-dom
+- Axios
+- Eslint
 - Typescript
 - Tailwindcss
 - DaisyUI
 - Vitest
+- Normalize.css
 
 ## Composants
 
-- FriendList
+- Contact
 - Profile
 - MatchMaking
 
@@ -36,4 +41,3 @@
 :memo: = Readme / Code comments / Documentations \
 :rotating_light: = Security \
 :sparkles: = Clean code \
-
