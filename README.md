@@ -7,6 +7,7 @@
 - Tailwindcss
 - DaisyUI
 - Vitest
+- Normalize.css
 
 ## Composants
 
@@ -36,4 +37,3 @@
 :memo: = Readme / Code comments / Documentations \
 :rotating_light: = Security \
 :sparkles: = Clean code \
-
