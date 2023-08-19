@@ -18,7 +18,7 @@ const LogIn: React.FC<LogInProps> = () => {
         Se connecter à O'Sport
       </div>
 
-      <div className="card w-96 bg-base-100 shadow-xl border border-gray-700 m-1 mb-6">
+      <div className="card w-100 bg-base-100 shadow-xl border border-gray-700 m-1 mb-6">
         <div className="form-control w-full max-w-xs m-1">
           <label className="label">
             <span className="label-text">Nom d'utilisateur : </span>
@@ -41,7 +41,7 @@ const LogIn: React.FC<LogInProps> = () => {
           />
         </div>
 
-        <Link to="" className="link link-info m-1">
+        <Link to="" className="link link-info m-1 text-sm">
           Mot de passe oublié ?
         </Link>
 
