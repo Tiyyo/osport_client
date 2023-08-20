@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 function CreateAnEvent() {
   return (
     <div>CreateAnEvent</div>
-  )
+  );
 }
 
-export default CreateAnEvent
+export default CreateAnEvent;

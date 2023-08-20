@@ -9,10 +9,10 @@ function Profile() {
         <button type="button">Event</button>
       </nav>
 
-      <div className="flex">
+      <div className="flex bg-blue-500">
         <div className="avatar">
           <div className="w-24 rounded-full">
-            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="yo la team" />
           </div>
           <button type="button">Edit profile</button>
           <button type="button">Logout</button>
