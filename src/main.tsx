@@ -1,9 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./components/App/App.tsx";
-import "./index.css";
-import { BrowserRouter } from "react-router-dom";
-import "normalize.css";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './components/App/App';
+import './index.css';
+// Normelize not necessary, daisyui already normalize + it generates some warnings
+// import 'normalize.css';
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
