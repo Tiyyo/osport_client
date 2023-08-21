@@ -23,6 +23,6 @@
     /* Allow JS */
     "allowJs": true,
   },
-  "include": ["src"],
+  "include": ["src", "src/components/LogIn/LogIn2.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

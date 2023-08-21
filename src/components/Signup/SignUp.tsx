@@ -16,7 +16,7 @@ function SignUp() {
       <div className="flex justify-center m-1">
         <img
           className="w-24 h-24"
-          src="../../../public/imageedit_3_3008038748.png"
+          src="/imageedit_3_3008038748.png"
           alt="logo"
         />
       </div>
@@ -39,10 +39,10 @@ function SignUp() {
 
         <div className="form-control w-full max-w-xs m-1">
           <label className="label">
-            <span className="label-text">Mot de passe : </span>
+            <span className="label-text">Email : </span>
           </label>
           <input
-            type="password"
+            type="email"
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
           />
@@ -69,13 +69,19 @@ function SignUp() {
           </label>
         </div>
 
-        <button className="btn btn-outline btn-success m-1">
-          S'inscrire
-        </button>
+        <button className="btn btn-outline btn-success m-1">S'inscrire</button>
       </div>
 
-      <div className="max-w-max text-xs">En savoir plus sur notre <Link to="..." className="">Politique de Confidentialité</Link> et l'<Link to="" className="">Utilisation des cookies</Link></div>
-
+      <div className="max-w-max text-xs">
+        En savoir plus sur notre{" "}
+        <Link to="..." className="">
+          Politique de Confidentialité
+        </Link>{" "}
+        et l'
+        <Link to="" className="">
+          Utilisation des cookies
+        </Link>
+      </div>
     </>
   );
 }
