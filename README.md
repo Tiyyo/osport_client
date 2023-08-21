@@ -11,7 +11,7 @@ Projet en NPM
 - Tailwindcss
 - DaisyUI
 - Vitest
-- Normalize.css
+- prop-types
 
 ## Composants
 

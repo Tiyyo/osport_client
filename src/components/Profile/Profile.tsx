@@ -1,6 +1,9 @@
 import React from 'react';
 
 function Profile() {
+  const onLogOut = () => {
+    console.log('LogOut pressed.'); // we will change it later
+  };
   return (
     <>
       <nav>
