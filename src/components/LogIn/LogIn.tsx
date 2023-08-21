@@ -1,9 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface LogInProps {} // Ceci est une interface vide car LogIn n'accepte aucune props
 
-const LogIn: React.FC<LogInProps> = () => {
+// A régler : le type de retour de la fonction LogIn
+function LogIn(): React.FC<LogInProps> | any {
   return (
     <>
       <div className="flex justify-center m-1">
@@ -20,10 +21,11 @@ const LogIn: React.FC<LogInProps> = () => {
 
       <div className="card w-100 bg-base-100 shadow-xl border border-gray-700 m-1 mb-6">
         <div className="form-control w-full max-w-xs m-1">
-          <label className="label">
+          <label className="label" htmlFor="first-name">
             <span className="label-text">Nom d'utilisateur : </span>
           </label>
           <input
+            id="first-name"
             type="text"
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
@@ -31,21 +33,22 @@ const LogIn: React.FC<LogInProps> = () => {
         </div>
 
         <div className="form-control w-full max-w-xs m-1">
-          <label className="label">
+          <label className="label" htmlFor="password">
             <span className="label-text">Mot de passe : </span>
           </label>
           <input
+            id="password"
             type="password"
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
           />
         </div>
 
-        <Link to="" className="link link-info m-1 text-sm">
+        <Link to="/" className="link link-info m-1 text-sm">
           Mot de passe oublié ?
         </Link>
 
-        <button className="btn btn-outline btn-success m-1">
+        <button type="button" className="btn btn-outline btn-success m-1">
           Se connecter
         </button>
       </div>
@@ -58,6 +61,6 @@ const LogIn: React.FC<LogInProps> = () => {
       </div>
     </>
   );
-};
+}
 
 export default LogIn;

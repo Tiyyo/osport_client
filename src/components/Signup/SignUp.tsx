@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function SignUp() {
   return (
@@ -27,10 +27,11 @@ function SignUp() {
 
       <div className="card w-100 bg-base-100 shadow-xl border border-gray-700 m-1 mb-6">
         <div className="form-control w-full max-w-xs m-1">
-          <label className="label">
+          <label className="label" htmlFor="username">
             <span className="label-text">Nom d'utilisateur : </span>
           </label>
           <input
+            id="username"
             type="text"
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
@@ -38,10 +39,11 @@ function SignUp() {
         </div>
 
         <div className="form-control w-full max-w-xs m-1">
-          <label className="label">
+          <label className="label" htmlFor="password">
             <span className="label-text">Mot de passe : </span>
           </label>
           <input
+            id="password"
             type="password"
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
@@ -50,7 +52,7 @@ function SignUp() {
 
         <div className="form-control">
           <label className="label cursor-pointer flex justify-start">
-            <input type="checkbox" checked={true} className="checkbox me-2" />
+            <input type="checkbox" checked className="checkbox me-2" />
             <span className="label-text text-xs">
               J'accepte les
               <Link to="..." className="link link-info m-1">
@@ -62,19 +64,26 @@ function SignUp() {
 
         <div className="form-control">
           <label className="label cursor-pointer flex justify-start">
-            <input type="checkbox" checked={true} className="checkbox me-2" />
+            <input type="checkbox" checked className="checkbox me-2" />
             <span className="label-text text-xs">
               J'accepte de recevoir des emails de la part d'O'Sport
             </span>
           </label>
         </div>
 
-        <button className="btn btn-outline btn-success m-1">
+        <button type="button" className="btn btn-outline btn-success m-1">
           S'inscrire
         </button>
       </div>
 
-      <div className="max-w-max text-xs">En savoir plus sur notre <Link to="..." className="">Politique de Confidentialité</Link> et l'<Link to="" className="">Utilisation des cookies</Link></div>
+      <div className="max-w-max text-xs">
+        En savoir plus sur notre
+        {' '}
+        <Link to="..." className="">Politique de Confidentialité</Link>
+        {' '}
+        et l'
+        <Link to="/" className="">Utilisation des cookies</Link>
+      </div>
 
     </>
   );
