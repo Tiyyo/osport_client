@@ -1,26 +1,23 @@
 import React from 'react';
 
+import ProfileInfo from './ProfileInfo/ProfileInfo';
+import EventListPreview from './EventListPreview/EventListPreview';
+import NextEvent from './NextEvent/NextEvent';
+import Menu from '../Menu/Menu';
+
 function Profile() {
   const onLogOut = () => {
     console.log('LogOut pressed.'); // we will change it later
   };
   return (
     <>
-      <nav>
-        <button type="button">Profile</button>
-        <button type="button">Contact</button>
-        <button type="button">Event</button>
-      </nav>
-
-      <div className="flex bg-blue-500">
-        <div className="avatar">
-          <div className="w-24 rounded-full">
-            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="yo la team" />
-          </div>
-          <button type="button">Edit profile</button>
-          <button type="button">Logout</button>
+      <Menu />
+      <div className="h-content shadow-xl border border-gray-700 rounded-xl mx-24 px-4">
+        <div className="flex py-6">
+          <ProfileInfo />
+          <EventListPreview />
         </div>
-        <h1>Name</h1>
+        <NextEvent />
       </div>
     </>
   );
