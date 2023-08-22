@@ -1,34 +1,64 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+// import { LogInProps } from 'src/@types/osport';
+import { useAuth } from '../../hooks/useAuth';
 
-interface LogInProps {} // Ceci est une interface vide car LogIn n'accepte aucune props
+// export default function LogIn({ setIsLoggedIn }: LogInProps) {
+export default function LogIn() {
+  const { login } = useAuth();
 
-// A régler : le type de retour de la fonction LogIn
-function LogIn(): React.FC<LogInProps> | any {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const regexes = {
+    username: /^[a-zA-Z0-9_]+$/,
+    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+    email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+  };
+
+  const isValidUsername = (value: string): boolean => regexes.username.test(value);
+  const isValidPassword = (value: string): boolean => regexes.password.test(value);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isValidUsername(username) && isValidPassword(password)) {
+      // setIsLoggedIn(true);
+
+      login({
+        id: '1',
+        name: username,
+        password: password,
+      });
+
+      // Submit data to the server
+      navigate('/');
+    } else {
+      alert('Une erreur est survenue.');
+    }
+  };
+
   return (
-    <>
+    <div className="flex flex-col items-center">
       <div className="flex justify-center m-1">
-        <img
-          className="w-24 h-24"
-          src="../../../public/imageedit_3_3008038748.png"
-          alt="logo"
-        />
+        <img className="w-24 h-24" src="/imageedit_3_3008038748.png" alt="logo" />
       </div>
 
-      <div className="text-2xl font-bold text-center m-1 mb-6">
-        Se connecter à O'Sport
-      </div>
+      <div className="text-2xl font-bold text-center m-1 mb-6">Se connecter à O'Sport</div>
 
-      <div className="card w-100 bg-base-100 shadow-xl border border-gray-700 m-1 mb-6">
-        <div className="form-control w-full max-w-xs m-1">
+      <form className="flex flex-col items-center w-96 bg-base-100 shadow-xl border border-gray-700 m-1 mb-6 rounded-xl">
+        <div className="form-control w-full max-w-xs m-1 mt-4">
           <label className="label" htmlFor="first-name">
             <span className="label-text">Nom d'utilisateur : </span>
           </label>
           <input
             id="first-name"
             type="text"
-            placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
+            name="username"
+            value={username}
+            placeholder=""
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
 
@@ -39,28 +69,31 @@ function LogIn(): React.FC<LogInProps> | any {
           <input
             id="password"
             type="password"
-            placeholder="Tapez ici"
+            placeholder=""
             className="input input-bordered w-full max-w-xs"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
-        <Link to="/" className="link link-info m-1 text-sm">
-          Mot de passe oublié ?
-        </Link>
+        <div className="flex w-full justify-end max-w-xs m-1">
+          <Link to="/" className="link link-info text-sm bloc ">
+            Mot de passe oublié ?
+          </Link>
+        </div>
 
-        <button type="button" className="btn btn-outline btn-success m-1">
+        <button type="button" className="btn btn-outline btn-success m-4" onClick={handleSubmit}>
           Se connecter
         </button>
-      </div>
+      </form>
 
-      <div className="container border border-white rounded-lg m-1 p-3">
+      <div className="container text-center w-96 border border-white rounded-lg m-1 p-3 text-sm">
         Nouveau sur O'Sport ? &nbsp;
         <Link to="/signup" className="link link-info">
           Créer un compte
         </Link>
       </div>
-    </>
+    </div>
   );
 }
-
-export default LogIn;

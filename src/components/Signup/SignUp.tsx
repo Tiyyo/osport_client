@@ -16,7 +16,7 @@ function SignUp() {
       <div className="flex justify-center m-1">
         <img
           className="w-24 h-24"
-          src="../../../public/imageedit_3_3008038748.png"
+          src="/imageedit_3_3008038748.png"
           alt="logo"
         />
       </div>

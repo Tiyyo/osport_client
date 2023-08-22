@@ -6,6 +6,9 @@ import NextEvent from './NextEvent/NextEvent';
 import Menu from '../Menu/Menu';
 
 function Profile() {
+  const onLogOut = () => {
+    console.log('LogOut pressed.'); // we will change it later
+  };
   return (
     <>
       <Menu />
