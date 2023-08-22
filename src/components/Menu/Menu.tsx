@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 function Menu() {
   return (
     <nav className="flex gap-4 p-4 justify-center">
-      <button type="button" className="btn"><Link to="/">Profile</Link></button>
-      <button type="button" className="btn"><Link to="/contact">Contact</Link></button>
-      <button type="button" className="btn"><Link to="/event_list">Event</Link></button>
+      <Link to="/"><button type="button" className="btn">Profile</button></Link>
+      <Link to="/contact"><button type="button" className="btn">Contacts</button></Link>
+      <Link to="/event_list"><button type="button" className="btn">Event</button></Link>
     </nav>
   );
 }
