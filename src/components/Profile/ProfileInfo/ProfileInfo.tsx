@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function ProfileInfo() {
   return (
-    <div className="flex flex-col h-content gap-4 pb-4 px-5 items-center w-full h-80 shadow-xl border border-gray-700 rounded-xl m-1 mb-2 bg-neutral-focus sm:mb-0">
+    <div className="flex flex-col h-content gap-4 pb-4 px-5 m-auto w-full h-80 shadow-xl border border-gray-700 rounded-xl m-1 mb-2 bg-neutral-focus sm:mb-0">
       <div className="flex flex-col items-center justify-between w-full">
 
         <div className="flex items-center gap-4 p-4 sm:self-start">
@@ -13,7 +13,7 @@ function ProfileInfo() {
             </div>
           </div>
 
-          <h1 className="text-4xl">John Doe</h1>
+          <h1 className="text-3xl">John Doe</h1>
 
         </div>
 

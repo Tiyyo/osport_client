@@ -2,7 +2,7 @@ import React from 'react';
 
 function EventListPreview() {
   return (
-    <div className="stats w-full stats-vertical shadow w-3/5 shadow-xl border border-gray-700 rounded-xl m-1 mb-4 p-2 bg-neutral-focus sm:mb-0 sm:p-2">
+    <div className="stats w-full stats-vertical m-auto shadow w-3/5 shadow-xl border border-gray-700 rounded-xl m-1 mb-4 p-2 bg-neutral-focus sm:mb-0 sm:p-2">
       <h1 className="m-0 text-xl py-3 pl-1 h-fit sm:pb-0">Last results</h1>
       <div className="flex stat items-center justify-between px-5">
         <div className="stat-title text-sm text-success sm:text-base">WIN</div>

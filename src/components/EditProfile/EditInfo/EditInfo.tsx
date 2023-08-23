@@ -27,7 +27,7 @@ function EditInfo() {
         </div>
       </div>
       {/* </Link> */}
-      <p className="text-sm">Click on your profile picture to chose a new one</p>
+      <p className="text-xs px-4 sm:text-sm">Click on your profile picture to chose a new one</p>
     </div>
   );
 }
