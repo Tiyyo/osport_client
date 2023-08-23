@@ -3,8 +3,8 @@ import React from 'react';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import EventListPreview from './EventListPreview/EventListPreview';
 import NextEvent from './NextEvent/NextEvent';
-import Menu from '../Menu/Menu';
 import Header from '../Header/Header';
+import Menu from '../Menu/Menu';
 
 function Profile() {
   const onLogOut = () => {
@@ -14,8 +14,8 @@ function Profile() {
     <>
       <Header />
       <Menu />
-      <div className="h-content shadow-xl border-2 border-gray-700 rounded-xl mx-24 px-8">
-        <div className="flex gap-6 py-6">
+      <div className="flex flex-col px-4 mb-28 sm:w-4/5 sm:m-auto sm:shadow-xl sm:border sm:rounded-xl sm:border-gray-700 sm:my-4 sm:pb-4 sm:border-2">
+        <div className="flex flex-col gap-4 py-4 sm:flex-row">
           <ProfileInfo />
           <EventListPreview />
         </div>

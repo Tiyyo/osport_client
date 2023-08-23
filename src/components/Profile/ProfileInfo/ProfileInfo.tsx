@@ -2,12 +2,12 @@ import React from 'react';
 
 function ProfileInfo() {
   return (
-    <div className="flex flex-col items-center w-full h-80 shadow-xl border border-gray-700 rounded-xl m-1 mb-6 bg-neutral-focus">
-      <div className="flex items-center justify-between w-full">
+    <div className="flex flex-col h-content gap-4 pb-4 px-5 items-center w-full h-80 shadow-xl border border-gray-700 rounded-xl m-1 mb-2 bg-neutral-focus sm:mb-0">
+      <div className="flex flex-col items-center justify-between w-full">
 
-        <div className="flex items-center gap-6 p-4">
+        <div className="flex items-center gap-4 p-4 sm:self-start">
           <div className="avatar">
-            <div className="w-20 rounded-full">
+            <div className="w-14 rounded-full">
               <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="user_avatar" />
             </div>
           </div>
@@ -16,14 +16,14 @@ function ProfileInfo() {
 
         </div>
 
-        <div className="px-4">
+        <div className="px-4 flex justify-center sm:self-end">
           <button type="button" className="btn btn-xs m-2">Edit profile</button>
-          <button type="button" className="btn btn-xs">Logout</button>
+          <button type="button" className="btn btn-xs m-2">Logout</button>
         </div>
       </div>
-      <div className="w-full h-full flex flex-col justify-evenly items-center">
+      <div className="w-full h-full flex flex-col justify-evenly items-center gap-4">
 
-        <div className="form-control w-full max-w-xs gap-4">
+        <div className="form-control w-full px-4 gap-4">
           <label className="label-text text-xl" htmlFor="sport">Check your level</label>
           <select className="select select-bordered select-sm">
             <option disabled selected>Pick one sport</option>
@@ -31,7 +31,7 @@ function ProfileInfo() {
             <option>Basket-ball</option>
           </select>
         </div>
-        <div className="badge badge-lg p-5 font-bold">Intermediate</div>
+        <div className="badge badge-base p-5 font-bold sm:badge-lg">Intermediate</div>
       </div>
 
     </div>

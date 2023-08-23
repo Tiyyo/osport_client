@@ -16,16 +16,17 @@ function SearchContact() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="lg:flex justify-evenly gap-4 shadow-xl border border-gray-700 rounded-xl p-4 max-[900px]:flex-col"
+      // className="lg:flex justify-evenly gap-4 shadow-xl border border-gray-700 rounded-xl p-4"
+      className="flex flex gap-4"
     >
       <input
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Type a username..."
-        className="input input-bordered w-full max-w-xs"
+        className="input input-bordered w-3/4"
       />
-      <button type="submit" className="btn md:btn-md w-full lg:btn-wide">Add a friend</button>
+      <button type="submit" className="btn w-1/5 text-xs">Add a friend</button>
     </form>
   );
 }
