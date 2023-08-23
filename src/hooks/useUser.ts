@@ -3,6 +3,8 @@ import { User } from '../@types/osport';
 import { AuthContext } from '../context/AuthContext';
 import { useLocalStorage } from './useLocalStorage';
 
+// Ce hook fait le lien entre le contexte et le localStorage.
+
 export const useUser = () => {
   const { user, setUser } = useContext(AuthContext);
   const { setItem } = useLocalStorage();
