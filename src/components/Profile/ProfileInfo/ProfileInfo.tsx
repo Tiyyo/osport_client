@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function ProfileInfo() {
   return (
@@ -17,7 +18,9 @@ function ProfileInfo() {
         </div>
 
         <div className="px-4 flex justify-center sm:self-end">
-          <button type="button" className="btn btn-xs m-2">Edit profile</button>
+          <Link to="/edit_profile">
+            <button type="button" className="btn btn-xs m-2">Edit profile</button>
+          </Link>
           <button type="button" className="btn btn-xs m-2">Logout</button>
         </div>
       </div>
