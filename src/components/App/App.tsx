@@ -5,6 +5,7 @@ import SignUp from '../Signup/SignUp';
 import Profile from '../Profile/Profile';
 import { AuthContext } from '../../context/AuthContext';
 import { useAuth } from '../../hooks/useAuth';
+import Contact from '../Contact/Contact';
 
 function App() {
   // const navigate = useNavigate();
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Profile />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </AuthContext.Provider>
   );
