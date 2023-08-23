@@ -4,7 +4,7 @@ function SearchContact() {
   // InputValue => valeur de l'input via onChange
   // Search => recupere le username cherché pour le récuperer dans le back
   const [inputValue, setInputValue] = useState<string>('');
-  const [search, setSearch] = useState<string | null>('');
+  const [search, setSearch] = useState<string>('');
   const handleSubmit = (e) => {
     e.preventDefault();
     // On défini la valeur finale grâce à setSearch et à l'inputValue
