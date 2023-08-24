@@ -14,7 +14,7 @@ function Profile() {
     <>
       <Header />
       <Menu />
-      <div className="flex flex-col px-4 mb-28 sm:w-4/5 sm:m-auto sm:shadow-xl sm:border sm:rounded-xl sm:border-gray-700 sm:my-4 sm:pb-4 sm:border-2">
+      <div className="flex flex-col px-4 my-auto sm:w-4/5 sm:m-auto sm:shadow-xl sm:border sm:rounded-xl sm:border-gray-700 sm:my-4 sm:pb-4 sm:border-2">
         <div className="flex flex-col gap-4 py-4 sm:flex-row">
           <ProfileInfo />
           <EventListPreview />

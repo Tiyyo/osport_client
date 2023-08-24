@@ -7,6 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useAuth } from '../../hooks/useAuth';
 import Contact from '../Contact/Contact';
 import EventList from '../EventList/EventList';
+import EditProfile from '../EditProfile/EditProfile';
 
 function App() {
   // const navigate = useNavigate();
@@ -33,6 +34,7 @@ function App() {
         <Route path="/" element={<Profile />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/event_list" element={<EventList />} />
+        <Route path="/edit_profile" element={<EditProfile />} />
       </Routes>
     </AuthContext.Provider>
   );
