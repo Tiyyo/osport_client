@@ -9,8 +9,9 @@ import Contact from '../Contact/Contact';
 import EventList from '../EventList/EventList';
 import EditProfile from '../EditProfile/EditProfile';
 
-function App() {
+import Event from '../Event/Event';
 
+function App() {
   const {
     user, login, logout, setUser,
   } = useAuth();
@@ -24,6 +25,8 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/event_list" element={<EventList />} />
         <Route path="/edit_profile" element={<EditProfile />} />
+
+        <Route path="/event" element={<Event />} />
       </Routes>
     </AuthContext.Provider>
   );
