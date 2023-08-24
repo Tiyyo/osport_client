@@ -2,6 +2,7 @@ import axiosInstance from '../../services/axiosInstance';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import DOMPurify from 'dompurify';
 
 function SignUp() {
 
@@ -47,10 +48,14 @@ function SignUp() {
 
       console.log(username , password, email);
 
+      const cleanUsername = DOMPurify.sanitize(username);
+      const cleanPassword = DOMPurify.sanitize(password);
+      const cleanEmail = DOMPurify.sanitize(email);
+
       const response = axiosInstance.post('/signup', {
-        username: username,
-        email: email,
-        password: password,
+        username: cleanUsername,
+        email: cleanEmail,
+        password: cleanPassword,
       });
 
       console.log(response);
@@ -58,14 +63,13 @@ function SignUp() {
       if ((await response).status === 201) {
 
         login({
-          name: username,
-          password: password,
-          email: email,
+          name: cleanUsername,
+          email: cleanEmail,
         });
 
         navigate('/');
       } else {
-        alert('Erreur lors de la récupération des données serveur.');
+        console .log('error while signup : ' + (await response).status);
       }
 
     } else {
@@ -116,7 +120,7 @@ function SignUp() {
           </span> : null }
 
         <div className="form-control w-full max-w-xs m-1">
-          <label className="label" htmlFor="password">
+          <label className="label" htmlFor="email">
             <span className="label-text">Email : </span>
           </label>
           <input

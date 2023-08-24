@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 import { useAuth } from '../../hooks/useAuth';
 import axiosInstance from '../../services/axiosInstance'
-
 
 export default function LogIn() {
   const { login } = useAuth();
@@ -11,33 +11,40 @@ export default function LogIn() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const regexes = {
-    username: /^[a-zA-Z0-9_]+$/,
-    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-    email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-  };
+  const [isServerValid, setisServerValid] = useState<boolean>(true);
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
-  const isValidUsername = (value: string): boolean => regexes.username.test(value);
-  const isValidPassword = (value: string): boolean => regexes.password.test(value);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isValidUsername(username) && isValidPassword(password)) {
-      
-      login({
-        name: username,
+  
+    const cleanUsername = DOMPurify.sanitize(username);
+  
+    setErrorMessages([]); // Reset error messages
+  
+    if (cleanUsername === '' || password === '') {
+      setErrorMessages(['Veuillez remplir tous les champs.']);
+      setisServerValid(false);
+      return;
+    }
+  
+    try {
+      // Submit data to the servers
+      const response = await axiosInstance.post('/signin', {
+        username: cleanUsername,
         password: password,
       });
 
-      // Submit data to the servers
-      const response = axiosInstance.post('api/login/', {
-        // username: username,
-      });
-
-
-      navigate('/');
-    } else {
-      alert('Une erreur est survenue.');
+      console.log(response.data.error);
+  
+      if (response.status === 200 && response.data.error !== 'Invalid input') {
+        login({ name: cleanUsername });
+        navigate('/');
+      } else {
+        setErrorMessages(['Une erreur inattendue s\'est produite.']);
+        setisServerValid(false);
+      }
+    } catch (e: any) {
+        console.error('Une erreur s\'est produite lors de l\'attente de la réponse', e);
     }
   };
 
@@ -79,6 +86,12 @@ export default function LogIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+
+        {!isServerValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
+          {errorMessages.map((message) => (
+            message
+          ))}
+          </span> : null }
 
         <div className="flex w-full justify-end max-w-xs m-1">
           <Link to="/" className="link link-info text-sm bloc ">
