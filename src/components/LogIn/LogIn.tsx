@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import { LogInProps } from 'src/@types/osport';
 import { useAuth } from '../../hooks/useAuth';
+import axiosInstance from '../../services/axiosInstance'
 
-// export default function LogIn({ setIsLoggedIn }: LogInProps) {
+
 export default function LogIn() {
   const { login } = useAuth();
 
@@ -23,15 +23,18 @@ export default function LogIn() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isValidUsername(username) && isValidPassword(password)) {
-      // setIsLoggedIn(true);
-
+      
       login({
-        id: '1',
         name: username,
         password: password,
       });
 
-      // Submit data to the server
+      // Submit data to the servers
+      const response = axiosInstance.post('api/login/', {
+        // username: username,
+      });
+
+
       navigate('/');
     } else {
       alert('Une erreur est survenue.');
@@ -56,8 +59,8 @@ export default function LogIn() {
             type="text"
             className="input input-bordered w-full max-w-xs"
             name="username"
-            value={username}
             placeholder=""
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>

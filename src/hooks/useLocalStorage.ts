@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+// Ce hook permet de stocker et de récupérer facilement des données de localStorage. 
+// Il est utilisable dans n'importe quel composant.
+
 export const useLocalStorage = () => {
   const [value, setValue] = useState<string | null>(null);
 

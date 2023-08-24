@@ -1,11 +1,7 @@
 export interface User {
-  id: string;
+  id?: string;
   name: string;
   password: string;
-  // email: string;
-  authToken?: string;
+  email?: string;
 }
 
-export interface LogInProps {
-  setIsLoggedIn: (loggedIn: boolean) => void;
-}
