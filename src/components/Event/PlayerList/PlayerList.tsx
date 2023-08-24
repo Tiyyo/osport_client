@@ -5,7 +5,7 @@ function PlayerList() {
     // Les images seront générér avec un .map
   return (
     <div className="py-4">
-      <h2 className="text-3xl text-left py-4">Players</h2>
+      <h2 className="text-2xl text-left py-2">Players</h2>
       <div className="grid grid-cols-5 grid-rows-2 gap-4 gap-y-8 p-5">
         <div className="avatar flex self-start items-center gap-6 w-full">
           <div className="w-12 rounded-full sm:w-14">
