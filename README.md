@@ -12,6 +12,7 @@ Projet en NPM
 - DaisyUI
 - Vitest
 - prop-types
+- react-cookie
 
 ## Composants
 
