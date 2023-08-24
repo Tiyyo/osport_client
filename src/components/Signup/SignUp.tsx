@@ -111,7 +111,10 @@ function SignUp() {
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              setUsername(e.target.value)
+              setisUsernameValid(true)
+            }}
           />
         </div>
 
@@ -129,7 +132,10 @@ function SignUp() {
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              setisEmailValid(true)
+            }}
           />
         </div>
 
@@ -147,7 +153,10 @@ function SignUp() {
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value)
+              setisPasswordValid(true)
+            }}
           />
         </div>
 
@@ -159,7 +168,10 @@ function SignUp() {
           <div className="form-control">
             <label className="label cursor-pointer flex justify-start">
               <input 
-              onChange={(e) => setCguChecked(e.target.checked)}
+              onChange={(e) => {
+                setCguChecked(e.target.checked)
+                setisCguChecked(true)
+              }}
               type="checkbox" 
               checked= {cguChecked}
               name = 'cgu'
@@ -174,7 +186,7 @@ function SignUp() {
           </div>
 
           {!isCguChecked ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          Votre email doit être valide.
+            Vous devez accepter les Conditions Générales d'Utilisation.
           </span> : null}
 
           <div className="form-control">

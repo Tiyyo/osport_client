@@ -68,7 +68,10 @@ export default function LogIn() {
             name="username"
             placeholder=""
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              setUsername(e.target.value)
+              setisServerValid(true)
+            }}
           />
         </div>
 
@@ -83,7 +86,10 @@ export default function LogIn() {
             className="input input-bordered w-full max-w-xs"
             name="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value)
+              setisServerValid(true)
+            }}
           />
         </div>
 
