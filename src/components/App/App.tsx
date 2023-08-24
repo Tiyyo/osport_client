@@ -8,6 +8,7 @@ import { useAuth } from '../../hooks/useAuth';
 import Contact from '../Contact/Contact';
 import EventList from '../EventList/EventList';
 import EditProfile from '../EditProfile/EditProfile';
+import CreateEvent from '../CreateEvent/CreateEvent';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/event_list" element={<EventList />} />
         <Route path="/edit_profile" element={<EditProfile />} />
+        <Route path="/create_event" element={<CreateEvent />} />
       </Routes>
     </AuthContext.Provider>
   );
