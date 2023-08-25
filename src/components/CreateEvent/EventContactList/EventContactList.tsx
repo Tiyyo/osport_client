@@ -39,7 +39,7 @@ function EventContactList() {
               <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" />
             </div>
           </div>
-          <h1 className="text-xl">Jay Rare</h1>
+          <h1 className="text-xl">Rob Aire</h1>
           <input type="checkbox" className="checkbox checkbox-sm" />
         </li>
         <li className="flex justify-between items-center bg-neutral flex shadow-xl border border-gray-700 rounded-xl p-2">
@@ -48,7 +48,7 @@ function EventContactList() {
               <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar" />
             </div>
           </div>
-          <h1 className="text-xl">Jay Rare</h1>
+          <h1 className="text-xl"></h1>
           <input type="checkbox" className="checkbox checkbox-sm" />
         </li>
       </ul>
