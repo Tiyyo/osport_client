@@ -5,18 +5,29 @@ export default {
   ],
   daisyui: {
     themes: [
-      // Daisy UI select the first theme of this list
-      // {
-      //   mytheme: {
-      //     "primary": "#a991f7",
-      //     "secondary": "#f6d860",
-      //     "accent": "#37cdbe",
-      //     "neutral": "#3d4451",
-      //     "base-100": "#ffffff",
-      //   },
-      // },
       'dracula',
-      'cupcake',
+      {
+      mytheme: {
+          
+        "primary": "#2f81a8",
+                 
+        "secondary": "#000d84",
+                 
+        "accent": "#2605aa",
+                 
+        "neutral": "#f3f4f6",
+                 
+        "base-100": "#f3f4f6",
+                 
+        "info": "#accce7",
+                 
+        "success": "#22c55e",
+                 
+        "warning": "#ef4444",
+                 
+        "error": "#e96763",
+                 },
+      },
     ],
   },
   plugins: [require("daisyui")],
