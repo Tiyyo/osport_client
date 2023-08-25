@@ -17,7 +17,7 @@ function CreateEventForm() {
         <label htmlFor="nb-particpant" className="text-lg sm:text-xl">Number of participants</label>
         <select className="select select-bordered select-sm bg-neutral-focus m-auto w-full">
           <option disabled selected>Chose Option</option>
-          <option>3v3</option>
+          <option selected>3v3</option>
           <option>5v5</option>
         </select>
       </div>
