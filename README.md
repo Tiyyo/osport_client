@@ -11,8 +11,9 @@ Projet en NPM
 - Tailwindcss
 - DaisyUI
 - Vitest
-- prop-types
 - react-cookie
+- @types/dompurify
+- dompurify
 
 ## Composants
 
