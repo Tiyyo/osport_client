@@ -2,6 +2,7 @@ import axiosInstance from '../../services/axiosInstance';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import DOMPurify from 'dompurify';
 
 function SignUp() {
 
@@ -47,10 +48,14 @@ function SignUp() {
 
       console.log(username , password, email);
 
+      const cleanUsername = DOMPurify.sanitize(username);
+      const cleanPassword = DOMPurify.sanitize(password);
+      const cleanEmail = DOMPurify.sanitize(email);
+
       const response = axiosInstance.post('/signup', {
-        username: username,
-        email: email,
-        password: password,
+        username: cleanUsername,
+        email: cleanEmail,
+        password: cleanPassword,
       });
 
       console.log(response);
@@ -58,14 +63,13 @@ function SignUp() {
       if ((await response).status === 201) {
 
         login({
-          name: username,
-          password: password,
-          email: email,
+          name: cleanUsername,
+          email: cleanEmail,
         });
 
         navigate('/');
       } else {
-        alert('Erreur lors de la récupération des données serveur.');
+        console .log('error while signup : ' + (await response).status);
       }
 
     } else {
@@ -107,7 +111,10 @@ function SignUp() {
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              setUsername(e.target.value)
+              setisUsernameValid(true)
+            }}
           />
         </div>
 
@@ -116,7 +123,7 @@ function SignUp() {
           </span> : null }
 
         <div className="form-control w-full max-w-xs m-1">
-          <label className="label" htmlFor="password">
+          <label className="label" htmlFor="email">
             <span className="label-text">Email : </span>
           </label>
           <input
@@ -125,7 +132,10 @@ function SignUp() {
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              setisEmailValid(true)
+            }}
           />
         </div>
 
@@ -143,7 +153,10 @@ function SignUp() {
             placeholder="Tapez ici"
             className="input input-bordered w-full max-w-xs"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value)
+              setisPasswordValid(true)
+            }}
           />
         </div>
 
@@ -155,7 +168,10 @@ function SignUp() {
           <div className="form-control">
             <label className="label cursor-pointer flex justify-start">
               <input 
-              onChange={(e) => setCguChecked(e.target.checked)}
+              onChange={(e) => {
+                setCguChecked(e.target.checked)
+                setisCguChecked(true)
+              }}
               type="checkbox" 
               checked= {cguChecked}
               name = 'cgu'
@@ -170,7 +186,7 @@ function SignUp() {
           </div>
 
           {!isCguChecked ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          Votre email doit être valide.
+            Vous devez accepter les Conditions Générales d'Utilisation.
           </span> : null}
 
           <div className="form-control">
