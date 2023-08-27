@@ -1,50 +1,53 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useContext, FormEvent, ChangeEvent } from 'react';
+import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
-import { useAuth } from '../../hooks/useAuth';
-import axiosInstance from '../../services/axiosInstance'
+//
+import AuthContext from '../../context/AuthContext';
 
-export default function LogIn() {
-  const { login } = useAuth();
 
-  const navigate = useNavigate();
+const LogIn: React.FC = () => {
+
+  const { logUser } = useContext(AuthContext);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [isServerValid, setIsServerValid] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const [isServerValid, setisServerValid] = useState<boolean>(true);
-  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const resetValidationStates = () => {
+    setErrorMessage(''); // Reset error messages
+    setIsServerValid(true); // Reset validation state
+  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleInputChange = (
+    setter: React.Dispatch<React.SetStateAction<string>>,
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setter(event.target.value);
+    setIsServerValid(true); // Reset validation state
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-  
     const cleanUsername = DOMPurify.sanitize(username);
-  
-    setErrorMessages([]); // Reset error messages
-  
-    if (cleanUsername === '' || password === '') {
-      setErrorMessages(['Veuillez remplir tous les champs.']);
-      setisServerValid(false);
+    resetValidationStates();
+
+    if (!cleanUsername || !password) {
+      setErrorMessage('Veuillez remplir tous les champs.');
+      setIsServerValid(false);
       return;
     }
-  
-    try {
-      // Submit data to the servers
-      const response = await axiosInstance.post('/signin', {
-        username: cleanUsername,
-        password: password,
-      });
 
-      console.log(response.data.error);
-  
-      if (response.status === 200 && response.data.error !== 'Invalid input') {
-        login({ name: cleanUsername });
-        navigate('/');
-      } else {
-        setErrorMessages(['Une erreur inattendue s\'est produite.']);
-        setisServerValid(false);
-      }
-    } catch (e: any) {
-        console.error('Une erreur s\'est produite lors de l\'attente de la réponse', e);
+    const result = await logUser(cleanUsername, password);
+
+    if (result) {
+      setErrorMessage(result);
+      setIsServerValid(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSubmit(e as unknown as FormEvent);  // Casting nécessaire pour satisfaire les types
     }
   };
 
@@ -68,10 +71,8 @@ export default function LogIn() {
             name="username"
             placeholder=""
             value={username}
-            onChange={(e) => {
-              setUsername(e.target.value)
-              setisServerValid(true)
-            }}
+            onChange={(e) => handleInputChange(setUsername, e)}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
@@ -86,17 +87,13 @@ export default function LogIn() {
             className="input input-bordered w-full max-w-xs"
             name="password"
             value={password}
-            onChange={(e) => {
-              setPassword(e.target.value)
-              setisServerValid(true)
-            }}
+            onChange={(e) => handleInputChange(setPassword, e)}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
         {!isServerValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          {errorMessages.map((message) => (
-            message
-          ))}
+          {errorMessage}
           </span> : null }
 
         <div className="flex w-full justify-end max-w-xs m-1">
@@ -119,3 +116,5 @@ export default function LogIn() {
     </div>
   );
 }
+
+export default LogIn;

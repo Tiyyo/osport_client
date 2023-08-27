@@ -1,89 +1,78 @@
-import axiosInstance from '../../services/axiosInstance';
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import React, { useState, useContext, FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
+import axiosInstance from '../../services/axiosInstance';
+import AuthContext from '../../context/AuthContext';
+import useValidation from '../hooks/useValidation'; // Import the custom hook
 
-function SignUp() {
-
-  const navigate = useNavigate();
-  const { login } = useAuth();
+const SignUp: React.FC = () => {
+  const { logUser } = useContext(AuthContext);
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [cguChecked, setCguChecked] = useState(false);
   const [newsletterChecked, setNewsletterChecked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const regexes = {
-    username: /^[a-zA-Z0-9_]+$/,
-    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+    username: /^[a-zA-Z0-9_]{4,}$/,
+    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d`!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]{8,}$/,
     email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
   };
 
-  const testUsername = (value: string): boolean => regexes.username.test(value);
-  const testPassword = (value: string): boolean => regexes.password.test(value);
-  const testEmail = (value: string): boolean => regexes.email.test(value);
+  const [isUsernameValid, validateUsername] = useValidation(true, regexes);
+  const [isPasswordValid, validatePassword] = useValidation(true, regexes);
+  const [isEmailValid, validateEmail] = useValidation(true, regexes);
+  const [isCguChecked, setIsCguChecked] = useState(true);
+  const [isServerValid, setIsServerValid] = useState(true);
 
-  const [isUsernameValid, setisUsernameValid] = useState<boolean>(true);
-  const [isPasswordValid, setisPasswordValid] = useState<boolean>(true);
-  const [isEmailValid, setisEmailValid] = useState<boolean>(true);
-  const [isCguChecked, setisCguChecked] = useState<boolean>(true);
+  const resetValidationStates = () => {
+    setErrorMessage('');
+    setIsServerValid(true);
+  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    resetValidationStates();
 
-    const validUsername = testUsername(username);
-    const validPassword = testPassword(password);
-    const validEmail = testEmail(email);
-  
-    setisUsernameValid(validUsername);
-    setisPasswordValid(validPassword);
-    setisEmailValid(validEmail);
-    setisCguChecked(cguChecked);
+    const isValidUsername = validateUsername(username, 'username');
+    const isValidPassword = validatePassword(password, 'password');
+    const isValidEmail = validateEmail(email, 'email');
 
-    if (validUsername && validPassword && validEmail && cguChecked) {
+    setIsCguChecked(cguChecked);
 
-      console.log('datas are valid');
-
-      console.log(username , password, email);
-
+    if (isValidUsername && isValidPassword && isValidEmail && cguChecked) {
       const cleanUsername = DOMPurify.sanitize(username);
-      const cleanPassword = DOMPurify.sanitize(password);
       const cleanEmail = DOMPurify.sanitize(email);
 
-      const response = axiosInstance.post('/signup', {
-        username: cleanUsername,
-        email: cleanEmail,
-        password: cleanPassword,
-      });
-
-      console.log(response);
-
-      if ((await response).status === 201) {
-
-        login({
-          name: cleanUsername,
+      try {
+        const response = await axiosInstance.post('/signup', {
+          username: cleanUsername,
           email: cleanEmail,
+          password,
         });
 
-        navigate('/');
-      } else {
-        console .log('error while signup : ' + (await response).status);
+        if (response.status === 201) {
+          const loginResult = await logUser(cleanUsername, password);
+          if (loginResult) {
+            setErrorMessage(loginResult);
+            setIsServerValid(false);
+          }
+        }
+      } catch (error) {
+        setErrorMessage('Une erreur inattendue s\'est produite lors de la connexion au serveur.');
+        setIsServerValid(false);
       }
-
-    } else {
-      console.log('datas are invalid');
-
-      console.log('username :' + testUsername(username));
-      console.log('password :' + testPassword(password));
-      console.log('email :' + testEmail(email));
-
-      console.log('isUsernameValid :' + isUsernameValid);
-      console.log('isPasswordValid :' + isPasswordValid);
-      console.log('isEmailValid :' + isEmailValid);
     }
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSubmit(e as unknown as FormEvent);  // Casting nécessaire pour satisfaire les types
+    }
+  };
+  
 
   return (
     <div className="flex flex-col items-center">
@@ -113,13 +102,14 @@ function SignUp() {
             value={username}
             onChange={(e) => {
               setUsername(e.target.value)
-              setisUsernameValid(true)
+              validateUsername(e.target.value, 'username');
             }}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
         {!isUsernameValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          Votre nom d'utilisateur doit contenir uniquement des lettres, des chiffres et des underscores.
+          Votre nom d'utilisateur doit contenir au moins 2 caractères et uniquement des lettres, des chiffres et des underscores.
           </span> : null }
 
         <div className="form-control w-full max-w-xs m-1">
@@ -134,8 +124,9 @@ function SignUp() {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value)
-              setisEmailValid(true)
+              validateEmail(e.target.value, 'email');
             }}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
@@ -155,13 +146,14 @@ function SignUp() {
             value={password}
             onChange={(e) => {
               setPassword(e.target.value)
-              setisPasswordValid(true)
+              validatePassword(e.target.value, 'password');
             }}
+            onKeyDown={handleKeyDown}
           />
         </div>
 
         {!isPasswordValid ? <span className='text-red-600 text-xs italic mx-4 text-center mb-2'>
-          Votre mot de passe doit contenir au moins 8 caractères, une lettre et un chiffre.
+          Votre mot de passe doit contenir au moins 8 caractères, une lettre et un chiffre et un caractère spécial.
           </span> : null}
 
         <div className='flex flex-col items-start'>
@@ -170,7 +162,7 @@ function SignUp() {
               <input 
               onChange={(e) => {
                 setCguChecked(e.target.checked)
-                setisCguChecked(true)
+                setIsCguChecked(true)
               }}
               type="checkbox" 
               checked= {cguChecked}
@@ -204,6 +196,9 @@ function SignUp() {
           </div>
         </div>
 
+        {!isServerValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
+          {errorMessage}
+          </span> : null }
 
         <button type="submit" className="btn btn-outline btn-success m-1 mb-4" onClick={handleSubmit}>
           S'inscrire

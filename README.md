@@ -14,6 +14,7 @@ Projet en NPM
 - react-cookie
 - @types/dompurify
 - dompurify
+- react-cookie
 
 ## Composants
 
