@@ -11,6 +11,7 @@ const axiosInstance = axios.create({
   // l'URL du serveur.Elle est situé dans le fichier .env à la racine du projet
   // Attention sur VITE, il faut utiliser import.meta.env
   // et non process.env et mettre VITE devant le nom de la variable et non REACT_APP
+  withCredentials: true,
   baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
