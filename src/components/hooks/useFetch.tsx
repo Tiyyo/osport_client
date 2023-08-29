@@ -16,9 +16,6 @@ const useFetch = (url: string): { loading: boolean, data: any, error:string } =>
             setLoading(false);
           } catch (err) {
             console.log(err);
-            setError(
-              'Error',
-            );
             setLoading(false);
           }
         };

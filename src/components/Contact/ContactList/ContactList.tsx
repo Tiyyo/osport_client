@@ -4,12 +4,14 @@ import InvitationLoader from '../InvitationLoader/InvitationLoader';
 
 interface ContactsProps {
   contacts: ContactsObject;
+  userId: number;
 }
 
 interface ContactsObject {
   map(arg0: (contact: ContactsObject) => React.JSX.Element): React.ReactNode;
   friend?: FriendObject;
   status?: string;
+  asker_id?: number;
 }
 
 interface FriendObject {
@@ -18,9 +20,8 @@ interface FriendObject {
   id: number;
 }
 
-function ContactList({ contacts } : ContactsProps) {
+function ContactList({ contacts, userId } : ContactsProps) {
   return (
-    // La liste sera générée via un .map une fois les données récupérées
     <ul className="w-full">
       { contacts && contacts.map((contact: ContactsObject) => (
         <li
@@ -33,10 +34,8 @@ function ContactList({ contacts } : ContactsProps) {
             </div>
             <h1 className="text-2xl">{contact.friend.username}</h1>
           </div>
-          { contact.status === 'pending'
-          && <AcceptDeclineButton /> }
-
-          {/* <InvitationLoader /> */}
+          { contact.asker_id === userId && contact.status === 'pending' && <InvitationLoader /> }
+          { contact.asker_id !== userId && contact.status === 'pending' && <AcceptDeclineButton /> }
         </li>
       ))}
     </ul>
