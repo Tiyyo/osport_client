@@ -7,7 +7,7 @@ import SendInvitations from './SendInvitations/SendInvitations';
 import { EventContext } from '../../context/EventContext';
 
 function CreateEvent() {
-  const { eventDate } = useContext(EventContext);
+  const { eventData } = useContext(EventContext);
 
   return (
     <>
@@ -17,7 +17,7 @@ function CreateEvent() {
         <h1>
           HELLO
           {' '}
-          {eventDate}
+          {eventData.eventDate}
         </h1>
         <CreateEventForm />
         <div className="flex flex-col w-full gap-4 sm:flex-row">
