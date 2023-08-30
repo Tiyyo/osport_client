@@ -27,6 +27,7 @@ function Contact() {
       setContactList([...sentList, ...acceptedList, ...pendingList]);
     }
   }, [acceptedList, pendingList, sentList]);
+
   if (sentListError) return null;
 
   return (
