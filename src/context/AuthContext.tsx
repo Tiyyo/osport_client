@@ -46,7 +46,7 @@ export const AuthContextProvider: FunctionComponent<AuthContextProviderProps> = 
         password,
       });
 
-      if (response.status === 200 && response.data.error !== 'Invalid input') {
+      if (response.status === 200 && response.data.error !== 'Bad credentials') {
         try {
           const apiResponse = await axiosInstance.get('/user/validate');
           if (apiResponse.status === 200) {
