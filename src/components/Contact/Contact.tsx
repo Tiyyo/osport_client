@@ -17,11 +17,11 @@ function Contact() {
   const { data: acceptedList } = useFetch(`user_friends/accepted/${id}`, 'GET');
   const { data: pendingList } = useFetch(`user_friends/pending/${id}`, 'GET');
 
-  // On fusionne les 3 listes en une seule
   const [contactList, setContactList] = useState([]);
 
   // Le useEffect permet de mettre à jour la liste des contacts à chaque fois que
   // les listes d'amis sont mises à jour
+  // On fusionne les 3 listes d'amis en une seule
  useEffect(() => {
   if (sentList && acceptedList && pendingList) {
       setContactList([...sentList, ...acceptedList, ...pendingList]);

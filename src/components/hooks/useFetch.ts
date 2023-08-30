@@ -16,6 +16,11 @@ const useFetch = (url: string, method : string ): { loading: boolean, data: any,
               setData(res.data.data);
               setLoading(false);
             }
+            if (method === 'GETFIRSTDATA') {
+              const res = await axiosInstance.get(url);
+              setData(res.data);
+              setLoading(false);
+            }
             if (method === 'DELETE') {
               const res = await axiosInstance.delete(url);
               setData(res.data.data);
