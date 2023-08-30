@@ -1,6 +1,9 @@
 import React from 'react';
+import type { EventContextProps } from '../../../context/EventContext';
 
-function SendInvitations() {
+function SendInvitations({ eventData }: EventContextProps) {
+  console.log(eventData);
+
   return (
     <div className="flex flex-col items-center justify-center gap-6 py-8 px-0 bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 sm:w-1/2 sm:h-fit">
       <h2 className="text-sm">
@@ -9,6 +12,7 @@ function SendInvitations() {
         <span className="badge badge-base-100 badge-lg mx-2 p-2">10</span>
         required
       </h2>
+      {eventData.eventDate}
       <button type="button" className="btn btn-wide">Send Invitations</button>
     </div>
   );

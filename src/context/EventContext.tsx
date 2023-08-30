@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
-interface EventContextProps {
+export type EventContextProps = {
   eventData: {
     eventDate?: string;
     location?: string;
@@ -12,15 +12,17 @@ interface EventContextProps {
     eventStatus?: string;
     sportId?: number;
   };
-  setEventData: React.Dispatch<React.SetStateAction<{
-    eventDate: string;
-    location: string;
-    duration: number;
-    nbMaxParticipant: number;
-    eventStatus: string;
-    sportId: number;
-  }>>;
-}
+  setEventData: React.Dispatch<React.SetStateAction<
+    {
+      eventDate?: string;
+      location?: string;
+      duration?: number;
+      nbMaxParticipant?: number;
+      eventStatus?: string;
+      sportId?: number;
+    }
+  >>;
+};
 
 export const EventContext = createContext<EventContextProps>({
   eventData: {
@@ -28,9 +30,9 @@ export const EventContext = createContext<EventContextProps>({
     location: '',
     // NaN for all number types and to avoid all possible errors anywhere else in the code
     duration: NaN,
-    nbMaxParticipant: NaN,
+    nbMaxParticipant: 6,
     eventStatus: '',
-    sportId: NaN,
+    sportId: 0,
   },
   setEventData: () => {},
 });
@@ -43,12 +45,12 @@ interface Props {
 export const EventContextProvider: FC<Partial<Props>> = ({ children }) => {
   // Here we initialize the event
   const [eventData, setEventData] = useState({
-    eventDate: 'As soon as possible',
-    location: '',
+    eventDate: '',
+    location: 'Just here',
     duration: NaN,
-    nbMaxParticipant: NaN,
+    nbMaxParticipant: 6,
     eventStatus: '',
-    sportId: NaN,
+    sportId: 0,
   });
   const eventState: EventContextProps = useMemo(() => (
     { eventData, setEventData }

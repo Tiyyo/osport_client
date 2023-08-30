@@ -17,12 +17,12 @@ function CreateEvent() {
         <h1>
           HELLO
           {' '}
-          {eventData.eventDate}
+          {eventData.location}
         </h1>
         <CreateEventForm />
         <div className="flex flex-col w-full gap-4 sm:flex-row">
           <EventContactList />
-          <SendInvitations /* eventData={eventData} */ />
+          <SendInvitations eventData={eventData} />
         </div>
       </div>
     </>
