@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../../services/axiosInstance';
 
-function SearchContact(userId: number) {
+function SearchContact({ userId }: { userId: number }) {
   // InputValue => valeur de l'input via onChange
   // Search => recupere le username cherché pour le récuperer dans le back
   const [inputValue, setInputValue] = useState<string>('');
@@ -17,10 +17,7 @@ function SearchContact(userId: number) {
     e.preventDefault();
     // On défini la valeur finale grâce à setSearch et à l'inputValue
     // (tel qu'il est au moment du submit)
-    console.log(inputValue);
     addContact(userId, inputValue);
-    console.log(inputValue);
-
     // On remet la valeur de l'input vide pour réinitialiser ce dernier
     setInputValue('');
   };
