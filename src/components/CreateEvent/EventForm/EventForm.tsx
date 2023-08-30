@@ -9,7 +9,7 @@ function CreateEventForm() {
           {/* On selectionne le sport pour créer l'event */}
           <label htmlFor="sport" className="text-lg sm:text-xl">Chose a sport</label>
           <select className="select select-bordered select-sm bg-base-100 m-auto w-full">
-            <option disabled selected>Pick one</option>
+            <option disabled selected className="hidden">Pick one</option>
             <option>Football</option>
             <option>Basket-ball</option>
           </select>
@@ -18,7 +18,7 @@ function CreateEventForm() {
         <div className="flex flex-col gap-3">
           <label htmlFor="nb-particpant" className="text-lg sm:text-xl">Number of participants</label>
           <select className="select select-bordered select-sm bg-base-100 m-auto w-full">
-            <option disabled selected>Chose Option</option>
+            <option disabled selected className="hidden">Chose Option</option>
             <option selected>3v3</option>
             <option>5v5</option>
           </select>
@@ -26,7 +26,13 @@ function CreateEventForm() {
         {/* On selectionne la date de l'event */}
         <div className="flex flex-col gap-3">
           <label htmlFor="sport" className="text-lg sm:text-xl">Chose a date</label>
-          <input type="date" name="date" id="date" className="bg-base-100 border border-gray-600 rounded-xl px-3 py-1 m-auto w-full" />
+          <input
+            type="date"
+            name="date"
+            id="date"
+            className="bg-base-100 border border-gray-600 rounded-xl px-3 py-1 m-auto w-full"
+            min={new Date().toISOString().split('T')[0]} // Set the minimum date dynamically
+          />
         </div>
       </div>
     </div>

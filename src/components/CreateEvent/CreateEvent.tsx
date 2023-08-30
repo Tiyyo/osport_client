@@ -4,8 +4,11 @@ import Menu from '../Menu/Menu';
 import CreateEventForm from './EventForm/EventForm';
 import EventContactList from './EventContactList/EventContactList';
 import SendInvitations from './SendInvitations/SendInvitations';
+import { useEventContext } from '../../context/EventContext';
 
 function CreateEvent() {
+  const { eventData } = useEventContext();
+
   return (
     <>
       <Header />
@@ -14,7 +17,7 @@ function CreateEvent() {
         <CreateEventForm />
         <div className="flex flex-col w-full gap-4 sm:flex-row">
           <EventContactList />
-          <SendInvitations />
+          <SendInvitations eventData={eventData} />
         </div>
       </div>
     </>
@@ -22,3 +25,16 @@ function CreateEvent() {
 }
 
 export default CreateEvent;
+
+// POST http://localhost:5000/event
+// Content-Type: application/json
+
+// {
+//   "userId": 8,
+//   "eventDate": "2023-08-28T16:38:15.381Z",
+//   "location": "A la maison",
+//   "duration": 45,
+//   "nbMaxParticipant": 12,
+//   "eventStatus": "Juste créé",
+//   "sportId": 1
+// }
