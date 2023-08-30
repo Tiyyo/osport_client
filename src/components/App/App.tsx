@@ -10,7 +10,7 @@ import EventList from '../EventList/EventList';
 import EditProfile from '../EditProfile/EditProfile';
 import CreateEvent from '../CreateEvent/CreateEvent';
 import Event from '../Event/Event';
-import { EventProvider } from '../../context/EventContext';
+import { EventContextProvider } from '../../context/EventContext';
 
 function App() {
   return (
@@ -22,9 +22,14 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/event_list" element={<EventList />} />
         <Route path="/edit_profile" element={<EditProfile />} />
-        <EventProvider>
-          <Route path="/create_event" element={<CreateEvent />} />
-        </EventProvider>
+        <Route
+          path="/create_event"
+          element={(
+            <EventContextProvider>
+              <CreateEvent />
+            </EventContextProvider>
+        )}
+        />
         <Route path="/event" element={<Event />} />
       </Routes>
     </AuthContextProvider>
