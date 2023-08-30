@@ -1,6 +1,8 @@
-import { createContext, useState, FunctionComponent, ReactNode, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import {
+ createContext, useState, FunctionComponent, ReactNode, useEffect,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import axiosInstance from '../services/axiosInstance';
 
 // Définir le type pour le contexte
@@ -28,7 +30,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const AuthContextProvider: FunctionComponent<AuthContextProviderProps> = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
   const [user, setUser] = useState<UserProfile | null>(cookies.user || null);
-  
+
   useEffect(() => {
     setCookie('user', user);
   }, [user, setCookie]);
@@ -70,13 +72,13 @@ export const AuthContextProvider: FunctionComponent<AuthContextProviderProps> = 
   const storeCredentials = (payload: UserProfile): void => {
     setUser(payload);
     setCookie('user', payload);
-    navigate("/");
+    navigate('/');
   };
 
   return (
-      <AuthContext.Provider value={{ user, logUser }}>
-        {children}
-      </AuthContext.Provider>
+    <AuthContext.Provider value={{ user, logUser }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

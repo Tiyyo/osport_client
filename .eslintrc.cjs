@@ -18,6 +18,7 @@ module.exports = {
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx", ".tsx"] }],
     "no-console": "off",
+    'react/function-component-definition': 'off',
     "jsx-a11y/label-has-associated-control": [
       "error",
       {
