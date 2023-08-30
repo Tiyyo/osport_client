@@ -11,7 +11,10 @@ Projet en NPM
 - Tailwindcss
 - DaisyUI
 - Vitest
-- Normalize.css
+- react-cookie
+- @types/dompurify
+- dompurify
+- react-cookie
 
 ## Composants
 
