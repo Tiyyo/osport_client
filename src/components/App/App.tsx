@@ -12,22 +12,20 @@ import CreateEvent from '../CreateEvent/CreateEvent';
 import Event from '../Event/Event';
 
 function App() {
-
   return (
-    <>
-      <AuthContextProvider>
-        <Routes>
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/" element={<Profile />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/event_list" element={<EventList />} />
-          <Route path="/edit_profile" element={<EditProfile />} />
-          <Route path="/create_event" element={<CreateEvent />} />
-        </Routes>
-      </AuthContextProvider>
-    </>
-    
+    <AuthContextProvider>
+      <Routes>
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<Profile />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/event_list" element={<EventList />} />
+        <Route path="/edit_profile" element={<EditProfile />} />
+        <Route path="/create_event" element={<CreateEvent />} />
+        <Route path="/event" element={<Event />} />
+      </Routes>
+    </AuthContextProvider>
+
   );
 }
 
