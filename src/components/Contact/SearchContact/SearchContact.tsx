@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SearchContact() {
+function SearchContact({ userId }: { userId: number }) {
   // InputValue => valeur de l'input via onChange
   // Search => recupere le username cherché pour le récuperer dans le back
   const [inputValue, setInputValue] = useState<string>('');
