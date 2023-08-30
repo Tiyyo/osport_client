@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/AuthContext';
-import useFetch from '../hooks/useFetch';
+import useFetch from '../hooks/useFetch.ts';
 
 import ContactList from './ContactList/ContactList';
 import SearchContact from './SearchContact/SearchContact';
@@ -13,9 +13,9 @@ function Contact() {
   const id = user.userInfos.userId;
 
   // On recupere la liste des amis de l'user connecté
-  const { data: sentList, error: sentListError } = useFetch(`user_friends/sent/${id}`);
-  const { data: acceptedList } = useFetch(`user_friends/accepted/${id}`);
-  const { data: pendingList } = useFetch(`user_friends/pending/${id}`);
+  const { data: sentList, error: sentListError } = useFetch(`user_friends/sent/${id}`, 'GET');
+  const { data: acceptedList } = useFetch(`user_friends/accepted/${id}`, 'GET');
+  const { data: pendingList } = useFetch(`user_friends/pending/${id}`, 'GET');
 
   // On fusionne les 3 listes en une seule
   const [contactList, setContactList] = useState([]);
@@ -34,7 +34,7 @@ function Contact() {
     <>
       <Header />
       <Menu />
-      <div className="m-4 mb-24 sm:w-3/5 sm:p-4 sm:m-auto sm:shadow-xl sm:border sm:rounded-xl sm:border-gray-700 sm:pb-4 sm:border-2 sm:mt-4">
+      <div className="m-4 mb-24 sm:w-3/5 sm:p-4 sm:m-auto sm:shadow-xl sm:border sm:rounded-xl sm:border-gray-700 sm:pb-4 sm:mt-4">
         <SearchContact userId={id} />
         <ContactList contacts={contactList} userId={id} />
       </div>
