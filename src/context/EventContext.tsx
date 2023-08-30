@@ -29,7 +29,7 @@ export const EventContext = createContext<EventContextProps>({
     eventDate: '',
     location: '',
     // NaN for all number types and to avoid all possible errors anywhere else in the code
-    duration: NaN,
+    duration: 30,
     nbMaxParticipant: 6,
     eventStatus: '',
     sportId: 0,
@@ -47,7 +47,7 @@ export const EventContextProvider: FC<Partial<Props>> = ({ children }) => {
   const [eventData, setEventData] = useState({
     eventDate: '',
     location: 'Just here',
-    duration: NaN,
+    duration: 30,
     nbMaxParticipant: 6,
     eventStatus: '',
     sportId: 0,
