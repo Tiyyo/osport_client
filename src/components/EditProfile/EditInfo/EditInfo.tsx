@@ -1,10 +1,17 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState , useContext} from 'react';
 import { Link } from 'react-router-dom';
+import useMutation from '../../hooks/useMutation';
+import DOMPurify from 'dompurify';
+import AuthContext from '../../../context/AuthContext';
 
 function EditInfo() {
 
-  const [newUsername, setNewUsername] = React.useState<string>('');
-  const [newEmail, setNewEmail] = React.useState<string>('');
+  const userId = useContext(AuthContext).user.userInfos.userId;
+
+  const [newUsername, setNewUsername] = useState<string>('');
+  const [newEmail, setNewEmail] = useState<string>('');
+  const [loading, setLoading] = useState<string>('');
+  const [body, setBody] = useState<object>(null);
 
   const handleChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewUsername(e.target.value);
@@ -16,13 +23,21 @@ function EditInfo() {
 
   const handleSaveUsername = (e : FormEvent) => {
     e.preventDefault();
-    console.log('save username');
+    let body = {
+      id : userId,
+      username: newUsername,
+    };
+    setBody(body);
   };
 
   const handleSaveEmail = (e: FormEvent) => {
     e.preventDefault();
     console.log('save email');
   };
+
+  const { data, error } = useMutation('/user', body);
+  console.log(data);
+  
 
   return (
     <form className="flex flex-col shadow-xl bg-neutral-focus border border-gray-700 rounded-xl gap-6 py-4 items-center text-left sm:w-1/2">
