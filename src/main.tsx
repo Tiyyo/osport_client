@@ -5,13 +5,12 @@ import { CookiesProvider } from 'react-cookie';
 import App from './components/App/App';
 import './index.css';
 
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <CookiesProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </CookiesProvider>
   </React.StrictMode>,
 );
