@@ -46,7 +46,7 @@ function CreateEventForm() {
             className="bg-base-100 border border-gray-600 rounded-xl px-3 py-1 m-auto w-full"
             min={new Date().toISOString().split('T')[0]} // Set the minimum date dynamically
             onChange={(e) => {
-              const selectedDate = e.target.value;
+              const selectedDate = new Date(e.target.value).toISOString();
               setEventData((prevEventData) => ({
                 ...prevEventData,
                 eventDate: selectedDate,

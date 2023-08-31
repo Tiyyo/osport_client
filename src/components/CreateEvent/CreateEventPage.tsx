@@ -2,10 +2,10 @@ import React from 'react';
 import Header from '../Header/Header';
 import Menu from '../Menu/Menu';
 import CreateEventForm from './EventForm/EventForm';
-import EventContactList from './EventContactList/EventContactList';
+import FriendsToInvite from './FriendsToInvite/FriendsToInvite';
 import SendInvitations from './SendInvitations/SendInvitations';
 
-function CreateEvent() {
+function CreateEventPage() {
   return (
     <>
       <Header />
@@ -14,7 +14,7 @@ function CreateEvent() {
 
         <CreateEventForm />
         <div className="flex flex-col w-full gap-4 sm:flex-row">
-          <EventContactList />
+          <FriendsToInvite />
           <SendInvitations />
         </div>
       </div>
@@ -22,4 +22,4 @@ function CreateEvent() {
   );
 }
 
-export default CreateEvent;
+export default CreateEventPage;

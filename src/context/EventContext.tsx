@@ -3,6 +3,12 @@ import React, {
 } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
+export type Friend = {
+  id: number;
+  username: string;
+  avatar?: string;
+};
+
 export type EventContextProps = {
   eventData: {
     eventDate?: string;
@@ -11,6 +17,7 @@ export type EventContextProps = {
     nbMaxParticipant?: number;
     eventStatus?: string;
     sportId?: number;
+    friends?: Friend[];
   };
   setEventData: React.Dispatch<React.SetStateAction<
     {
@@ -20,6 +27,7 @@ export type EventContextProps = {
       nbMaxParticipant?: number;
       eventStatus?: string;
       sportId?: number;
+      friends?: Friend[];
     }
   >>;
 };
@@ -33,6 +41,7 @@ export const EventContext = createContext<EventContextProps>({
     nbMaxParticipant: 6,
     eventStatus: '',
     sportId: 0,
+    friends: [],
   },
   setEventData: () => {},
 });
@@ -51,6 +60,7 @@ export const EventContextProvider: FC<Partial<Props>> = ({ children }) => {
     nbMaxParticipant: 6,
     eventStatus: '',
     sportId: 0,
+    friends: [],
   });
   const eventState: EventContextProps = useMemo(() => (
     { eventData, setEventData }

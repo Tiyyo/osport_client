@@ -8,7 +8,7 @@ import Profile from '../Profile/Profile';
 import Contact from '../Contact/Contact';
 import EventList from '../EventList/EventList';
 import EditProfile from '../EditProfile/EditProfile';
-import CreateEvent from '../CreateEvent/CreateEvent';
+import CreateEvent from '../CreateEvent/CreateEventPage';
 import Event from '../Event/Event';
 import { EventContextProvider } from '../../context/EventContext';
 
