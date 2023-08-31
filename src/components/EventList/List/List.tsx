@@ -6,12 +6,13 @@ import ResultWin from '../ResultWin/ResultWin';
 import ResultLose from '../ResultLose/ResultLose';
 
 interface ListProps {
-  events: EventsObject;
+  events: EventObject;
   userId: number;
 }
 
 interface EventObject {
-  map(arg0: (event: EventsObject) => React.JSX.Element): React.ReactNode;
+  map(arg0: (event: EventObject) => React.JSX.Element): React.ReactNode;
+  id: number;
   winner_id?: number;
   statut?: string;
   date?: string;
@@ -24,7 +25,7 @@ interface SportObject {
   name: string;
 }
 
-function List({ events, userId } : ListProps) {
+function List({ events } : ListProps) {
   return (
     <ul className="w-full px-5">
       {/* Si events existe, on map dessus */}
@@ -33,7 +34,7 @@ function List({ events, userId } : ListProps) {
           <div className="flex justify-between w-full">
             <ResultLoader />
             {/* { event.statut === 'pending' && <ResultLoader /> }
-            { event.winner_id === userId && event.statut !== 'pending' && <ResultWin /> }
+            { event.winner_team && <ResultWin /> }
             { event.winner_id !== userId && event.statut !== 'pending' && <ResultLose />} */}
             <div className="text-right">
               <div className="stat-desc text-sm sm:text-lg">{event.date}</div>
@@ -48,7 +49,7 @@ function List({ events, userId } : ListProps) {
                 {event.score_team_2}
               </div>
             ) : <p className="text-2xl">Game not played yet</p>}
-            <Link to="/event">
+            <Link to={`/event/${event.id}`}>
               <p className="link sm:text-lg">View Event</p>
             </Link>
           </div>

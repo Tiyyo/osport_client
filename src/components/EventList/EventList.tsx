@@ -13,13 +13,13 @@ function EventList() {
   const id = user.userInfos.userId;
 
   // On recupere la liste des events de l'user connecté
-  const { data: list, error: eventsError } = useFetch(`event/${id}`, 'GETFIRSTDATA');
+  const { data: list, error: eventsError } = useFetch(`event/${id}`, 'GET');
   const [eventList, setEventList] = useState();
 
   // Le useEffect permet de mettre à jour la liste des events à chaque fois que la page est chargée
   useEffect(() => {
     if (list) {
-      setEventList(list.events);
+      setEventList(list);
     }
   }, [list]);
   if (eventsError) return null;
