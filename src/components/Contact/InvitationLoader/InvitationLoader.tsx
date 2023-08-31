@@ -1,9 +1,7 @@
 import React from 'react';
 
 function InvitationLoader() {
-  return (
-    <p className="self-end sm:self-auto">Waiting...</p>
-  );
+  return <span className="loading loading-bars loading-md self-end sm:self-auto" />;
 }
 
 export default InvitationLoader;
