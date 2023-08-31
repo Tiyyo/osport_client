@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import type { EventContextProps } from '../../../context/EventContext';
 import { EventContext } from '../../../context/EventContext';
 // import useFetch from '../../hooks/useFetch';
@@ -15,10 +16,30 @@ function SendInvitations() {
 
   const baseUrl = import.meta.env.VITE_SERVER_URL;
 
-  const HandleSendInvitations = async () => {
+  const navigate = useNavigate();
+
+  const sendInvitations = async (eventId) => {
+    console.log(eventId);
+
+    try {
+      const userIds = [...eventData.friends].map((friend) => Number(friend.id));
+      if (eventId !== null) {
+        const response = await axios.post(`${baseUrl}/participant/event`, { eventId, userId: userIds });
+        if (response.status === 201) {
+          navigate(`/event/${eventId}`);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCreateEvent = async () => {
     try {
       const response = await axios.post(`${baseUrl}/event`, eventDataWithUserId);
-      console.log(response);
+      if (response.data) {
+        sendInvitations(response.data.data.id);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -57,7 +78,7 @@ function SendInvitations() {
         type="button"
         className="btn btn-wide"
         disabled={eventData.friends.length > eventData.nbMaxParticipant}
-        onClick={HandleSendInvitations}
+        onClick={handleCreateEvent}
       >
         Create the event
       </button>
