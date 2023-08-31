@@ -48,7 +48,7 @@ function List({ events } : ListProps) {
                 -
                 {event.score_team_2}
               </div>
-            ) : <p className="text-2xl">Game not played yet</p>}
+            ) : <p className="text-2xl">Game not finished</p>}
             <Link to={`/event/${event.id}`}>
               <p className="link sm:text-lg">View Event</p>
             </Link>

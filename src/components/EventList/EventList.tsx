@@ -20,7 +20,7 @@ function EventList() {
   useEffect(() => {
     if (list) {
       setEventList(list);
-    }
+  }
   }, [list]);
   if (eventsError) return null;
 
