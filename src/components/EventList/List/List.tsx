@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import ResultLoader from '../ResultLoader/ResultLoader';
-import ResultWin from '../ResultWin/ResultWin';
-import ResultLose from '../ResultLose/ResultLose';
+import ResultWin from '../ResultTitle/ResultWin';
+import ResultLose from '../ResultTitle/ResultLose';
 
 interface ListProps {
   events: EventObject;

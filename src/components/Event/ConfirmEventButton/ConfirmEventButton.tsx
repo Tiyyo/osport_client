@@ -20,6 +20,7 @@ function ConfirmEventButton({ userId, eventId }: ButtonProps) {
 
   return (
     <div className="bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 w-full text-center">
+      {/* Bouton qui exécutera la fonction handleClick avec les paramètres userId et eventId */}
       <button
         className="btn btn-wide sm:btn-lg"
         onClick={() => handleClick(userId, eventId)}

@@ -7,8 +7,8 @@ interface ResultsInputProps {
 }
 
 function ResultInput({ userId, eventId } : ResultsInputProps) {
-  const [resultTeamOne, setResultTeamOne] = useState<number>(null);
-  const [resultTeamTwo, setResultTeamTwo] = useState<number>(null);
+  const [resultTeamOne, setResultTeamOne] = useState();
+  const [resultTeamTwo, setResultTeamTwo] = useState();
 
   async function handleClick(
     accountId: number,
@@ -17,13 +17,12 @@ function ResultInput({ userId, eventId } : ResultsInputProps) {
     resultTeam2: number,
   ) {
     try {
-      const res = await axiosInstance.patch('event/results', {
+      await axiosInstance.patch('event/results', {
         userId: accountId,
         eventId: matchId,
         scoreTeam1: resultTeam1,
         scoreTeam2: resultTeam2,
       });
-      console.log('Server Response:', res);
     } catch (error) {
       console.log(error);
     }
