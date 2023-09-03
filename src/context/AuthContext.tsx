@@ -57,7 +57,7 @@ export const AuthContextProvider: FunctionComponent<AuthContextProviderProps> = 
         } catch (e) {
           console.error('Une erreur s\'est produite lors de la récupération des données de l\'utilisateur', e);
         }
-      } else if (response.status === 200 && response.data.error === 'Invalid input') {
+      } else if (response.status === 200 && response.data.error.includes('Invalid input')) {
         errorMessage = 'Votre nom d\'utilisateur ou votre mot de passe est incorrect.';
       } else {
         errorMessage = 'Une erreur inattendue s\'est produite lors de la connexion au serveur.';

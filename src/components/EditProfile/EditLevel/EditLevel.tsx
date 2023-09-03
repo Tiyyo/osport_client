@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import useFetch from '../../hooks/useFetch';
 import AuthContext from '../../../context/AuthContext';
 import SportRanking from '../LevelSelector/SportRanking';
@@ -8,9 +8,12 @@ function EditLevel() {
   const [sportSelected, setSportSelected] = useState<string>('Choice');
 
   const userId = useContext(AuthContext).user.userInfos.userId;
-  const userSport = useFetch('/user/sport/' + userId, 'GET');
+  const userSport = useFetch('/user/own_rating/' + userId, 'GET');
   const sports = (userSport.data);
+  console.log(sports);
   const ownRank = sports?.filter((sport: any) => sport.gb_rating !== 0 && sport.gb_rating !== null && sport.name === sportSelected).map((sport: any) => sport.gb_rating).pop();
+  console.log(ownRank);
+  
 
   const handleChangeSport = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSportSelected(event.target.value);

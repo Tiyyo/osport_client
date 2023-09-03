@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import useMutation from '../../hooks/useMutation';
+import AuthContext from '../../../context/AuthContext';
 
 interface SportRankingProps {
     sportSelected: string;
@@ -10,6 +11,7 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
 
     const [level, setLevel] = useState<string>('Choice');
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
+    const userId = useContext(AuthContext).user.userInfos.userId;
 
     console.log(level);
 
@@ -18,7 +20,7 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
         case 2:
           setLevel('Beginner');
           break;
-        case 6:
+        case 5:
           setLevel('Intermediate');
           break;
         case 8:
@@ -50,6 +52,21 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
       } else {
         console.log('Tu est ' + level + ' en ' + sportSelected);
         setIsDisabled(true);
+        let sportId;
+        switch (sportSelected) {
+          case 'Football':
+            sportId = 1;
+            break;
+          case 'Basketball':
+            sportId = 2;
+            break;
+        }
+        const body = {
+          "user_id": userId, // Number
+          "sport_id": sportId, // Number
+          "rating": level // " Beginner" | "Intermediate" | "Advanced"
+        };
+        useMutation('/user/sport/', body , 'POST');
       }
     };
 
