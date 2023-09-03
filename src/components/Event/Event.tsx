@@ -18,7 +18,7 @@ import FinalScore from './FinalScore/FinalScore';
 function Event() {
 // On recupère l'id de l'utilisateur connecté dans le AuthContext
 const { user } = useContext(AuthContext);
-const { userId } = user.userInfos;
+const userId = user?.userInfos.userId;
 
 // Fonction pour récuperer l'id de l'event dans l'url
 function GetEventId() {
@@ -60,10 +60,9 @@ console.log(participants);
           {/* Si pas de vainqueur et statut diffèrent de open => Liste des joueurs des 2 équipes */}
           {!event.winner_team && event.status !== 'open' && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
           {/* Si le match a un vainqueur enregistré => Liste des joueurs + notation */}
-          {
-            // event.winner_team
-            // && event.status === 'closed'
-            // && (
+          {event.winner_team
+            && (event.status === 'finished' || 'closed')
+            && (
             <PlayerListRating
               players={participants}
               nbPlayers={event.nb_max_participant}
@@ -71,8 +70,7 @@ console.log(participants);
               secondTeamScore={event.score_team_2}
               sportId={event.sport_id}
             />
-          // )
-      }
+          )}
         </div>
 
         <div className="flex flex-col-reverse gap-4 mb-4 sm:w-1/2 items-center sm:flex-col">

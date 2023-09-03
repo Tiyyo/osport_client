@@ -1,5 +1,4 @@
 import React, { FormEvent, useState , useContext, useRef, useEffect} from 'react';
-import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import axios from 'axios';
 //
@@ -29,7 +28,6 @@ function EditInfo() {
   const isValidEmail = regexes.email.test(newEmail);  
   console.log(isValidUsername, isValidEmail);
   
-
   const { data : user, loading } = useFetch(`/user/${userId}`, 'GET');
 
   useEffect(() => {
@@ -49,20 +47,48 @@ function EditInfo() {
     }
   };
 
-  const handleSubmit = (e : FormEvent) => {
+  const handleSubmitUsername = (e : FormEvent) => {
 
     e.preventDefault();
+    setErrorMessage('');
 
     const cleanNewUsername = DOMPurify.sanitize(newUsername);
     const body = {
       id : userId,
       username: cleanNewUsername,
+    };
+
+    if (!cleanNewUsername) {
+      setErrorMessage('Veuillez saisir un nom d\'utilisateur.');
+      return;
+    }
+
+    if (!isValidUsername) {
+      setErrorMessage('Votre nom d\'utilisateur doit contenir au moins 2 caractères.');
+      return;
+    }
+
+    setBody(body);
+  };
+
+  const handleSubmitEmail = (e : FormEvent) => {
+
+    e.preventDefault();
+    setErrorMessage('');
+
+    const body = {
+      id : userId,
       email : newEmail
     };
 
-    if (!cleanNewUsername || !newEmail) {
-      setErrorMessage('Veuillez remplir au moins un champ.');
+    if (!newEmail) {
+      setErrorMessage('Veuillez saisir un email.');
       return;
+    }
+
+    if (!isValidEmail) {
+      setErrorMessage('Votre email doit être valide.');
+      return; 
     }
 
     setBody(body);
@@ -104,11 +130,7 @@ function EditInfo() {
     );
   }};
 
-  const { data , error } = useMutation('/user', body, 'PATCH');
-  useEffect(() => {
-    setErrorMessage(error);
-  }, [error]);
-  
+    const { data , error } = useMutation('/user', body, 'PATCH');
 
   return (
     <div className='flex flex-col shadow-xl bg-neutral-focus border border-gray-700 rounded-xl items-center text-left sm:w-1/2'>
@@ -118,7 +140,7 @@ function EditInfo() {
           <label htmlFor="username" className="label-text text-base">Change your username</label>
           <div className="flex gap-2 justify-between items-center mt-4">
             <input id="username" name="username" type="text" className="input input-sm input-bordered w-3/4" value={newUsername} onChange={(e) => setNewUsername(e.target.value)}/>
-            <button type="button" className="btn btn-sm" onClick={handleSubmit}>Save</button>
+            <button type="button" className="btn btn-sm" onClick={handleSubmitUsername}>Save</button>
           </div>
         </div>
 
@@ -126,7 +148,7 @@ function EditInfo() {
           <label htmlFor="email" className="label-text text-base">Change your email</label>
           <div className="flex gap-2 justify-between items-center mt-4">
             <input id="email" name="email" type="email" className="input input-sm input-bordered w-3/4" value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/>
-            <button type="button" className="btn btn-sm" onClick={handleSubmit}>Save</button>
+            <button type="button" className="btn btn-sm" onClick={handleSubmitEmail}>Save</button>
           </div>
         </div>
 
@@ -135,7 +157,7 @@ function EditInfo() {
             </div> : null }
         {data ? <div className='text-green-500 text-xs italic mx-4 text-center'>
             Votre changement a bien été pris en compte
-            </div> : null }
+            </div> : null}
 
       </form>
 
