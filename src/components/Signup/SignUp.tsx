@@ -16,7 +16,7 @@ const SignUp: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const regexes = {
-    username: /^[a-zA-Z0-9_]{4,}$/,
+    username: /^[a-zA-Z0-9_-]{2,}$/,
     password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d`!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]{8,}$/,
     email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
   };
@@ -102,7 +102,7 @@ const SignUp: React.FC = () => {
             value={username}
             onChange={(e) => {
               setUsername(e.target.value)
-              validateUsername(e.target.value, 'username');
+              // validateUsername(e.target.value, 'username');
             }}
             onKeyDown={handleKeyDown}
           />
@@ -124,7 +124,7 @@ const SignUp: React.FC = () => {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value)
-              validateEmail(e.target.value, 'email');
+              // validateEmail(e.target.value, 'email');
             }}
             onKeyDown={handleKeyDown}
           />
@@ -146,7 +146,8 @@ const SignUp: React.FC = () => {
             value={password}
             onChange={(e) => {
               setPassword(e.target.value)
-              validatePassword(e.target.value, 'password');
+              setErrorMessage('');
+              // validatePassword(e.target.value, 'password');
             }}
             onKeyDown={handleKeyDown}
           />

@@ -13,8 +13,6 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const userId = useContext(AuthContext).user.userInfos.userId;
 
-    console.log(level);
-
     useEffect(() => {
       switch (ownRank) {
         case 2:
@@ -36,7 +34,7 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
       } else {
         setIsDisabled(false);
       }
-    }, [sportSelected]);
+    }, [sportSelected, ownRank]);
 
     const handleChangeLevel = (event: React.ChangeEvent<HTMLSelectElement>) => {
       setLevel(event.target.value);

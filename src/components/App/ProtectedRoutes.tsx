@@ -7,7 +7,7 @@ const ProtectedRoutes = () => {
 
 if (isAuth === null) return <>Loading...</>;
 
-  return isAuth ? <Outlet /> : <Navigate to="/Login" />;
+  return isAuth ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoutes;
