@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 import React, { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import formDate from '../../utils/formatDate';
 import AuthContext from '../../context/AuthContext';
 import useFetch from '../hooks/useFetch';
-
 import Header from '../Header/Header';
 import Menu from '../Menu/Menu';
 import EventInfo from './EventInfo/EventInfo';
@@ -30,6 +30,8 @@ const eventId = GetEventId();
 // On utilise le hook personnalisé pour récupérer les infos de l'event et les particpants d'un match
 const { data: event, error: eventsError } = useFetch(`event/details/${eventId}`, 'GET');
 const { data: participants, error: participantsError } = useFetch(`participant/event/${eventId}`, 'GET');
+console.log(event);
+console.log(participants);
 
   return (
     <>
@@ -37,16 +39,18 @@ const { data: participants, error: participantsError } = useFetch(`participant/e
       <Menu />
       {event
       && (
-      <div className="flex flex-col w-full p-4 mx-auto mb-24 sm:flex-row sm:gap-4 sm:w-10/12 sm:m-auto sm:shadow-xl sm:border sm:rounded-xl sm:border-gray-700 sm:my-4 sm:mb-10 sm:pb-4 sm:border-2">
+      <div className="flex flex-col w-full p-4 mx-auto mb-24 sm:flex-row sm:gap-4 sm:w-10/12 sm:m-auto sm:shadow-xl sm:rounded-xl sm:border-gray-700 sm:my-4 sm:mb-10 sm:pb-4 sm:border-2">
         <div className="flex flex-col gap-4 mb-4 sm:w-1/2 items-center ">
 
           {/* On envoie les infos nécessaires au composant d'affichage des informations du match */}
           <EventInfo
-            date={event.date}
+            date={formDate(event.date)}
             sport={event.sport_id}
             nbPlayers={event.nb_max_participant}
             status={event.status}
             winner={event.winner_team}
+            duration={event.duration}
+            location={event.location}
           />
 
           {/* Composants pour afficher les avatars des joueurs */}
@@ -64,6 +68,7 @@ const { data: participants, error: participantsError } = useFetch(`participant/e
               nbPlayers={event.nb_max_participant}
               firstTeamScore={event.score_team_1}
               secondTeamScore={event.score_team_2}
+              sportId={event.sport_id}
             />
           )}
         </div>

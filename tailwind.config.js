@@ -5,7 +5,7 @@ export default {
   ],
   daisyui: {
     themes: [
-      // "dracula",
+      "dracula",
       {
       mytheme: {
         'primary': '#570df8',

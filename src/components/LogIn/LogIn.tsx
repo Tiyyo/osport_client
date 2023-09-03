@@ -1,12 +1,12 @@
-import React, { useState, useContext, FormEvent, ChangeEvent } from 'react';
+import React, {
+ useState, useContext, FormEvent, ChangeEvent,
+} from 'react';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 //
 import AuthContext from '../../context/AuthContext';
 
-
 const LogIn: React.FC = () => {
-
   const { logUser } = useContext(AuthContext);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -20,7 +20,7 @@ const LogIn: React.FC = () => {
 
   const handleInputChange = (
     setter: React.Dispatch<React.SetStateAction<string>>,
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     setter(event.target.value);
     setIsServerValid(true); // Reset validation state
@@ -47,7 +47,7 @@ const LogIn: React.FC = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      handleSubmit(e as unknown as FormEvent);  // Casting nécessaire pour satisfaire les types
+      handleSubmit(e as unknown as FormEvent); // Casting nécessaire pour satisfaire les types
     }
   };
 
@@ -92,9 +92,11 @@ const LogIn: React.FC = () => {
           />
         </div>
 
-        {!isServerValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          {errorMessage}
-          </span> : null }
+        {!isServerValid ? (
+          <span className="text-red-600 text-xs italic mx-4 text-center">
+            {errorMessage}
+          </span>
+) : null }
 
         <div className="flex w-full justify-end max-w-xs m-1">
           <Link to="/" className="link link-info text-sm bloc ">
@@ -115,6 +117,6 @@ const LogIn: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default LogIn;

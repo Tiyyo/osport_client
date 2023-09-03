@@ -1,23 +1,8 @@
 import React from 'react';
+import PlayerComp from '../Player/PlayerComp';
+import type { Players } from '../interface';
 
-interface PlayersListProps {
-  players: PlayerObject[];
-  nbPlayers: number;
-}
-
-interface PlayerObject {
-  user?: UserObject;
-  team: number;
-}
-
-interface UserObject {
-  id: number;
-  team: number;
-  avatar: string;
-  username: string;
-}
-
-function PlayerListConfirmed({ players, nbPlayers }: PlayersListProps) {
+function PlayerListConfirmed({ players, nbPlayers }: Players) {
   // Fonction pour définir le nombre de colonnes à indiquer dans la classe de la <div>
   // en fonction du nombre de joueurs max. (qu'on divise par 2)
   function colsNumber(nbOfPlayers: number) {
@@ -38,15 +23,14 @@ function PlayerListConfirmed({ players, nbPlayers }: PlayersListProps) {
         On map sur le tableau qui a été filter pour générer les avatars */}
         {players && players
         .filter((player) => player.team === 1)
-        .map((player: PlayerObject) => (
-          <div
+        .map((player) => (
+          <PlayerComp
+            id={player.user.id}
             key={player.user.id}
-            className="avatar flex self-start items-center gap-6 w-full"
-          >
-            <div className="w-12 rounded-full sm:w-14">
-              <img src={player.user.avatar} alt={player.user.username} />
-            </div>
-          </div>
+            avatar={player.user.avatar}
+            status={player.status}
+            username={player.user.username}
+          />
         ))}
       </div>
       )}
@@ -63,15 +47,14 @@ function PlayerListConfirmed({ players, nbPlayers }: PlayersListProps) {
 
         {players && players
         .filter((player) => player.team === 2)
-        .map((player: PlayerObject) => (
-          <div
+        .map((player) => (
+          <PlayerComp
+            id={player.user.id}
             key={player.user.id}
-            className="avatar flex self-start items-center gap-6 w-full"
-          >
-            <div className="w-12 rounded-full sm:w-14">
-              <img src={player.user.avatar} alt={player.user.username} />
-            </div>
-          </div>
+            avatar={player.user.avatar}
+            status={player.status}
+            username={player.user.username}
+          />
         ))}
       </div>
       )}

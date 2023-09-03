@@ -1,19 +1,38 @@
-import React from 'react';
-import LevelSelector from '../LevelSelector/LevelSelector';
+import React, { useState, useContext } from 'react';
+import useFetch from '../../hooks/useFetch';
+import AuthContext from '../../../context/AuthContext';
+import SportRanking from '../LevelSelector/SportRanking';
 
 function EditLevel() {
+
+  const [sportSelected, setSportSelected] = useState<string>('Choice');
+
+  const userId = useContext(AuthContext).user.userInfos.userId;
+  const userSport = useFetch('/user/own_rating/' + userId, 'GET');
+  const sports = (userSport.data);
+  console.log(sports);
+  const ownRank = sports?.filter((sport: any) => sport.gb_rating !== 0 && sport.gb_rating !== null && sport.name === sportSelected).map((sport: any) => sport.gb_rating).pop();
+  console.log(ownRank);
+  
+
+  const handleChangeSport = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSportSelected(event.target.value);
+  };
+
   return (
     <div className="flex flex-col shadow-xl bg-neutral-focus border border-gray-700 rounded-xl gap-6 py-4 items-center text-left sm:w-1/2">
       <h1 className="text-2xl">Your level</h1>
-      <div className="form-control w-full px-6 gap-4">
+
+      <form className="form-control w-full px-6 gap-4">
         <label className="label-text text-base" htmlFor="sport">Select a sport to chose a level</label>
-        <select className="select select-bordered text-neutral-content">
-          <option disabled selected>Pick a sport</option>
-          <option>Football</option>
-          <option>Basket-ball</option>
+        <select className="select select-bordered text-neutral-content" value={sportSelected} onChange={handleChangeSport}>
+          <option value="Choice" disabled className='font-bold italic'>Pick a sport</option>
+          <option value='Football'>Football</option>
+          <option value='Basketball'>Basket-ball</option>
         </select>
-      </div>
-      <LevelSelector />
+      </form>
+      
+      <SportRanking sportSelected={sportSelected} ownRank={ownRank} />
     </div>
   );
 }

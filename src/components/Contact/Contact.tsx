@@ -10,7 +10,12 @@ import Menu from '../Menu/Menu';
 function Contact() {
   // On recupere l'id de l'user connecté
   const { user } = useContext(AuthContext);
+<<<<<<< HEAD
   const id = user?.userInfos.userId;
+=======
+  // const id = user.userInfos.userId;
+  const id = 2;
+>>>>>>> develop
 
   // On recupere la liste des amis de l'user connecté
   const { data: sentList, error: sentListError } = useFetch(`user_friends/sent/${id}`, 'GET');
