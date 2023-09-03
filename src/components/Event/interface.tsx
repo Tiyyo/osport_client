@@ -1,6 +1,6 @@
 export interface Players {
   players: Player[];
-  nbPlayers: number;
+  nbPlayers?: number;
 }
 
 export type Status = 'pending' | 'accepted' | 'rejected';
