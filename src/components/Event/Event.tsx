@@ -30,8 +30,6 @@ const eventId = GetEventId();
 // On utilise le hook personnalisé pour récupérer les infos de l'event et les particpants d'un match
 const { data: event, error: eventsError } = useFetch(`event/details/${eventId}`, 'GET');
 const { data: participants, error: participantsError } = useFetch(`participant/event/${eventId}`, 'GET');
-console.log(event);
-console.log(participants);
 
   return (
     <>

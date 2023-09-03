@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import AuthContext from '../../../context/AuthContext';
 import axiosInstance from '../../../services/axiosInstance';
 import TeamResult from './TeamResultTitle/TeamResult';
@@ -24,37 +24,47 @@ function PlayerListRating({ players, nbPlayers, firstTeamScore, secondTeamScore,
   // en fonction du nombre de joueurs max. (qu'on divise par 2)
 
   const { user: { userInfos: { userId } } } = useContext(AuthContext);
+  const [userIdToRate, setUserIdToRate] = useState<number>(null);
+  const formModal = useRef(null);
 
   function colsNumber(nbOfPlayers: number) {
     return `grid grid-cols-${nbOfPlayers / 2} gap-8 p-5`;
   }
 
-//   function openModal() {
-//     window.my_modal_3.showModal();
-//   }
+  function openModal(state) {
+    window.ratingModal.showModal();
+  }
 
-//   function closeModal() {
-//     window.my_modal_3.close();
-// }
+  function getUserToRateId(userIdToRate) {
+    setUserIdToRate(userIdToRate);
+}
 
-  // const [inputValue, setInputValue] = useState<number | string>(null);
-  // const [ratedUserId, setRatedUserId] = useState<number>(null);
+  function closeModal() {
+    window.ratingModal.close();
+}
 
-  // async function rateUser(userRating: number, playerToRateId: number, sportId: number, userId: number) {
-  //     console.log(userRating, playerToRateId, sportId, userId);
-//     try {
-//       const res = await axiosInstance.patch(
-// 'user/sport',
-//          { rating: userRating,
-//            user_id: playerToRateId,
-//            sport_id: sportId,
-//            rater_id: userId },
-// );
-//       console.log('Server Response:', res);
-//       } catch (error) {
-//       console.log(error);
-//     }
-  // }
+  async function rateUser(userRating: number, playerToRateId: number, sportId: number, userId: number) {
+    try {
+      const res = await axiosInstance.patch(
+'user/sport',
+         { rating: Number(userRating),
+           user_id: playerToRateId,
+           sport_id: sportId,
+           rater_id: userId },
+);
+      console.log('Server Response:', res);
+      } catch (error) {
+      console.log(error);
+    }
+  }
+
+const handleSubmit = (e) => {
+    e.preventDefault();
+    const userRating = e.target.userRating.value;
+    rateUser(userRating, userIdToRate, sportId, userId);
+    formModal.current.reset();
+    closeModal();
+};
 
   return (
     <div className="flex flex-col items-center py-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 w-full h-full">
@@ -78,14 +88,17 @@ function PlayerListRating({ players, nbPlayers, firstTeamScore, secondTeamScore,
         {players && players
         .filter((player) => player.team === 1)
         .map((player) => (
-          <PlayerComp
-            id={player.user.id}
-            avatar={player.user.avatar}
-            status={player.status}
-            username={player.user.username}
-            sportId={sportId}
-            isConfirmed
-          />
+          <div onClick={openModal} key={player.user.id}>
+            <PlayerComp
+              id={player.user.id}
+              avatar={player.user.avatar}
+              status={player.status}
+              username={player.user.username}
+              sportId={sportId}
+              getUserToRateId={getUserToRateId}
+              isConfirmed
+            />
+          </div>
         ))}
       </div>
       )}
@@ -105,14 +118,17 @@ function PlayerListRating({ players, nbPlayers, firstTeamScore, secondTeamScore,
         {players && players
         .filter((player) => player.team === 2)
         .map((player) => (
-          <PlayerComp
-            id={player.user.id}
-            avatar={player.user.avatar}
-            status={player.status}
-            username={player.user.username}
-            sportId={sportId}
-            isConfirmed
-          />
+          <div onClick={openModal} key={player.user.id}>
+            <PlayerComp
+              id={player.user.id}
+              avatar={player.user.avatar}
+              status={player.status}
+              username={player.user.username}
+              sportId={sportId}
+              getUserToRateId={getUserToRateId}
+              isConfirmed
+            />
+          </div>
         ))}
       </div>
       )}
@@ -120,6 +136,39 @@ function PlayerListRating({ players, nbPlayers, firstTeamScore, secondTeamScore,
       <p className="bg-neutral p-4 shadow-xl border rounded-xl border-gray-700 text-center mx-1 my-4 sm:m-4">
         You can rate other players by clicking their profile pictures
       </p>
+
+      <dialog id="ratingModal" className="modal">
+        <form
+          method="dialog"
+          className="modal-box flex flex-col items-center gap-4 py-12"
+          onSubmit={handleSubmit}
+          ref={formModal}
+        >
+          {/* Le button pour fermer ne fonctionne pas avec le type="button" (modal DaisyUI)  */}
+          {/* eslint-disable-next-line react/button-has-type */}
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          <h3 className="font-bold text-lg mb-2">Chose a note between 1 to 10</h3>
+          <div className="flex justify-center w-full">
+            <input
+              type="number"
+              name="userRating"
+              id="userRating"
+              min={1}
+              max={10}
+              // onChange={(e) => setInputValue(e.target.value)}
+              className="p-4 bg-neutral shadow-xl border rounded-xl rounded-r-none border-gray-700 w-24 text-center text-xl font-bold"
+            />
+            <button type="submit" className="btn btn-lg m-0 rounded-l-none">Rate</button>
+          </div>
+          <p
+            className="text-sm pt-8"
+            // onClick={closeModal}
+          >
+            Press ESC key or click on ✕ button to close
+
+          </p>
+        </form>
+      </dialog>
 
     </div>
   );

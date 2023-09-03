@@ -32,7 +32,10 @@ function ContactList({ contacts, userId } : ContactsProps) {
         >
           <div className="avatar flex self-start items-center gap-6 w-full">
             <div className="w-12 rounded-full sm:w-14">
-              <img src={contact.friend.avatar} alt="avatar" />
+              {contact.friend.avatar
+               ? <img src={contact.friend.avatar} alt="avatar" />
+              : <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt={`${contact.friend.avatar} avatar`} />}
+
             </div>
             <h1 className="text-2xl">{contact.friend.username}</h1>
           </div>
