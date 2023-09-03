@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import formDate from '../../../utils/formatDate';
 import ResultLoader from '../ResultLoader/ResultLoader';
 import ResultWin from '../ResultTitle/ResultWin';
 import ResultLose from '../ResultTitle/ResultLose';
 
 interface ListProps {
-  events: EventObject;
+  events: EventObject[];
   userId: number;
 }
 
@@ -16,13 +16,9 @@ interface EventObject {
   winner_team?: number;
   status: string;
   date: string;
-  sport: SportObject;
+  sport_name: string;
   score_team_1?: number;
   score_team_2?: number;
-}
-
-interface SportObject {
-  name: string;
 }
 
 function List({ events } : ListProps) {
@@ -38,8 +34,8 @@ function List({ events } : ListProps) {
             {!event.winner_team && <ResultLoader status={event.status} />}
             {event.winner_team && <ResultWin />}
             <div className="text-right">
-              <div className="stat-desc text-sm sm:text-lg">{event.date}</div>
-              <div className="stat-desc text-xs sm:text-base">{event.sport.name}</div>
+              <div className="stat-desc text-sm sm:text-lg">{formDate(event.date)}</div>
+              <div className="stat-desc text-xs sm:text-base">{event.sport_name}</div>
             </div>
           </div>
           <div className="flex flex-col items-center sm:gap-2 sm:pb-0">
