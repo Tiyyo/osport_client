@@ -5,6 +5,7 @@ function SearchContact({ userId }: { userId: number }) {
   // InputValue => valeur de l'input via onChange
   // Search => recupere le username cherché pour le récuperer dans le back
   const [inputValue, setInputValue] = useState<string>('');
+
   async function addContact(id: number, contactUsername: string) {
     try {
       const res = await axiosInstance.post('user_friends/add', { userId: id, username: contactUsername });
