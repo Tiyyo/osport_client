@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
-import axiosInstance from '../../services/axiosInstance';
 import AuthContext from '../../context/AuthContext';
-//
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import EventListPreview from './EventListPreview/EventListPreview';
 import NextEvent from './NextEvent/NextEvent';
@@ -9,10 +7,6 @@ import Header from '../Header/Header';
 import Menu from '../Menu/Menu';
 
 function Profile() {
-
-  const { user } = useContext(AuthContext);
-  console.log(user);
-
   return (
     <>
       <Header />
