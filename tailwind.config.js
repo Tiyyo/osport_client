@@ -5,28 +5,30 @@ export default {
   ],
   daisyui: {
     themes: [
-      'dracula',
+      // "dracula",
       {
       mytheme: {
-          
-        "primary": "#2f81a8",
-                 
-        "secondary": "#000d84",
-                 
-        "accent": "#2605aa",
-                 
-        "neutral": "#f3f4f6",
-                 
-        "base-100": "#f3f4f6",
-                 
-        "info": "#accce7",
-                 
-        "success": "#22c55e",
-                 
-        "warning": "#ef4444",
-                 
-        "error": "#e96763",
-                 },
+        'primary': '#570df8',
+        'primary-focus': '#4506cb',
+        'primary-content': '#ffffff',
+        'secondary': '#f000b8',
+        'secondary-focus': '#bd0091',
+        'secondary-content': '#ffffff',
+        'accent': '#37cdbe',
+        'accent-focus': '#2aa79b',
+        'accent-content': '#ffffff',
+        'neutral': '#a4a0b0',
+        'neutral-focus': '#6a678a',
+        'neutral-content': '#ffffff',
+        'base-100': '#ffffff',
+        'base-200': '#f9fafb',
+        'base-300': '#d1d5db',
+        'base-content': '#d5e3ee',
+        'info': '#2094f3',
+        'success': '#009485',
+        'warning': '#ff9900',
+        'error': '#ff5724',
+        },
       },
     ],
   },

@@ -10,7 +10,7 @@ import List from './List/List';
 function EventList() {
   // On recupère l'id de l'user connecté via le AuthContext
   const { user } = useContext(AuthContext);
-  const id = user.userInfos.userId;
+  const id = user?.userInfos.userId;
 
   // On recupère la liste des events de l'user connecté
   const { data: list, error: eventsError } = useFetch(`event/${id}`, 'GET');

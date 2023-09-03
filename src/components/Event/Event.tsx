@@ -18,7 +18,7 @@ import FinalScore from './FinalScore/FinalScore';
 function Event() {
 // On recupère l'id de l'utilisateur connecté dans le AuthContext
 const { user } = useContext(AuthContext);
-const { userId } = user.userInfos;
+const userId = user?.userInfos.userId;
 
 // Fonction pour récuperer l'id de l'event dans l'url
 function GetEventId() {
@@ -57,7 +57,7 @@ const { data: participants, error: participantsError } = useFetch(`participant/e
           {!event.winner_team && event.status !== 'open' && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
           {/* Si le match a un vainqueur enregistré => Liste des joueurs + notation */}
           {event.winner_team
-            && event.status === 'closed'
+            && (event.status === 'finished' || 'closed')
             && (
             <PlayerListRating
               players={participants}
