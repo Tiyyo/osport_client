@@ -1,27 +1,58 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import axiosInstance from '../../../services/axiosInstance';
+import AuthContext from '../../../context/AuthContext';
+import useFetch from '../../hooks/useFetch';
+import LastEvent from './LastEvent';
 
-function EventListPreview() {
+function EventListPreview({ lastEvents, eventsIds }) {
+const { user: { userInfos: { userId } } } = useContext(AuthContext);
+const [participantListByEvent, setParticipantListByEvent] = useState(null);
+
+const participantsQueries = eventsIds && eventsIds.map((id) => `participant/event/${id}`);
+
+const fetchParticipants = async () => {
+ await Promise.all(participantsQueries.map((query) => axiosInstance.get(query)
+                      .then((res) => {
+   setParticipantListByEvent((prev) => {
+  if (prev) {
+    return [...prev, ...res.data.data];
+  }
+    return [res.data];
+});
+})));
+};
+
+useEffect(() => {
+fetchParticipants();
+}, [eventsIds]);
+
+// console.log(participantsListByEvent);
+
+function findUserTeam(eventId, userid) {
+    if (!participantListByEvent) return;
+    const eventParticpants = participantListByEvent.filter((event) => event.event_id === eventId && event.user.id === userid);
+    if (eventParticpants[0].team) {
+        return eventParticpants[0].team;
+}
+}
+
+console.log(lastEvents);
   return (
-    <div className="stats w-full stats-vertical shadow w-3/5 shadow-xl border border-gray-700 rounded-xl mb-4 p-2 bg-neutral-focus sm:mb-0 sm:p-2">
+    <div className="stats w-full stats-vertical shadow-xl border border-gray-700 rounded-xl mb-4 p-2 bg-neutral-focus sm:mb-0 sm:p-2">
       <h1 className="m-0 text-xl py-3 pl-1 h-fit w-fit sm:pb-0">Last results</h1>
-      <div className="flex stat justify-evenly p-2 items-center sm:p-0">
-        <div className="stat-title text-sm text-success sm:text-base">WIN</div>
-        <div className="stat-desc text-xs sm:text-sm">20/05/2023</div>
-        <div className="stat-value text-sm sm:text-base">2-1</div>
-        <div className="stat-desc text-sm sm:text-base">Football</div>
-      </div>
-      <div className="flex stat justify-evenly p-2 items-center sm:p-0">
-        <div className="stat-title text-sm text-error sm:text-base">LOSE</div>
-        <div className="stat-desc text-xs sm:text-sm">13/04/2023</div>
-        <div className="stat-value text-sm sm:text-base">20-12</div>
-        <div className="stat-desc text-sm sm:text-base">Basket</div>
-      </div>
-      <div className="flex stat justify-evenly p-2 items-center sm:p-0">
-        <div className="stat-title text-sm text-success sm:text-base">WIN</div>
-        <div className="stat-desc text-xs sm:text-sm">01/04/2023</div>
-        <div className="stat-value text-sm sm:text-base">5-0</div>
-        <div className="stat-desc text-sm sm:text-base">Football</div>
-      </div>
+      {
+        lastEvents && lastEvents.map((eve) => (
+          <LastEvent
+            key={eve.id}
+            winnerTeam={eve.winner_team}
+            date={eve.date}
+            sportName={eve.sport_name}
+            scoreTeam1={eve.score_team_1}
+            scoreTeam2={eve.score_team_2}
+            userTeam={1}
+          />
+          ))
+     }
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../Header/Header';
 import Menu from '../Menu/Menu';
 import CreateEventForm from './EventForm/EventForm';
-import FriendsToInvite from './FriendsToInvite/FriendsToInvite';
+// import FriendsToInvite from './FriendsToInvite/FriendsToInvite';
 // import EventContactList from './EventContactList/EventContactList';
 import SendInvitations from './SendInvitations/SendInvitations';
 

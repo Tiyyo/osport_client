@@ -66,18 +66,10 @@ export const AuthContextProvider: FunctionComponent<AuthContextProviderProps> = 
         password,
       });
 
-      if (response.status === 200 && response.data.error !== 'Bad credentials') {
-        try {
-          const apiResponse = await axiosInstance.get('/user/validate');
-          if (apiResponse.status === 200) {
-            storeCredentials(apiResponse.data);
-          } else {
-            errorMessage = 'Une erreur inattendue s\'est produite lors de la récupération de vos données.';
-          }
-        } catch (e) {
-          console.error('Une erreur s\'est produite lors de la récupération des données de l\'utilisateur', e);
-        }
-      } else if (response.status === 200 && response.data.error.includes('Invalid input')) {
+      if (response.status === 200 && response.data.error !== 'Invalid input') {
+        validateUser();
+      } else if (response.status === 200 && response.data.error === 'Invalid input') {
+        setIsAuth(false);
         errorMessage = 'Votre nom d\'utilisateur ou votre mot de passe est incorrect.';
       } else {
         setIsAuth(false);
