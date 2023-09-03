@@ -101,7 +101,7 @@ function EditInfo() {
 
   const handleChangeImageFile = async (e : any) => {
     const validFilesTypes = ["image/png", "image/jpg", "image/jpeg","image/svg", "image/webp"];
-    const maxSize = 10 * 1024 * 1024 * 1024; // 1024 mo
+    const maxSize = 1024 * 1024 * 1024; // 1024 mo
 
     if (!validFilesTypes.find((type) => type === e.target.files[0].type)) {
       console.log("File must be an png or jpg type");

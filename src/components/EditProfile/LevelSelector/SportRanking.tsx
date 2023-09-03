@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import useMutation from '../../hooks/useMutation';
+import axios from 'axios';
 import AuthContext from '../../../context/AuthContext';
 
 interface SportRankingProps {
@@ -42,7 +42,7 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
       setLevel(event.target.value);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
       if (sportSelected === 'Choice' && level === 'Choice') {
         console.log('Tu dois choisir un sport et un niveau');
       } else if (sportSelected === 'Choice') {
@@ -52,7 +52,7 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
       } else {
         console.log('Tu est ' + level + ' en ' + sportSelected);
         setIsDisabled(true);
-        let sportId;
+        let sportId: number;
         switch (sportSelected) {
           case 'Football':
             sportId = 1;
@@ -61,12 +61,20 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
             sportId = 2;
             break;
         }
+        console.log('Body : ' + userId, sportId, level);
         const body = {
           "user_id": userId, // Number
           "sport_id": sportId, // Number
           "rating": level // " Beginner" | "Intermediate" | "Advanced"
         };
-        useMutation('/user/sport/', body , 'POST');
+        await axios.post(import.meta.env.VITE_SERVER_URL + '/user/sport', body , {})
+        .then((res) => {
+          console.log(res);
+        }
+        ).catch((err) => {
+          console.log(err);
+        }
+        );
       }
     };
 

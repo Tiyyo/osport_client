@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import useFetch from '../../hooks/useFetch';
 import AuthContext from '../../../context/AuthContext';
 import SportRanking from '../LevelSelector/SportRanking';
@@ -6,13 +6,18 @@ import SportRanking from '../LevelSelector/SportRanking';
 function EditLevel() {
 
   const [sportSelected, setSportSelected] = useState<string>('Choice');
+  const [rank, setRank] = useState();
+
 
   const userId = useContext(AuthContext).user.userInfos.userId;
   const userSport = useFetch('/user/own_rating/' + userId, 'GET');
+
+  useEffect(() => {
   const sports = (userSport.data);
-  console.log(sports);
-  const ownRank = sports?.filter((sport: any) => sport.gb_rating !== 0 && sport.gb_rating !== null && sport.name === sportSelected).map((sport: any) => sport.gb_rating).pop();
-  console.log(ownRank);
+  const ownRank = sports?.filter((sport: any) => sport.gb_rating !== 0 && sport.gb_rating !== null && sport.name === sportSelected).map((sport: any) => sport.rating).pop();
+  setRank(ownRank);
+  }, [userSport.loading, sportSelected]);
+
   
 
   const handleChangeSport = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -32,7 +37,7 @@ function EditLevel() {
         </select>
       </form>
       
-      <SportRanking sportSelected={sportSelected} ownRank={ownRank} />
+      <SportRanking sportSelected={sportSelected} ownRank={rank} />
     </div>
   );
 }
