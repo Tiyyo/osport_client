@@ -15,7 +15,6 @@ export type EventContextProps = {
     location?: string;
     duration?: number;
     nbMaxParticipant?: number;
-    eventStatus?: string;
     sportId?: number;
     friends?: Friend[];
   };
@@ -39,7 +38,6 @@ export const EventContext = createContext<EventContextProps>({
     // NaN for all number types and to avoid all possible errors anywhere else in the code
     duration: 30,
     nbMaxParticipant: 6,
-    eventStatus: '',
     sportId: 0,
     friends: [],
   },
@@ -58,7 +56,6 @@ export const EventContextProvider: FC<Partial<Props>> = ({ children }) => {
     location: 'Just here',
     duration: 30,
     nbMaxParticipant: 6,
-    eventStatus: '',
     sportId: 0,
     friends: [],
   });

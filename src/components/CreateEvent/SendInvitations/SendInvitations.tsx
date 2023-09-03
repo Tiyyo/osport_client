@@ -21,7 +21,6 @@ function SendInvitations() {
   const sendInvitations = async (eventId) => {
     try {
       const userIds = [...eventData.friends].map((friend) => Number(friend.id));
-      console.log(userIds);
       if (eventId !== null) {
         const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/participant/event`, { eventId, ids: userIds });
         if (response.status === 201) {
@@ -36,7 +35,11 @@ function SendInvitations() {
   const handleCreateEvent = async () => {
     try {
       const response = await axios.post(`${baseUrl}/event`, eventDataWithUserId);
-      if (response.data) {
+      if (response.data.error) {
+        console.log(response.data.error);
+          return;
+          }
+      if (response.data.data) {
         sendInvitations(response.data.data.id);
       }
     } catch (error) {

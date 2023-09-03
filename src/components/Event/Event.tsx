@@ -31,6 +31,8 @@ const eventId = GetEventId();
 const { data: event, error: eventsError } = useFetch(`event/details/${eventId}`, 'GET');
 const { data: participants, error: participantsError } = useFetch(`participant/event/${eventId}`, 'GET');
 
+console.log(event);
+
   return (
     <>
       <Header />
