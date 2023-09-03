@@ -62,6 +62,7 @@ export const EventContextProvider: FC<Partial<Props>> = ({ children }) => {
     sportId: 0,
     friends: [],
   });
+
   const eventState: EventContextProps = useMemo(() => (
     { eventData, setEventData }
   ), [eventData, setEventData]);

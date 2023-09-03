@@ -19,12 +19,11 @@ function SendInvitations() {
   const navigate = useNavigate();
 
   const sendInvitations = async (eventId) => {
-    console.log(eventId);
-
     try {
       const userIds = [...eventData.friends].map((friend) => Number(friend.id));
+      console.log(userIds);
       if (eventId !== null) {
-        const response = await axios.post(`${baseUrl}/participant/event`, { eventId, userId: userIds });
+        const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/participant/event`, { eventId, ids: userIds });
         if (response.status === 201) {
           navigate(`/event/${eventId}`);
         }

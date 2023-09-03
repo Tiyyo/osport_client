@@ -13,7 +13,6 @@ const useFetch = (url: string, method: string): { loading: boolean, data: any, e
       try {
         if (method === 'GET') {
           const res = await axiosInstance.get(url);
-          console.log(res);
           setData(res.data.data);
           setLoading(false);
         }

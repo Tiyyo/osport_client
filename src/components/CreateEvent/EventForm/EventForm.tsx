@@ -19,7 +19,7 @@ function CreateEventForm() {
           >
             <option disabled selected className="hidden">Pick one</option>
             <option value={1}>Football</option>
-            <option value={2}>Basket-ball</option>
+            <option value={2}>BasketBall</option>
           </select>
         </div>
         {/* Une fois le sport choisi on selectionne le nombre de participants */}
@@ -35,6 +35,32 @@ function CreateEventForm() {
             <option selected value={6}>3v3</option>
             <option value={10}>5v5</option>
           </select>
+        </div>
+        {/* On selectionne le lieu de l'event */}
+        <div className="flex flex-col gap-3">
+          <label htmlFor="location" className="text-lg sm:text-xl">Location</label>
+          <input
+            className="input h-8 bg-base-100 m-auto w-full placeholder:text-xs placeholder:italic"
+            type="text"
+            name="location"
+            placeholder="City..."
+            onChange={(e) => {
+              setEventData({ ...eventData, location: e.target.value });
+            }}
+          />
+        </div>
+        {/* On selectionne la dureé de l'event */}
+        <div className="flex flex-col gap-3">
+          <label htmlFor="location" className="text-lg sm:text-xl">Duration</label>
+          <input
+            className="input h-8 bg-base-100 m-auto w-full placeholder:text-xs placeholder:italic"
+            type="text"
+            name="duration"
+            placeholder="Duration in min ..."
+            onChange={(e) => {
+              setEventData({ ...eventData, duration: Number(e.target.value) });
+            }}
+          />
         </div>
         {/* On selectionne la date de l'event */}
         <div className="flex flex-col gap-3">
