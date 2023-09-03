@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../services/axiosInstance';
 
-const useFetch = (url: string, method : string ): { loading: boolean, data: any, error:string } => {
+const useFetch = (url: string, method : string): { loading: boolean, data: any, error:string } => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState();
     const [error, setError] = useState(null);
@@ -23,8 +23,10 @@ const useFetch = (url: string, method : string ): { loading: boolean, data: any,
             }
           } catch (err) {
             console.log(err);
-            setError(err);
+            if (err.response.data.error) {
+            setError('Une erreur inattendue s\'est produite lors de la récupération de vos données.');
             setLoading(false);
+            }
           }
         };
           fetchdata();
