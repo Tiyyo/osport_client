@@ -1,6 +1,7 @@
 import React from 'react';
 import AcceptDeclineButton from '../AcceptDeclineButton/AcceptDeclineButton';
 import InvitationLoader from '../InvitationLoader/InvitationLoader';
+import ContactAdded from '../ContactAdded/ContactAdded';
 
 interface ContactsProps {
   contacts: ContactsObject;
@@ -35,6 +36,7 @@ function ContactList({ contacts, userId } : ContactsProps) {
             </div>
             <h1 className="text-2xl">{contact.friend.username}</h1>
           </div>
+          { contact.asker_id === userId && contact.status === 'accepted' && <ContactAdded /> }
           {/* Si l'Id de l'user connecté est égal à l'Id de l'asker et que le status = pending
           alors on affiche le loader */}
           { contact.asker_id === userId && contact.status === 'pending' && <InvitationLoader /> }

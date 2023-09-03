@@ -10,18 +10,19 @@ import Menu from '../Menu/Menu';
 function Contact() {
   // On recupere l'id de l'user connecté
   const { user } = useContext(AuthContext);
-  const id = user.userInfos.userId;
+  // const id = user.userInfos.userId;
+  const id = 2;
 
   // On recupere la liste des amis de l'user connecté
   const { data: sentList, error: sentListError } = useFetch(`user_friends/sent/${id}`, 'GET');
   const { data: acceptedList } = useFetch(`user_friends/accepted/${id}`, 'GET');
   const { data: pendingList } = useFetch(`user_friends/pending/${id}`, 'GET');
 
-  // On fusionne les 3 listes en une seule
   const [contactList, setContactList] = useState([]);
 
   // Le useEffect permet de mettre à jour la liste des contacts à chaque fois que
   // les listes d'amis sont mises à jour
+  // On fusionne les 3 listes d'amis en une seule
  useEffect(() => {
   if (sentList && acceptedList && pendingList) {
       setContactList([...sentList, ...acceptedList, ...pendingList]);
