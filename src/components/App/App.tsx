@@ -18,14 +18,18 @@ function App() {
   return (
     <AuthContextProvider>
       <Routes>
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<Profile />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/event_list" element={<EventList />} />
-        <Route path="/edit_profile" element={<EditProfile />} />
-        <Route path="/create_event" element={<CreateEvent />} />
-        <Route path="/event" element={<Event />} />
+        <Route element={<RedirectToProfile />}>
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Route>
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/" element={<Profile />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/edit_profile" element={<EditProfile />} />
+          <Route path="/event_list" element={<EventList />} />
+          <Route path="/create_event" element={<CreateEvent />} />
+          <Route path="/event/:id" element={<Event />} />
+        </Route>
       </Routes>
     </AuthContextProvider>
 
