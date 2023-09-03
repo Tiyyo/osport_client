@@ -1,38 +1,28 @@
 import React from 'react';
+import PlayerComp from '../Player/PlayerComp';
+import { Player, Players } from '../interface';
 
-interface PlayersListProps {
-  players: PlayerObject;
-}
-
-interface PlayerObject {
-  map(arg0: (player: PlayerObject) => React.JSX.Element): React.ReactNode;
-  user?: UserObject;
-}
-
-interface UserObject {
-  id: number;
-  avatar: string;
-  username: string;
-}
-
-function PlayerList({ players }: PlayersListProps) {
+function PlayerList({ players }: Players) {
   return (
     <div className="bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 w-full h-full">
       <h2 className="text-3xl pb-4">Players</h2>
-      <div className="grid grid-cols-5 grid-rows-2 gap-4 gap-y-8 bg-base-100 p-4 shadow-xl border rounded-xl border-gray-700 h-3/4 p-14 justify-items-center">
+      <div className="grid grid-cols-5 grid-rows-2 gap-4 gap-y-8 bg-base-100 p-4 shadow-xl border rounded-xl border-gray-700 h-3/4 justify-items-center">
 
-        {/* On map sur la liste des joueurs pour générer les avatars des particpants du match 
+        {/* On map sur la liste des joueurs pour générer les avatars des particpants du match
         (sans équipes attribuées pour l'instant) */}
-        {players && players.map((player: PlayerObject) => (
-          <div
-            key={player.user.id}
-            className="avatar flex self-start items-center justify-center gap-6 w-full cursor: text"
-          >
-            <div className="w-12 rounded-full sm:w-14">
-              <img src={player.user.avatar} alt={player.user.username} />
-            </div>
-          </div>
-        ))}
+        {/* "avatar flex self-start items-center justify-center gap-6 w-full cursor: text" */}
+        {players && players.map((player: Player) => {
+              if (player.status === 'rejected') return null;
+              return (
+                <PlayerComp
+                  key={player.user.id}
+                  avatar={player.user.avatar}
+                  username={player.user.username}
+                  status={player.status}
+                  id={player.user.id}
+                />
+              );
+})}
       </div>
     </div>
   );

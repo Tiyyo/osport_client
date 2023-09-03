@@ -6,10 +6,12 @@ interface EventInfoProps {
   nbPlayers: number;
   status: string;
   winner: number;
+  duration: number;
+  location : string;
 }
 
 function EventInfo({
- date, sport, nbPlayers, status, winner,
+ date, sport, nbPlayers, status, winner, duration, location,
 }: EventInfoProps) {
   return (
     <div className="flex flex-col gap-3 w-full bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700">
@@ -31,6 +33,17 @@ function EventInfo({
           {/* Si le nombre de joueurs est de 6 => 3v3 si 10 => 5v5 */}
           {nbPlayers === 6 ? '3v3' : '5v5'}
         </div>
+        {duration && (
+        <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">
+          {duration}
+          <span className="pl-1">min</span>
+        </div>
+          )}
+        {location && (
+        <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">
+          {location}
+        </div>
+          )}
       </div>
     </div>
   );
