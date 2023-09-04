@@ -7,11 +7,10 @@ interface SportRankingProps {
     ownRank: number | undefined;
   }
 
-function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
-
+function SportRanking({ sportSelected, ownRank } : SportRankingProps) {
     const [level, setLevel] = useState<string>('Choice');
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
-    const userId = useContext(AuthContext).user.userInfos.userId;
+    const { userId } = useContext(AuthContext).user.userInfos;
 
     useEffect(() => {
       switch (ownRank) {
@@ -22,7 +21,7 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
           setLevel('Intermediate');
           break;
         case 8:
-          setLevel('Confirmed');
+          setLevel('Advanced');
           break;
         default:
           setLevel('Choice');
@@ -48,7 +47,7 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
       } else if (level === 'Choice') {
         console.log('Tu dois choisir un niveau');
       } else {
-        console.log('Tu est ' + level + ' en ' + sportSelected);
+        console.log(`Tu est ${level} en ${sportSelected}`);
         setIsDisabled(true);
         let sportId: number;
         switch (sportSelected) {
@@ -59,35 +58,33 @@ function SportRanking ( { sportSelected, ownRank } : SportRankingProps) {
             sportId = 2;
             break;
         }
-        console.log('Body : ' + userId, sportId, level);
+        console.log(`Body : ${userId}`, sportId, level);
         const body = {
-          "user_id": userId, // Number
-          "sport_id": sportId, // Number
-          "rating": level // " Beginner" | "Intermediate" | "Advanced"
+          user_id: userId, // Number
+          sport_id: sportId, // Number
+          rating: level, // " Beginner" | "Intermediate" | "Advanced"
         };
-        await axios.post(import.meta.env.VITE_SERVER_URL + '/user/sport', body , {})
+        await axios.post(`${import.meta.env.VITE_SERVER_URL}/user/sport`, body, {})
         .then((res) => {
           console.log(res);
-        }
-        ).catch((err) => {
+        }).catch((err) => {
           console.log(err);
-        }
-        );
+        });
       }
     };
 
     return (
       <form className="flex flex-col items-center form-control w-full px-6 gap-4">
         <label className="label-text text-base self-start" htmlFor="sport">Now you can chose your level</label>
-        <select className="select select-bordered text-neutral-content w-full" value={level} onChange={handleChangeLevel} disabled={isDisabled} >
-          <option value='Choice' disabled className='font-bold italic'>Choose your level</option>
-          <option value='Beginner'>Beginner</option>
-          <option value='Intermediate'>Intermediate</option>
-          <option value='Confirmed'>Confirmed</option>
+        <select className="select select-bordered text-neutral-content w-full" value={level} onChange={handleChangeLevel} disabled={isDisabled}>
+          <option value="Choice" disabled className="font-bold italic">Choose your level</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Confirmed</option>
         </select>
         <button className="btn w-fit sm:mt-6" type="button" onClick={handleSubmit} disabled={isDisabled}>Save your level</button>
       </form>
-    )
-}    
+    );
+}
 
 export default SportRanking;

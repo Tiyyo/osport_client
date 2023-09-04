@@ -9,7 +9,7 @@ function NextEvents({ nextEvents } : any) {
   return (
     <>
       <h2 className="text-center">Next games</h2>
-      <div className="flex items-center justify-around mb-24 p-2 shadow-xl border border-gray-700 rounded-xl bg-neutral-focus sm:mb-0">
+      <div className="flex flex-col gap-y-2 shadow-md">
         {nextEvents && nextEvents.length > 0 ? nextEvents.map((event) => (
           <NextEvent
             date={event.date}
@@ -17,7 +17,7 @@ function NextEvents({ nextEvents } : any) {
             sportName={event.sport_name}
             location={event.location}
           />
-)) : <p>You don't have any events planed</p>}
+)) : <p className="text-center py-4">You don't have any events planed</p>}
       </div>
     </>
   );

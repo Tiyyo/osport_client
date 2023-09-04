@@ -15,7 +15,7 @@ function Contact() {
   // On recupere la liste des amis de l'user connecté
   const { data: sentList, error: sentListError } = useFetch(`user_friends/sent/${id}`, 'GET');
   const { data: acceptedList } = useFetch(`user_friends/accepted/${id}`, 'GET');
-  const { data: pendingList } = useFetch(`user_friends/pending/${id}`, 'GET');
+  const { data: pendingList, loading: loadingPending } = useFetch(`user_friends/pending/${id}`, 'GET');
 
   const [contactList, setContactList] = useState([]);
 
@@ -24,9 +24,11 @@ function Contact() {
   // On fusionne les 3 listes d'amis en une seule
  useEffect(() => {
   if (sentList && acceptedList && pendingList) {
+      console.log('is working');
       setContactList([...sentList, ...acceptedList, ...pendingList]);
     }
   }, [acceptedList, pendingList, sentList]);
+
   if (sentListError) return null;
 
   return (

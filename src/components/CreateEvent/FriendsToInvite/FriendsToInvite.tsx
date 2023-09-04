@@ -3,6 +3,7 @@ import axios from 'axios';
 import useFetch from '../../hooks/useFetch';
 import { EventContext } from '../../../context/EventContext';
 import AuthContext from '../../../context/AuthContext';
+import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
 
 function FriendsToInvite() {
   // On recupere l'id de l'user connecté
@@ -59,7 +60,7 @@ function FriendsToInvite() {
           <li key={item.friend.username} className="flex justify-between items-center bg-neutral  shadow-xl border border-gray-700 rounded-xl p-2">
             <div className="avatar">
               <div className="w-8 rounded-full sm:w-14">
-                <img src={item.friend.avatar} alt="avatar" />
+                {item.friend.avatar ? <img src={item.friend.avatar} alt="avatar" /> : <img src={PlayerDefaultIcon} alt={item.friend.username} /> }
               </div>
             </div>
             <h1 className="text-xl">{item.friend.username}</h1>

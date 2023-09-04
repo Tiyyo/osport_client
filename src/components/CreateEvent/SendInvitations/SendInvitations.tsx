@@ -5,6 +5,7 @@ import type { EventContextProps } from '../../../context/EventContext';
 import { EventContext } from '../../../context/EventContext';
 // import useFetch from '../../hooks/useFetch';
 import AuthContext from '../../../context/AuthContext';
+import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
 
 function SendInvitations() {
   // On recupere l'id de l'user connecté
@@ -67,7 +68,7 @@ function SendInvitations() {
           <div key={friend.id} className="flex items-center gap-2 flex-col">
             <div className="avatar">
               <div className="w-12 sm:w-16 rounded-full">
-                <img src={friend.avatar} alt="avatar" />
+                {friend.avatar ? <img src={friend.avatar} alt="avatar" /> : <img src={PlayerDefaultIcon} alt={friend.username} /> }
               </div>
             </div>
             <span>{friend.username}</span>

@@ -22,22 +22,23 @@ interface FriendObject {
 }
 
 function ContactList({ contacts, userId } : ContactsProps) {
+console.log(contacts);
   return (
     <ul className="w-full">
       {/* Si contacts existe, on map dessus */}
-      { contacts && contacts.map((contact: ContactsObject) => (
+      { contacts && contacts.length > 0 && contacts.map((contact: ContactsObject) => (
         <li
           className="bg-neutral-focus flex flex-col gap-6 shadow-xl border border-gray-700 rounded-xl py-2 px-6 my-4 sm:flex-row sm:items-center sm:justify-between"
           key={contact.friend.id}
         >
           <div className="avatar flex self-start items-center gap-6 w-full">
             <div className="w-12 rounded-full sm:w-14">
-              {contact.friend.avatar
+              {/* {contact.friend?.avatar
                ? <img src={contact.friend.avatar} alt="avatar" />
-              : <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt={`${contact.friend.avatar} avatar`} />}
+              : <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="default avatar" />} */}
 
             </div>
-            <h1 className="text-2xl">{contact.friend.username}</h1>
+            {contact.friend.username && (<h1 className="text-2xl">{contact.friend?.username}</h1>)}
           </div>
           { contact.asker_id === userId && contact.status === 'accepted' && <ContactAdded /> }
           {/* Si l'Id de l'user connecté est égal à l'Id de l'asker et que le status = pending

@@ -14,11 +14,13 @@ import Chat from './Chat/Chat';
 import ConfirmEventButton from './ConfirmEventButton/ConfirmEventButton';
 import ResultInput from './ResultInput/ResultInput';
 import FinalScore from './FinalScore/FinalScore';
+import ResponseInvitation from './ResponseInvitation/ResponseInvitation';
 
 function Event() {
 // On recupère l'id de l'utilisateur connecté dans le AuthContext
 const { user } = useContext(AuthContext);
 const userId = user?.userInfos.userId;
+const [isInvited, setIsInvited] = useState(false);
 
 // Fonction pour récuperer l'id de l'event dans l'url
 function GetEventId() {
@@ -31,15 +33,29 @@ const eventId = GetEventId();
 const { data: event, error: eventsError } = useFetch(`event/details/${eventId}`, 'GET');
 const { data: participants, error: participantsError } = useFetch(`participant/event/${eventId}`, 'GET');
 
-console.log(event);
+const checkIfInvited = (userId) => {
+if (!participants) return;
+participants.forEach((participant) => {
+if (participant.user.id === userId && participant.status === 'pending') {
+  setIsInvited(true);
+}
+});
+};
+
+useEffect(() => {
+checkIfInvited(userId);
+}, [participants, userId]);
 
   return (
     <>
       <Header />
       <Menu />
+      {isInvited && (<ResponseInvitation eventId={event.id} userId={userId} />) }
+
       {event
       && (
       <div className="flex flex-col w-full p-4 mx-auto mb-24 sm:flex-row sm:gap-4 sm:w-10/12 sm:m-auto sm:shadow-xl sm:rounded-xl sm:border-gray-700 sm:my-4 sm:mb-10 sm:pb-4 sm:border-2">
+
         <div className="flex flex-col gap-4 mb-4 sm:w-1/2 items-center ">
 
           {/* On envoie les infos nécessaires au composant d'affichage des informations du match */}
