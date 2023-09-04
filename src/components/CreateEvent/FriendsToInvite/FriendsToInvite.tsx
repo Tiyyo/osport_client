@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { EventContext } from '../../../context/EventContext';
 import AuthContext from '../../../context/AuthContext';
-import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
+// import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
+// We accept only picsum url for faker user or
+// pixabay for user without avatar
+import userAvatarOrigin from '../../../utils/regex';
 
 function FriendsToInvite() {
   // On recupere l'id de l'user connecté
@@ -13,7 +15,7 @@ function FriendsToInvite() {
   // const [friends, setFriends] = useState([]);
 
   const { eventData, setEventData } = useContext(EventContext);
-  const { data: friends, error: friendsError, loading: friendsLoading } = useFetch(`user_friends/accepted/${id}`, 'GET');
+  const { data: friends/* , error: friendsError, loading: friendsLoading */ } = useFetch(`user_friends/accepted/${id}`, 'GET');
 
   const baseUrl = import.meta.env.VITE_SERVER_URL;
 
@@ -33,24 +35,13 @@ function FriendsToInvite() {
         friends: [...eventData.friends, {
           id: friendId,
           username: friendUsername,
-          avatar: avatarUrl,
+          avatar: userAvatarOrigin.test(avatarUrl)
+          ? avatarUrl
+          : baseUrl + avatarUrl,
         }],
       });
     }
   };
-
-  // useEffect(() => {
-  //   const HandleSendInvitations = async () => {
-  //     try {
-  //       const response = await axios.get(`${baseUrl}/user_friends/accepted/${id}`);
-  //       setFriends(response.data.friends);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   HandleSendInvitations();
-  // }, [baseUrl, id]);
 
   return (
     <div className="flex flex-col gap-3 w-full sm:w-1/2 sm:self-start bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 max-h-[500px] overflow-y-scroll">
@@ -60,7 +51,12 @@ function FriendsToInvite() {
           <li key={item.friend.username} className="flex justify-between items-center bg-neutral  shadow-xl border border-gray-700 rounded-xl p-2">
             <div className="avatar">
               <div className="w-8 rounded-full sm:w-14">
-                {item.friend.avatar ? <img src={item.friend.avatar} alt="avatar" /> : <img src={PlayerDefaultIcon} alt={item.friend.username} /> }
+                <img
+                  src={userAvatarOrigin.test(item.friend.avatar)
+                  ? item.friend.avatar
+                  : baseUrl + item.friend.avatar}
+                  alt={`${item.friend.username} avatar`}
+                />
               </div>
             </div>
             <h1 className="text-xl">{item.friend.username}</h1>

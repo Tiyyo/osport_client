@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import AuthContext from '../../../context/AuthContext';
 import axiosInstance from '../../../services/axiosInstance';
 import capitalize from '../../../utils/capitalize';
+// We accept only picsum url for faker user or
+// pixabay for user without avatar
+import userAvatarOrigin from '../../../utils/regex';
 
 type Sport = {
 name : string;
@@ -47,10 +50,12 @@ const displayCurrentSport = (arraySport : Sport[]) : number => {
         <div className="flex items-center gap-4 p-4 sm:self-start">
           <div className="avatar">
             <div className="w-14 rounded-full">
-              {
-                avatar ? <img src={import.meta.env.VITE_SERVER_URL + avatar} alt={`${username} avatar`} />
-              : <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt={`${username} avatar`} />
-            }
+              <img
+                src={userAvatarOrigin.test(avatar)
+                  ? avatar
+                  : import.meta.env.VITE_SERVER_URL + avatar}
+                alt={`${username} avatar`}
+              />
             </div>
           </div>
           { username && (<h1 className="text-3xl">{capitalize(username)}</h1>)}

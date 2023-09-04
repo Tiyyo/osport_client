@@ -1,15 +1,15 @@
-import React, { FormEvent, useState , useContext, useRef, useEffect} from 'react';
+import React, {
+ FormEvent, useState, useContext, useRef, useEffect,
+} from 'react';
 import DOMPurify from 'dompurify';
 import axios from 'axios';
-//
 import useMutation from '../../hooks/useMutation';
 import AuthContext from '../../../context/AuthContext';
 import useFetch from '../../hooks/useFetch';
+import userAvatarOrigin from '../../../utils/regex';
 
-
-function EditInfo() {
-
-  const userId = useContext(AuthContext).user.userInfos.userId;
+function EditInfo({ avatar }) {
+  const { userId } = useContext(AuthContext).user.userInfos;
   const imageRef = useRef<HTMLInputElement>(null);
 
   const [newUsername, setNewUsername] = useState<string>('');
@@ -25,23 +25,20 @@ function EditInfo() {
   };
 
   const isValidUsername = regexes.username.test(newUsername);
-  const isValidEmail = regexes.email.test(newEmail);  
-  
-  const { data : user, loading } = useFetch(`/user/${userId}`, 'GET');
+  const isValidEmail = regexes.email.test(newEmail);
 
+  const { data: user, loading } = useFetch(`/user/${userId}`, 'GET');
 
   useEffect(() => {
     setNewEmail(user?.email);
       setNewUsername(user?.username);
-  }, [loading])
+  }, [loading, user?.email, user?.username]);
 
   useEffect(() => {
-    if (!user?.image_url) return;
-    setUserImage(import.meta.env.VITE_SERVER_URL + user?.image_url);
-  }, [user?.image_url, loading])
+    setUserImage(avatar);
+  }, [setUserImage, avatar]);
 
-
-  const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleChange = (/* e: React.ChangeEvent<HTMLFormElement> */) => {
     setBody(null); // Reset messages
     if (!isValidUsername || !isValidEmail) {
       setErrorMessage('Votre nom d\'utilisateur doit contenir au moins 2 caractères et votre email doit être valide.');
@@ -51,7 +48,6 @@ function EditInfo() {
   };
 
   const handleSubmit = (e : FormEvent) => {
-
     e.preventDefault();
     setErrorMessage('');
 
@@ -59,9 +55,9 @@ function EditInfo() {
 
     const cleanNewUsername = DOMPurify.sanitize(newUsername);
     const body = {
-      userId : userId,
+      userId,
       username: cleanNewUsername,
-      email : newEmail
+      email: newEmail,
     };
 
     if (!cleanNewUsername) {
@@ -81,58 +77,48 @@ function EditInfo() {
 
     if (!isValidEmail) {
       setErrorMessage('Votre email doit être valide.');
-      return; 
+      return;
     }
 
     setBody(body);
   };
 
-  const handleChangeImage = (e : any) => {
-    e.preventDefault();
-    imageRef.current.click();
-  };
-
   const handleChangeImageFile = async (e : any) => {
-    const validFilesTypes = ["image/png", "image/jpg", "image/jpeg","image/svg", "image/webp"];
+    const validFilesTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/svg', 'image/webp'];
     const maxSize = 1024 * 1024 * 1024; // 1024 mo
 
     if (!validFilesTypes.find((type) => type === e.target.files[0].type)) {
-      console.log("File must be an png or jpg type");
-      return;
+      console.log('File must be an png or jpg type');
     } else if (e.target.files[0].size > maxSize) {
-      console.log("File must not exceded 1024 mo");
-      return;
-    }
-    else {  
-
+      console.log('File must not exceded 1024 mo');
+    } else {
     const formData = new FormData();
     formData.append('id', userId.toString());
     formData.append('image', e.target.files[0]);
 
-    await axios.patch(import.meta.env.VITE_SERVER_URL + '/user/image', formData , {
+    await axios.patch(`${import.meta.env.VITE_SERVER_URL}/user/image`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        'Content-Type': 'multipart/form-data',
+      },
     }).then((res) => {
       console.log(import.meta.env.VITE_SERVER_URL + res.data.data.image_url);
       setUserImage(import.meta.env.VITE_SERVER_URL + res.data.data.image_url);
-    }
-    ).catch((err) => {
+    }).catch((err) => {
       console.log(err);
-    }
-    );
-  }};
+    });
+  }
+};
 
-    const { data , error } = useMutation('/user', body, 'PATCH');
+    const { data, error } = useMutation('/user', body, 'PATCH');
 
   return (
-    <div className='flex flex-col shadow-xl bg-neutral-focus border border-gray-700 rounded-xl items-center text-left sm:w-1/2'>
+    <div className="flex flex-col shadow-xl bg-neutral-focus border border-gray-700 rounded-xl items-center text-left sm:w-1/2">
       <form className="w-full flex flex-col items-center gap-6 py-4" onChange={handleChange}>
         <h1 className="text-2xl">Edit profile</h1>
         <div className="w-full px-6 sm:flex sm:flex-col">
           <label htmlFor="username" className="label-text text-base">Change your username</label>
           <div className="flex gap-2 justify-between items-center mt-4">
-            <input id="username" name="username" type="text" className="input input-sm input-bordered w-3/4" value={newUsername} onChange={(e) => setNewUsername(e.target.value)}/>
+            <input id="username" name="username" type="text" className="input input-sm input-bordered w-3/4" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
             {/* <button type="button" className="btn btn-sm" onClick={handleSubmitUsername}>Save</button> */}
           </div>
         </div>
@@ -140,17 +126,21 @@ function EditInfo() {
         <div className="w-full px-6 sm:flex sm:flex-col">
           <label htmlFor="email" className="label-text text-base">Change your email</label>
           <div className="flex gap-2 justify-between items-center mt-4">
-            <input id="email" name="email" type="email" className="input input-sm input-bordered w-3/4" value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/>
+            <input id="email" name="email" type="email" className="input input-sm input-bordered w-3/4" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
             <button type="button" className="btn btn-sm" onClick={handleSubmit}>Save</button>
           </div>
         </div>
 
-        {errorMessage ? <div className='text-red-600 text-xs italic mx-4 text-center'>
+        {errorMessage ? (
+          <div className="text-red-600 text-xs italic mx-4 text-center">
             {errorMessage}
-            </div> : null }
-        {data ? <div className='text-green-500 text-xs italic mx-4 text-center'>
+          </div>
+) : null }
+        {data ? (
+          <div className="text-green-500 text-xs italic mx-4 text-center">
             Votre changement a bien été pris en compte
-            </div> : null}
+          </div>
+) : null}
 
       </form>
 
@@ -158,8 +148,23 @@ function EditInfo() {
 
         <div className="avatar flex flex-col items-center gap-6 px-6">
           <div className="w-20 rounded-full">
-            <label  htmlFor='image' className='cursor-pointer' onClick={handleChangeImage}>{userImage ? <img src={userImage} alt='user_image' /> : <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="user_avatar" />}</label>
-            <input type="file" hidden ref={imageRef} className="input input-sm input-bordered" id="image" name="image" onChange={handleChangeImageFile} />
+            <label htmlFor="image" className="cursor-pointer">
+              <img
+                src={userAvatarOrigin.test(userImage)
+                ? userImage
+                : import.meta.env.VITE_SERVER_URL + userImage}
+                alt={`${newUsername} avatar`}
+              />
+            </label>
+            <input
+              type="file"
+              hidden
+              ref={imageRef}
+              className="input input-sm input-bordered"
+              id="image"
+              name="image"
+              onChange={handleChangeImageFile}
+            />
           </div>
         </div>
         <p className="text-xs px-4 mb-10 sm:text-sm">Click on your profile picture to chose a new one</p>
