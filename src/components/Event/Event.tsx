@@ -46,6 +46,8 @@ useEffect(() => {
 checkIfInvited(userId);
 }, [participants, userId]);
 
+console.log(event);
+
   return (
     <>
       <Header />
@@ -92,7 +94,7 @@ checkIfInvited(userId);
         <div className="flex flex-col-reverse gap-4 mb-4 sm:w-1/2 items-center sm:flex-col">
 
           {/* Composant qui affiche le chat */}
-          <Chat />
+          <Chat eventId={eventId} />
 
           {/* Composants pour afficher soit le bouton de confirmation du match, soit l'input pour saisir le résultat ou le résultat final */}
 
