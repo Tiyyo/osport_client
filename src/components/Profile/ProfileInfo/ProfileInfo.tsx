@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import AuthContext from '../../../context/AuthContext';
 import axiosInstance from '../../../services/axiosInstance';
 import capitalize from '../../../utils/capitalize';
-// We accept only picsum url for faker user or
-// pixabay for user without avatar
-import userAvatarOrigin from '../../../utils/regex';
+import OriginAvatarUrl from '../../../utils/originAvatarUrl';
 
 type Sport = {
 name : string;
@@ -51,9 +49,7 @@ const displayCurrentSport = (arraySport : Sport[]) : number => {
           <div className="avatar">
             <div className="w-14 rounded-full">
               <img
-                src={userAvatarOrigin.test(avatar)
-                  ? avatar
-                  : import.meta.env.VITE_SERVER_URL + avatar}
+                src={OriginAvatarUrl(avatar)}
                 alt={`${username} avatar`}
               />
             </div>

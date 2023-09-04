@@ -6,9 +6,7 @@ import { EventContext } from '../../../context/EventContext';
 // import useFetch from '../../hooks/useFetch';
 import AuthContext from '../../../context/AuthContext';
 import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
-// We accept only picsum url for faker user or
-// pixabay for user without avatar
-import userAvatarOrigin from '../../../utils/regex';
+import OriginAvatarUrl from '../../../utils/originAvatarUrl';
 
 function SendInvitations() {
   // On recupere l'id de l'user connecté
@@ -74,9 +72,7 @@ function SendInvitations() {
           <div className="avatar">
             <div className="w-12 sm:w-16 rounded-full">
               <img
-                src={userAvatarOrigin.test(eventData.creator.avatar)
-                  ? eventData.creator.avatar
-                  : import.meta.env.VITE_SERVER_URL + eventData.creator.avatar}
+                src={OriginAvatarUrl(eventData.creator.avatar)}
                 alt={`${eventData.creator.username} avatar`}
               />
             </div>
@@ -99,7 +95,7 @@ function SendInvitations() {
       <button
         type="button"
         className="btn btn-wide"
-        disabled={eventData.friends.length > eventData.nbMaxParticipant}
+        disabled={eventData.friends.length + 1 > eventData.nbMaxParticipant}
         onClick={handleCreateEvent}
       >
         Create the event

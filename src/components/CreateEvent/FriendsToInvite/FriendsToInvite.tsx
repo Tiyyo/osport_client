@@ -3,9 +3,7 @@ import useFetch from '../../hooks/useFetch';
 import { EventContext } from '../../../context/EventContext';
 import AuthContext from '../../../context/AuthContext';
 // import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
-// We accept only picsum url for faker user or
-// pixabay for user without avatar
-import userAvatarOrigin from '../../../utils/regex';
+import OriginAvatarUrl from '../../../utils/originAvatarUrl';
 
 function FriendsToInvite() {
   // On recupere l'id de l'user connecté
@@ -19,8 +17,6 @@ function FriendsToInvite() {
 
   const { eventData, setEventData } = useContext(EventContext);
   const { data: friends/* , error: friendsError, loading: friendsLoading */ } = useFetch(`user_friends/accepted/${id}`, 'GET');
-
-  const baseUrl = import.meta.env.VITE_SERVER_URL;
 
   const handleCheckboxChange = (friendId, friendUsername, avatarUrl) => {
     const isFriendSelected = eventData.friends.some((friend) => friend.id === friendId);
@@ -38,9 +34,7 @@ function FriendsToInvite() {
         friends: [...eventData.friends, {
           id: friendId,
           username: friendUsername,
-          avatar: userAvatarOrigin.test(avatarUrl)
-          ? avatarUrl
-          : baseUrl + avatarUrl,
+          avatar: OriginAvatarUrl(avatarUrl),
         }],
       });
     }
@@ -68,9 +62,7 @@ function FriendsToInvite() {
             <div className="avatar">
               <div className="w-8 rounded-full sm:w-14">
                 <img
-                  src={userAvatarOrigin.test(item.friend.avatar)
-                  ? item.friend.avatar
-                  : baseUrl + item.friend.avatar}
+                  src={OriginAvatarUrl(item.friend.avatar)}
                   alt={`${item.friend.username} avatar`}
                 />
               </div>

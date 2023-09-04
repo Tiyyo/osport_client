@@ -5,9 +5,7 @@ import React from 'react';
 import AcceptedRequest from '../AcceptedRequest/AcceptedRequest';
 import SentRequest from '../SentRequest/SentRequest';
 import PendingRequest from '../PendingRequest/PendingRequest';
-// We accept only picsum url for faker user or
-// pixabay for user without avatar
-import userAvatarOrigin from '../../../utils/regex';
+import OriginAvatarUrl from '../../../utils/originAvatarUrl';
 
 interface ContactsProps {
   userId: number;
@@ -24,9 +22,7 @@ function ContactList({
       {pendings && pendings.length > 0 && pendings.map((el) => (
         <PendingRequest
           key={el.friend.id}
-          avatar={userAvatarOrigin.test(el.friend.avatar)
-            ? el.friend.avatar
-            : import.meta.env.VITE_SERVER_URL + el.friend.avatar}
+          avatar={OriginAvatarUrl(el.friend.avatar)}
           username={el.friend.username}
           userId={userId}
           friendId={el.friend.id}
@@ -36,9 +32,7 @@ function ContactList({
       { accepted && accepted.length > 0 && accepted.map((el) => (
         <AcceptedRequest
           key={el.friend.id}
-          avatar={userAvatarOrigin.test(el.friend.avatar)
-            ? el.friend.avatar
-            : import.meta.env.VITE_SERVER_URL + el.friend.avatar}
+          avatar={OriginAvatarUrl(el.friend.avatar)}
           username={el.friend.username}
           userId={userId}
         />
@@ -46,9 +40,7 @@ function ContactList({
       {sents && sents.length > 0 && sents.map((el) => (
         <SentRequest
           key={el.friend.id}
-          avatar={userAvatarOrigin.test(el.friend.avatar)
-            ? el.friend.avatar
-            : import.meta.env.VITE_SERVER_URL + el.friend.avatar}
+          avatar={OriginAvatarUrl(el.friend.avatar)}
           username={el.friend.username}
           userId={userId}
         />

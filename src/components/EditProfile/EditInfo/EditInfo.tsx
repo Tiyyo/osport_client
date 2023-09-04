@@ -6,7 +6,7 @@ import axios from 'axios';
 import useMutation from '../../hooks/useMutation';
 import AuthContext from '../../../context/AuthContext';
 import useFetch from '../../hooks/useFetch';
-import userAvatarOrigin from '../../../utils/regex';
+import OriginAvatarUrl from '../../../utils/originAvatarUrl';
 
 function EditInfo({ avatar }) {
   const { userId } = useContext(AuthContext).user.userInfos;
@@ -150,9 +150,7 @@ function EditInfo({ avatar }) {
           <div className="w-20 rounded-full">
             <label htmlFor="image" className="cursor-pointer">
               <img
-                src={userAvatarOrigin.test(userImage)
-                ? userImage
-                : import.meta.env.VITE_SERVER_URL + userImage}
+                src={OriginAvatarUrl(userImage)}
                 alt={`${newUsername} avatar`}
               />
             </label>

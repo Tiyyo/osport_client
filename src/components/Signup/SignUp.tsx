@@ -69,10 +69,9 @@ const SignUp: React.FC = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      handleSubmit(e as unknown as FormEvent);  // Casting nécessaire pour satisfaire les types
+      handleSubmit(e as unknown as FormEvent); // Casting nécessaire pour satisfaire les types
     }
   };
-  
 
   return (
     <div className="flex flex-col items-center">
@@ -101,16 +100,18 @@ const SignUp: React.FC = () => {
             className="input input-bordered w-full max-w-xs"
             value={username}
             onChange={(e) => {
-              setUsername(e.target.value)
+              setUsername(e.target.value);
               // validateUsername(e.target.value, 'username');
             }}
             onKeyDown={handleKeyDown}
           />
         </div>
 
-        {!isUsernameValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          Votre nom d'utilisateur doit contenir au moins 2 caractères et uniquement des lettres, des chiffres et des underscores.
-          </span> : null }
+        {!isUsernameValid ? (
+          <span className="text-red-600 text-xs italic mx-4 text-center">
+            Votre nom d'utilisateur doit contenir au moins 2 caractères et uniquement des lettres, des chiffres et des underscores.
+          </span>
+) : null }
 
         <div className="form-control w-full max-w-xs m-1">
           <label className="label" htmlFor="email">
@@ -123,16 +124,18 @@ const SignUp: React.FC = () => {
             className="input input-bordered w-full max-w-xs"
             value={email}
             onChange={(e) => {
-              setEmail(e.target.value)
+              setEmail(e.target.value);
               // validateEmail(e.target.value, 'email');
             }}
             onKeyDown={handleKeyDown}
           />
         </div>
 
-        {!isEmailValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          Votre email doit être valide.
-          </span> : null}
+        {!isEmailValid ? (
+          <span className="text-red-600 text-xs italic mx-4 text-center">
+            Votre email doit être valide.
+          </span>
+) : null}
 
         <div className="form-control w-full max-w-xs m-1">
           <label className="label" htmlFor="password">
@@ -145,7 +148,7 @@ const SignUp: React.FC = () => {
             className="input input-bordered w-full max-w-xs"
             value={password}
             onChange={(e) => {
-              setPassword(e.target.value)
+              setPassword(e.target.value);
               setErrorMessage('');
               // validatePassword(e.target.value, 'password');
             }}
@@ -153,22 +156,25 @@ const SignUp: React.FC = () => {
           />
         </div>
 
-        {!isPasswordValid ? <span className='text-red-600 text-xs italic mx-4 text-center mb-2'>
-          Votre mot de passe doit contenir au moins 8 caractères, une lettre et un chiffre et un caractère spécial.
-          </span> : null}
+        {!isPasswordValid ? (
+          <span className="text-red-600 text-xs italic mx-4 text-center mb-2">
+            Votre mot de passe doit contenir au moins 8 caractères, une lettre et un chiffre et un caractère spécial.
+          </span>
+) : null}
 
-        <div className='flex flex-col items-start'>
+        <div className="flex flex-col items-start">
           <div className="form-control">
             <label className="label cursor-pointer flex justify-start">
-              <input 
-              onChange={(e) => {
-                setCguChecked(e.target.checked)
-                setIsCguChecked(true)
+              <input
+                onChange={(e) => {
+                setCguChecked(e.target.checked);
+                setIsCguChecked(true);
               }}
-              type="checkbox" 
-              checked= {cguChecked}
-              name = 'cgu'
-              className="checkbox me-2" />
+                type="checkbox"
+                checked={cguChecked}
+                name="cgu"
+                className="checkbox me-2"
+              />
               <span className="label-text text-xs">
                 J'accepte les
                 <Link to="..." className="link link-info m-1">
@@ -178,18 +184,21 @@ const SignUp: React.FC = () => {
             </label>
           </div>
 
-          {!isCguChecked ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-            Vous devez accepter les Conditions Générales d'Utilisation.
-          </span> : null}
+          {!isCguChecked ? (
+            <span className="text-red-600 text-xs italic mx-4 text-center">
+              Vous devez accepter les Conditions Générales d'Utilisation.
+            </span>
+) : null}
 
           <div className="form-control">
             <label className="label cursor-pointer flex justify-start">
-              <input 
-              onChange={(e) => setNewsletterChecked(e.target.checked)}
-              type="checkbox" 
-              checked= {newsletterChecked}
-              className="checkbox me-2"
-              name = 'newsletter' />
+              <input
+                onChange={(e) => setNewsletterChecked(e.target.checked)}
+                type="checkbox"
+                checked={newsletterChecked}
+                className="checkbox me-2"
+                name="newsletter"
+              />
               <span className="label-text text-xs">
                 J'accepte de recevoir des emails de la part d'O'Sport
               </span>
@@ -197,9 +206,11 @@ const SignUp: React.FC = () => {
           </div>
         </div>
 
-        {!isServerValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          {errorMessage}
-          </span> : null }
+        {!isServerValid ? (
+          <span className="text-red-600 text-xs italic mx-4 text-center">
+            {errorMessage}
+          </span>
+) : null }
 
         <button type="submit" className="btn btn-outline btn-success m-1 mb-4" onClick={handleSubmit}>
           S'inscrire
@@ -207,7 +218,7 @@ const SignUp: React.FC = () => {
       </form>
 
       <div className="container text-center w-96 border border-white rounded-lg m-1 p-3 mb-3 text-sm">
-      Déjà inscrit ? &nbsp;
+        Déjà inscrit ? &nbsp;
         <Link to="/login" className="link link-info">
           Se connecter
         </Link>
@@ -224,6 +235,6 @@ const SignUp: React.FC = () => {
 
     </div>
   );
-}
+};
 
 export default SignUp;
