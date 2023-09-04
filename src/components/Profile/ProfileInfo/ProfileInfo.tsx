@@ -1,13 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import levelNumberToString from '../../../utils/levelNumberToString';
 import AuthContext from '../../../context/AuthContext';
 import axiosInstance from '../../../services/axiosInstance';
 import capitalize from '../../../utils/capitalize';
-
-type Sport = {
-name : string;
-gb_rating : number;
-};
+import type { Sport } from '../../types';
 
 interface ProfileInfosInterface {
 username : string;
@@ -32,13 +29,17 @@ const handleChangeSport = (e) => {
 setSportChosen(e.target.value);
 };
 
-const displayCurrentSport = (arraySport : Sport[]) : number => {
-const currentSport = arraySport.find((sport) => sport.name.toLowerCase() === sportChosen.toLowerCase());
-return currentSport?.gb_rating;
+const displayCurrentSport = (arraySport : Sport[]) : string => {
+const currentSport = arraySport
+  .find((sport) => sport.name.toLowerCase() === sportChosen.toLowerCase());
+const convertedRating = levelNumberToString(currentSport?.gb_rating);
+return convertedRating;
 };
 
   return (
-    <div className="flex flex-col h-content gap-4 pb-4 px-5 m-auto w-full h-80 shadow-xl border border-gray-700 rounded-xl mb-2 bg-neutral-focus sm:mb-0">
+    <div className="flex flex-col h-content gap-4 pb-4 px-5 m-auto w-full h-80
+      shadow-xl border border-gray-700 rounded-xl mb-2 bg-neutral-focus sm:mb-0"
+    >
       <div className="flex flex-col items-center justify-between w-full">
 
         <div className="flex items-center gap-4 p-4 sm:self-start">

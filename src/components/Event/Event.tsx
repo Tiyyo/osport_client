@@ -52,7 +52,7 @@ console.log(event);
     <>
       <Header />
       <Menu />
-      {isInvited && (<ResponseInvitation eventId={event.id} userId={userId} />) }
+      {isInvited && (<ResponseInvitation eventId={event?.id} userId={userId} />) }
 
       {event
       && (
@@ -99,7 +99,14 @@ console.log(event);
           {/* Composants pour afficher soit le bouton de confirmation du match, soit l'input pour saisir le résultat ou le résultat final */}
 
           {/* Si pas de vainqueur et statut open => Bouton pour confirmer le match */}
-          {!event.winner_team && event.status === 'open' && <ConfirmEventButton userId={userId} eventId={eventId} />}
+          {!event.winner_team && event.status === 'open' && (
+          <ConfirmEventButton
+            userId={userId}
+            eventId={eventId}
+            requiredPlayers={event.nb_max_participant}
+            participants={participants}
+          />
+)}
           {/* Si pas de vainqueur et statut diffèrent de open => Input pour saisir le résultat */}
           {!event.winner_team && event.status !== 'open' && <ResultInput userId={userId} eventId={eventId} />}
           {/* Si le match a un vainqueur enregistré => Affichage du score final */}

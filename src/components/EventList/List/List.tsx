@@ -4,35 +4,21 @@ import formDate from '../../../utils/formatDate';
 import ResultLoader from '../ResultLoader/ResultLoader';
 import ResultWin from '../ResultTitle/ResultWin';
 import ResultLose from '../ResultTitle/ResultLose';
+import { Event } from '../../types';
 
-interface ListProps {
-  events: EventObject[];
-  userId: number;
-}
-
-interface EventObject {
-  map(arg0: (event: EventObject) => React.JSX.Element): React.ReactNode;
-  id: number;
-  winner_team?: number;
-  status: string;
-  date: string;
-  sport_name: string;
-  score_team_1?: number;
-  score_team_2?: number;
-}
-
-function List({ events } : ListProps) {
+function List({ events } : { events : Event[] }) {
   return (
     <ul className="w-full px-5">
       {/* Si events existe, on map dessus */}
-      { events && events.map((event: EventObject) => (
+      { events && events.map((event: Event) => (
         <li
           className="bg-neutral-focus flex flex-col items-center gap-2 pb-10 shadow-xl border border-gray-700 rounded-xl py-2 px-6 my-4 sm:items-center sm:justify-between"
           key={event.id}
         >
           <div className="flex justify-between w-full">
+            {event.winner_team === event.user_team && <ResultWin />}
+            {event.winner_team && event.winner_team !== event.user_team && <ResultLose />}
             {!event.winner_team && <ResultLoader status={event.status} />}
-            {event.winner_team && <ResultWin />}
             <div className="text-right">
               <div className="stat-desc text-sm sm:text-lg">{formDate(event.date)}</div>
               <div className="stat-desc text-xs sm:text-base">{event.sport_name}</div>
