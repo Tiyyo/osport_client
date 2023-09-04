@@ -33,8 +33,11 @@ setSportChosen(e.target.value);
 };
 
 const displayCurrentSport = (arraySport : Sport[]) : number => {
-const currentSport = arraySport.find((sport) => sport.name.toLowerCase() === sportChosen.toLowerCase());
-return currentSport?.gb_rating;
+  const currentSport = arraySport.find(
+      (sport) => sport.name.toLowerCase() === sportChosen.toLowerCase(),
+  );
+
+  return currentSport?.gb_rating;
 };
 
   return (
@@ -45,7 +48,7 @@ return currentSport?.gb_rating;
           <div className="avatar">
             <div className="w-14 rounded-full">
               {
-                avatar ? <img src={avatar} alt={`${username} avatar`} />
+                avatar ? <img src={import.meta.env.VITE_SERVER_URL + avatar} alt={`${username} avatar`} />
               : <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt={`${username} avatar`} />
             }
             </div>
