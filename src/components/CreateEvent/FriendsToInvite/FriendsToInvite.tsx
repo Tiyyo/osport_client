@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { EventContext } from '../../../context/EventContext';
 import AuthContext from '../../../context/AuthContext';
@@ -11,6 +11,9 @@ function FriendsToInvite() {
   // On recupere l'id de l'user connecté
   const { user } = useContext(AuthContext);
   const id = user.userInfos.userId;
+
+  // const { user: { userInfos: { userId } } } = useContext(AuthContext);
+  const { data: superInfos /* , error: userInfosError, loading: userInfosLoading */ } = useFetch(`user/${id}`, 'GET');
 
   // const [friends, setFriends] = useState([]);
 
@@ -43,10 +46,23 @@ function FriendsToInvite() {
     }
   };
 
+  useEffect(() => {
+    // We must here use prevEventData to avoid infinite loop
+    setEventData((prevEventData) => ({
+      ...prevEventData,
+      creator: {
+        id,
+        username: superInfos?.username,
+        avatar: superInfos?.image_url,
+      },
+    }));
+  }, [id, superInfos, setEventData]);
+
   return (
     <div className="flex flex-col gap-3 w-full sm:w-1/2 sm:self-start bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 max-h-[500px] overflow-y-scroll">
       <h2 className="text-xl pb-6 sm:text-3xl">Chose participants</h2>
       <ul className="w-full flex flex-col gap-4">
+
         {friends && friends.map((item) => (
           <li key={item.friend.username} className="flex justify-between items-center bg-neutral  shadow-xl border border-gray-700 rounded-xl p-2">
             <div className="avatar">

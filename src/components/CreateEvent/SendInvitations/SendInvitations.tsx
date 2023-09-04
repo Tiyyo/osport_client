@@ -6,6 +6,9 @@ import { EventContext } from '../../../context/EventContext';
 // import useFetch from '../../hooks/useFetch';
 import AuthContext from '../../../context/AuthContext';
 import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
+// We accept only picsum url for faker user or
+// pixabay for user without avatar
+import userAvatarOrigin from '../../../utils/regex';
 
 function SendInvitations() {
   // On recupere l'id de l'user connecté
@@ -51,19 +54,36 @@ function SendInvitations() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 py-8 px-4 bg-neutral-focus shadow-xl border rounded-xl border-gray-700 sm:w-1/2 sm:h-fit">
       <h2 className="text-sm flex items-center">
-        {eventData.friends.length === eventData.nbMaxParticipant && (
+        {/* +1 to include the creator */}
+        {eventData.friends.length + 1 === eventData.nbMaxParticipant && (
           <img src="https://img.icons8.com/?size=512&id=63312&format=png" className="w-7" alt="valid" />
         )}
-        {eventData.friends.length > eventData.nbMaxParticipant && (
+        {eventData.friends.length + 1 > eventData.nbMaxParticipant && (
           <img src="https://img.icons8.com/?size=512&id=63690&format=png" className="w-7" alt="valid" />
         )}
-        <span className="badge badge-base-100 badge-lg mx-2 p-2">{eventData.friends.length}</span>
+        <span className="badge badge-base-100 badge-lg mx-2 p-2">{eventData.friends.length + 1}</span>
         players on
         <span className="badge badge-base-100 badge-lg mx-2 p-2">{eventData.nbMaxParticipant}</span>
         required
       </h2>
 
       <div className="flex flex-wrap gap-8 my-5 justify-center max-w-[500px]">
+
+        {/* One individual div for the creator */}
+        <div key={eventData.creator.id} className="flex items-center gap-2 flex-col">
+          <div className="avatar">
+            <div className="w-12 sm:w-16 rounded-full">
+              <img
+                src={userAvatarOrigin.test(eventData.creator.avatar)
+                  ? eventData.creator.avatar
+                  : import.meta.env.VITE_SERVER_URL + eventData.creator.avatar}
+                alt={`${eventData.creator.username} avatar`}
+              />
+            </div>
+          </div>
+          <span>{eventData.creator.username}</span>
+        </div>
+
         {eventData.friends.map((friend) => (
           <div key={friend.id} className="flex items-center gap-2 flex-col">
             <div className="avatar">
@@ -72,7 +92,6 @@ function SendInvitations() {
               </div>
             </div>
             <span>{friend.username}</span>
-
           </div>
         ))}
       </div>
