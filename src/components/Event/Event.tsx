@@ -1,6 +1,5 @@
-/* eslint-disable max-len */
 import React, { useContext, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import formDate from '../../utils/formatDate';
 import AuthContext from '../../context/AuthContext';
 import useFetch from '../hooks/useFetch';
@@ -20,33 +19,41 @@ function Event() {
 // On recupère l'id de l'utilisateur connecté dans le AuthContext
 const { user } = useContext(AuthContext);
 const userId = user?.userInfos.userId;
-const [isInvited, setIsInvited] = useState(false);
+  const [isInvited, setIsInvited] = useState(false);
+const navigate = useNavigate();
 
 // Fonction pour récuperer l'id de l'event dans l'url
 function GetEventId() {
     const { id } = useParams();
     return parseInt(id, 10);
-  }
+}
+
 const eventId = GetEventId();
 
 // On utilise le hook personnalisé pour récupérer les infos de l'event et les particpants d'un match
-const { data: event, error: eventsError } = useFetch(`event/details/${eventId}`, 'GET');
-const { data: participants, error: participantsError } = useFetch(`participant/event/${eventId}`, 'GET');
-
-const checkIfInvited = (userId) => {
-if (!participants) return;
-participants.forEach((participant) => {
-if (participant.user.id === userId && participant.status === 'pending') {
-  setIsInvited(true);
-}
-});
-};
+const { data: event/* , error: eventsError */ } = useFetch(`event/details/${eventId}`, 'GET');
+const { data: participants/* , error: participantsError */ } = useFetch(`participant/event/${eventId}`, 'GET');
 
 useEffect(() => {
-checkIfInvited(userId);
-}, [participants, userId]);
+  const checkIfInvited = () => {
+    if (!participants) return;
 
-console.log(event);
+    participants.forEach((participant) => {
+      if (participant.user.id === userId && participant.status === 'pending') {
+        setIsInvited(true);
+      }
+    });
+  };
+
+  const checkIfPresent = () => {
+    if (participants && !participants.some((participant) => participant.user.id === userId)) {
+      navigate('/event_list');
+    }
+  };
+
+  checkIfPresent();
+  checkIfInvited();
+}, [participants, userId, navigate]);
 
   return (
     <>
@@ -96,14 +103,30 @@ console.log(event);
           {/* Composant qui affiche le chat */}
           <Chat eventId={eventId} />
 
-          {/* Composants pour afficher soit le bouton de confirmation du match, soit l'input pour saisir le résultat ou le résultat final */}
+          {/* Composants pour afficher soit le bouton de confirmation du match,
+          soit l'input pour saisir le résultat ou le résultat final */}
 
           {/* Si pas de vainqueur et statut open => Bouton pour confirmer le match */}
-          {!event.winner_team && event.status === 'open' && <ConfirmEventButton userId={userId} eventId={eventId} />}
+          {!event.winner_team && event.status === 'open' && (
+            <ConfirmEventButton
+              userId={userId}
+              eventId={eventId}
+            />
+          )}
           {/* Si pas de vainqueur et statut diffèrent de open => Input pour saisir le résultat */}
-          {!event.winner_team && event.status !== 'open' && <ResultInput userId={userId} eventId={eventId} />}
+          {!event.winner_team && event.status !== 'open' && (
+            <ResultInput
+              userId={userId}
+              eventId={eventId}
+            />
+          )}
           {/* Si le match a un vainqueur enregistré => Affichage du score final */}
-          {event.winner_team && <FinalScore firstTeamScore={event.score_team_1} secondTeamScore={event.score_team_2} />}
+          {event.winner_team && (
+            <FinalScore
+              firstTeamScore={event.score_team_1}
+              secondTeamScore={event.score_team_2}
+            />
+          )}
         </div>
       </div>
       )}
