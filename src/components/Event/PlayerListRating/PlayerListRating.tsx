@@ -20,16 +20,9 @@ interface PlayersListProps {
 }
 
 function PlayerListRating({ players, nbPlayers, firstTeamScore, secondTeamScore, sportId }: PlayersListProps) {
-    // Fonction pour définir le nombre de colonnes à indiquer dans la classe de la <div>
-  // en fonction du nombre de joueurs max. (qu'on divise par 2)
-
   const { user: { userInfos: { userId } } } = useContext(AuthContext);
   const [userIdToRate, setUserIdToRate] = useState<number>(null);
   const formModal = useRef(null);
-
-  function colsNumber(nbOfPlayers: number) {
-    return `grid grid-cols-${nbOfPlayers / 2} gap-8 p-5`;
-  }
 
   function openModal(state) {
     window.ratingModal.showModal();
@@ -81,7 +74,7 @@ const handleSubmit = (e) => {
 
       {/* La classe de la <div> changera automatiquement selon le nombre de joueurs max. */}
       {nbPlayers && (
-      <div className={colsNumber(nbPlayers)}>
+      <div className="flex gap-7 flex-wrap justify-center p-4 py-6">
 
         {/* On filtre les joueurs pour n'afficher que ceux de la l'équipe 1
         On map sur le tableau qui a été filter pour générer les avatars */}
@@ -114,7 +107,7 @@ const handleSubmit = (e) => {
 
       {/* Même procédé que pour la première équipe */}
       {nbPlayers && (
-      <div className={colsNumber(nbPlayers)}>
+      <div className="flex gap-7 flex-wrap justify-center p-4 py-6">
         {players && players
         .filter((player) => player.team === 2)
         .map((player) => (

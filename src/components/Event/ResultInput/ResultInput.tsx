@@ -3,6 +3,7 @@ import axiosInstance from '../../../services/axiosInstance';
 
 interface ResultsInputProps {
   userId: number;
+  creatorId: number;
   eventId: number;
 }
 
@@ -13,7 +14,7 @@ interface SaveResultProps {
   secondResult: number;
 }
 
-function ResultInput({ userId, eventId } : ResultsInputProps) {
+function ResultInput({ userId, creatorId, eventId } : ResultsInputProps) {
   const [resultTeamOne, setResultTeamOne] = useState<number>(null);
   const [resultTeamTwo, setResultTeamTwo] = useState<number>(null);
 
@@ -57,7 +58,7 @@ function ResultInput({ userId, eventId } : ResultsInputProps) {
             />
           </div>
           <div className="divider divider-horizontal my-3" />
-          <div className="flex flex-col  items-center gap-3">
+          <div className="flex flex-col items-center gap-3">
             <h3 className="font-bold">Team 2</h3>
             <input
               type="number"
@@ -69,9 +70,15 @@ function ResultInput({ userId, eventId } : ResultsInputProps) {
         </div>
         <h3 className="text-center text-sm">Enter final score here</h3>
       </div>
-      <button type="submit" className="btn btn-neutral">
-        Save result
-      </button>
+      {userId === creatorId ? (
+        <button type="submit" className="btn btn-neutral">
+          Save result
+        </button>
+        ) : (
+          <button type="submit" className="btn btn-disabled" aria-disabled="true">
+            Waiting
+          </button>
+      )}
     </form>
   );
 }

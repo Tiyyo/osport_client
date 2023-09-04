@@ -99,11 +99,11 @@ console.log(event);
           {/* Composants pour afficher soit le bouton de confirmation du match, soit l'input pour saisir le résultat ou le résultat final */}
 
           {/* Si pas de vainqueur et statut open => Bouton pour confirmer le match */}
-          {!event.winner_team && event.status === 'open' && <ConfirmEventButton userId={userId} eventId={eventId} />}
+          {event.status === 'open' && <ConfirmEventButton userId={userId} creatorId={event.creator_id} eventId={eventId} status={event.status} />}
           {/* Si pas de vainqueur et statut diffèrent de open => Input pour saisir le résultat */}
-          {!event.winner_team && event.status !== 'open' && <ResultInput userId={userId} eventId={eventId} />}
+          {event.status === 'full' && <ResultInput userId={userId} creatorId={event.creator_id} eventId={eventId} />}
           {/* Si le match a un vainqueur enregistré => Affichage du score final */}
-          {event.winner_team && <FinalScore firstTeamScore={event.score_team_1} secondTeamScore={event.score_team_2} />}
+          {event.status === 'finished' && <FinalScore firstTeamScore={event.score_team_1} secondTeamScore={event.score_team_2} />}
         </div>
       </div>
       )}
