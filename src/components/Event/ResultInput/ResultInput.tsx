@@ -70,13 +70,15 @@ function ResultInput({ userId, creatorId, eventId } : ResultsInputProps) {
         </div>
         <h3 className="text-center text-sm">Enter final score here</h3>
       </div>
-      {userId === creatorId ? (
-        <button type="submit" className="btn btn-neutral">
-          Save result
+      {/* Si l'id de l'user est diffèrent de l'id du créateur de l'event
+      ou si l'un des deux champs est vide,on affiche le bouton disabled */}
+      {userId !== creatorId || (resultTeamOne === null || resultTeamTwo === null) ? (
+        <button type="submit" className="btn btn-disabled" aria-disabled="true">
+          Waiting
         </button>
         ) : (
-          <button type="submit" className="btn btn-disabled" aria-disabled="true">
-            Waiting
+          <button type="submit" className="btn btn-neutral">
+            Save result
           </button>
       )}
     </form>

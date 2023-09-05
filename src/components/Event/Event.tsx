@@ -73,11 +73,11 @@ console.log(event);
 
           {/* Composants pour afficher les avatars des joueurs */}
 
-          {/* Si pas de vainqueur et statut open => Affichage des participants */}
+          {/* Si statut open => Affichage des participants */}
           {event.status === 'open' && <PlayerList players={participants} />}
-          {/* Si pas de vainqueur et statut diffèrent de open => Liste des joueurs des 2 équipes */}
+          {/* Si status full => Liste des joueurs des 2 équipes */}
           {event.status === 'full' && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
-          {/* Si le match a un vainqueur enregistré => Liste des joueurs + notation */}
+          {/* Si stattus finished => Liste des joueurs + notation */}
           {event.status === 'finished'
             && (
             <PlayerListRating
@@ -97,11 +97,11 @@ console.log(event);
 
           {/* Composants pour afficher soit le bouton de confirmation du match, soit l'input pour saisir le résultat ou le résultat final */}
 
-          {/* Si pas de vainqueur et statut open => Bouton pour confirmer le match */}
+          {/* Si statut open => Bouton pour confirmer le match */}
           {event.status === 'open' && <ConfirmEventButton userId={userId} creatorId={event.creator_id} eventId={eventId} status={event.status} />}
-          {/* Si pas de vainqueur et statut diffèrent de open => Input pour saisir le résultat */}
+          {/* Si statut full => Input pour saisir le résultat */}
           {event.status === 'full' && <ResultInput userId={userId} creatorId={event.creator_id} eventId={eventId} />}
-          {/* Si le match a un vainqueur enregistré => Affichage du score final */}
+          {/* Si statut finished => Affichage du score final */}
           {event.status === 'finished' && <FinalScore firstTeamScore={event.score_team_1} secondTeamScore={event.score_team_2} />}
         </div>
       </div>

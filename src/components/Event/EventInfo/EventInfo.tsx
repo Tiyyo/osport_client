@@ -16,12 +16,12 @@ function EventInfo({
   return (
     <div className="flex flex-col gap-3 w-full bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700">
       <h1 className="text-3xl font-bold self-start">
-        {/* Si le match a un vainqueur enregistré => 'Full Time' */}
-        {winner && 'Full Time'}
-        {/* Si pas de vainqueur et statut open => 'New Event' */}
-        {!winner && status === 'open' && 'New Event'}
-        {/* Si pas de vainqueur et statut different de open (full ou closed) => 'Playing' */}
-        {!winner && status !== 'open' ? 'Playing' : null}
+        {/* Si statut open => 'New Event' */}
+        {status === 'open' && 'New Event'}
+        {/* Si status full => 'Playing' */}
+        {status === 'full' && 'Playing'}
+        {/* Si status finished => 'Full Time' */}
+        {status === 'finished' && 'Full Time'}
       </h1>
       <div className="flex gap-4 py-6 flex-wrap">
         <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">{date}</div>
