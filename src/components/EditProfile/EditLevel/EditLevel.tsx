@@ -4,16 +4,14 @@ import AuthContext from '../../../context/AuthContext';
 import SportRanking from '../LevelSelector/SportRanking';
 
 function EditLevel() {
-
   const [sportSelected, setSportSelected] = useState<string>('Choice');
   const [rank, setRank] = useState();
 
   const userId = useContext(AuthContext).user.userInfos.userId;
-  const userSport = useFetch('/user/own_rating/' + userId, 'GET');
+  const userSport = useFetch(`/user/own_rating/${userId}`, 'GET');
 
   useEffect(() => {
-  const sports = (userSport.data);
-  const ownRank = sports?.filter((sport: any) => sport.gb_rating !== 0 && sport.gb_rating !== null && sport.name === sportSelected).map((sport: any) => sport.rating).pop();
+  const ownRank = userSport.data?.filter((sport: any) => sport.gb_rating !== 0 && sport.gb_rating !== null && sport.name === sportSelected).map((sport: any) => sport.rating).pop();
   setRank(ownRank);
   }, [userSport.loading, sportSelected]);
 

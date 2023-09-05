@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import AuthContext from '../../../context/AuthContext';
 import axiosInstance from '../../../services/axiosInstance';
 import capitalize from '../../../utils/capitalize';
+
 
 type Sport = {
 name : string;
@@ -22,6 +24,8 @@ const [sportChosen, setSportChosen] = useState<'Football' | 'BasketBall'>('Footb
 const logout = async () => {
     setIsAuth(false);
     await axiosInstance.post('/logout');
+    const [ cookie, removeCookie ] = useCookies(['user']);
+    removeCookie('user', '/');
 };
 
 const handleClickLogout = () => {
