@@ -44,7 +44,7 @@ function ResultInput({ userId, creatorId, eventId } : ResultsInputProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 py-4 justify-evenly w-full items-center bg-neutral-focus shadow-xl border rounded-xl border-gray-700 h-full min-[1100px]:flex-row"
+      className="flex flex-col gap-4 py-4 justify-evenly w-full items-center bg-neutral-focus shadow-xl border rounded-xl border-base-300 h-full min-[1100px]:flex-row"
     >
       <div className="flex flex-col gap-2">
         <div className="flex justify-center">
@@ -77,7 +77,7 @@ function ResultInput({ userId, creatorId, eventId } : ResultsInputProps) {
           Waiting
         </button>
         ) : (
-          <button type="submit" className="btn btn-neutral">
+          <button type="submit" className="btn btn-ghost border-gray-500">
             Save result
           </button>
       )}

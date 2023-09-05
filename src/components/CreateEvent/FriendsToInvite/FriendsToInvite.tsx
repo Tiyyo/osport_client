@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
 import useFetch from '../../hooks/useFetch';
 import { EventContext } from '../../../context/EventContext';
 import AuthContext from '../../../context/AuthContext';
@@ -9,8 +8,6 @@ function FriendsToInvite() {
   // On recupere l'id de l'user connecté
   const { user } = useContext(AuthContext);
   const id = user.userInfos.userId;
-
-  // const [friends, setFriends] = useState([]);
 
   const { eventData, setEventData } = useContext(EventContext);
   const { data: friends, error: friendsError, loading: friendsLoading } = useFetch(`user_friends/accepted/${id}`, 'GET');
@@ -39,21 +36,8 @@ function FriendsToInvite() {
     }
   };
 
-  // useEffect(() => {
-  //   const HandleSendInvitations = async () => {
-  //     try {
-  //       const response = await axios.get(`${baseUrl}/user_friends/accepted/${id}`);
-  //       setFriends(response.data.friends);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   HandleSendInvitations();
-  // }, [baseUrl, id]);
-
   return (
-    <div className="flex flex-col gap-3 w-full sm:w-1/2 sm:self-start bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 max-h-[500px] overflow-y-scroll">
+    <div className="flex flex-col gap-3 w-full sm:w-1/2 sm:self-start bg-neutral-focus p-4 shadow-xl border rounded-xl border-base-300 max-h-[500px] overflow-y-scroll">
       <h2 className="text-xl pb-6 sm:text-3xl">Chose participants</h2>
       <ul className="w-full flex flex-col gap-4">
         {friends && friends.map((item) => (

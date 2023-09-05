@@ -21,13 +21,13 @@ function ConfirmEventButton({ userId, creatorId, eventId, status }: ButtonProps)
   }
 
   return (
-    <div className="bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 w-full text-center">
+    <div className="bg-neutral-focus p-4 shadow-xl border rounded-xl border-base-300 w-full text-center">
       {/* Bouton qui exécutera la fonction handleClick avec les paramètres userId et eventId */}
       {status === 'open' && userId === creatorId
         ? <button className="btn btn-disabled" tabIndex="-1" type="button" aria-disabled="true">Waiting for confirmation</button>
         : (
           <button
-            className="btn btn-wide sm:btn-lg"
+            className="btn btn-wide btn-ghost border-gray-500 sm:btn-lg"
             onClick={() => handleClick(userId, eventId)}
             type="button"
           >

@@ -4,7 +4,7 @@ import { Player, Players } from '../interface';
 
 function PlayerList({ players }: Players) {
   return (
-    <div className="bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 w-full h-full">
+    <div className="bg-neutral-focus p-4 shadow-xl rounded-xl border border-base-300 w-full h-full">
       <h2 className="text-3xl pb-4">Players</h2>
       <div className="flex gap-7 flex-wrap justify-center p-4 py-6">
 

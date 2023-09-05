@@ -29,7 +29,7 @@ function EventList() {
     <>
       <Header />
       <Menu />
-      <div className="flex flex-col items-center p-4 mb-28 sm:w-4/5 sm:m-auto sm:shadow-xl sm:rounded-xl sm:border-gray-700 sm:my-4 sm:pb-4 sm:border-2">
+      <div className="flex flex-col items-center p-4 mb-28 sm:w-4/5 sm:m-auto sm:shadow-xl sm:rounded-xl sm:border-gray-700 sm:my-4 sm:pb-4 sm:border">
         <CreateEventButton />
         {/* // On envoie la liste des events et l'id de l'user connecté au composant List */}
         <List events={eventList} userId={id} />

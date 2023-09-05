@@ -14,7 +14,7 @@ function EventInfo({
  date, sport, nbPlayers, status, winner, duration, location,
 }: EventInfoProps) {
   return (
-    <div className="flex flex-col gap-3 w-full bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700">
+    <div className="flex flex-col gap-3 w-full bg-neutral-focus p-4 shadow-xl rounded-xl border border-base-300">
       <h1 className="text-3xl font-bold self-start">
         {/* Si statut open => 'New Event' */}
         {status === 'open' && 'New Event'}

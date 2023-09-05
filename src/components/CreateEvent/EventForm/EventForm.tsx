@@ -5,7 +5,7 @@ function CreateEventForm() {
   const { eventData, setEventData } = useContext(EventContext);
 
   return (
-    <div className="flex flex-col items-left justify-evenly w-full m-auto gap-6 pt-6 pb-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700">
+    <div className="flex flex-col items-left justify-evenly w-full m-auto gap-6 pt-6 pb-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border-base-300">
       <h1 className="text-3xl sm:pb-4">New event</h1>
       <div className="flex flex-col p-5 gap-5 w-full min-[815px]:flex-row min-[815px]:flex-wrap min-[815px]:justify-around min-[815px]:w-full">
         <div className="flex flex-col gap-3">

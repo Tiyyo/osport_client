@@ -77,12 +77,12 @@ function SportRanking({ sportSelected, ownRank } : SportRankingProps) {
       <form className="flex flex-col items-center form-control w-full px-6 gap-4">
         <label className="label-text text-base self-start" htmlFor="sport">Now you can chose your level</label>
         <select className="select select-bordered text-neutral-content w-full" value={level} onChange={handleChangeLevel} disabled={isDisabled}>
-          <option value="Choice" disabled className="font-bold italic">Choose your level</option>
+          <option value="Choice" disabled className="font-bold italic">Chose your level</option>
           <option value="Beginner">Beginner</option>
           <option value="Intermediate">Intermediate</option>
           <option value="Advanced">Confirmed</option>
         </select>
-        <button className="btn w-fit sm:mt-6" type="button" onClick={handleSubmit} disabled={isDisabled}>Save your level</button>
+        <button className="btn w-fit btn-ghost border-gray-500 sm:mt-6" type="button" onClick={handleSubmit} disabled={isDisabled}>Save your level</button>
       </form>
     );
 }

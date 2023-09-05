@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable object-curly-newline */
 /* eslint-disable max-len */
@@ -61,7 +62,7 @@ const handleSubmit = (e) => {
   };
 
   return (
-    <div className="flex flex-col items-center py-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 w-full h-full">
+    <div className="flex flex-col items-center py-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border border-base-300 w-full h-full">
 
       {/* Première équipe */}
 
