@@ -27,6 +27,7 @@ function checkIfEventIsFull() {
   async function handleClick(accountId: number, matchId: number) {
     try {
       const res = await axiosInstance.patch('event/validate', { userId: accountId, eventId: matchId });
+      window.location.reload();
       console.log('Server Response:', res);
     } catch (error) {
       console.log(error);
