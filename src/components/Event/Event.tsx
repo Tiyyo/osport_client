@@ -16,44 +16,45 @@ import FinalScore from './FinalScore/FinalScore';
 import ResponseInvitation from './ResponseInvitation/ResponseInvitation';
 
 function Event() {
-// On recupère l'id de l'utilisateur connecté dans le AuthContext
-const { user } = useContext(AuthContext);
-const userId = user?.userInfos.userId;
+  // On recupère l'id de l'utilisateur connecté dans le AuthContext
+  const { user } = useContext(AuthContext);
+  const userId = user?.userInfos.userId;
   const [isInvited, setIsInvited] = useState(false);
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-// Fonction pour récuperer l'id de l'event dans l'url
-function GetEventId() {
-    const { id } = useParams();
-    return parseInt(id, 10);
-}
+  // Fonction pour récuperer l'id de l'event dans l'url
+  function GetEventId() {
+      const { id } = useParams();
+      return parseInt(id, 10);
+  }
 
-const eventId = GetEventId();
+  const eventId = GetEventId();
 
-// On utilise le hook personnalisé pour récupérer les infos de l'event et les particpants d'un match
-const { data: event/* , error: eventsError */ } = useFetch(`event/details/${eventId}`, 'GET');
-const { data: participants/* , error: participantsError */ } = useFetch(`participant/event/${eventId}`, 'GET');
+  // On utilise le hook personnalisé pour récupérer les infos de l'event et les
+  // particpants d'un match
+  const { data: event/* , error: eventsError */ } = useFetch(`event/details/${eventId}`, 'GET');
+  const { data: participants/* , error: participantsError */ } = useFetch(`participant/event/${eventId}`, 'GET');
 
-useEffect(() => {
-  const checkIfInvited = () => {
-    if (!participants) return;
+  useEffect(() => {
+    const checkIfInvited = () => {
+      if (!participants) return;
 
-    participants.forEach((participant) => {
-      if (participant.user.id === userId && participant.status === 'pending') {
-        setIsInvited(true);
+      participants.forEach((participant) => {
+        if (participant.user.id === userId && participant.status === 'pending') {
+          setIsInvited(true);
+        }
+      });
+    };
+
+    const checkIfPresent = () => {
+      if (participants && !participants.some((participant) => participant.user.id === userId)) {
+        navigate('/event_list');
       }
-    });
-  };
+    };
 
-  const checkIfPresent = () => {
-    if (participants && !participants.some((participant) => participant.user.id === userId)) {
-      navigate('/event_list');
-    }
-  };
-
-  checkIfPresent();
-  checkIfInvited();
-}, [participants, userId, navigate]);
+    checkIfPresent();
+    checkIfInvited();
+  }, [participants, userId, navigate]);
 
   return (
     <>

@@ -6,12 +6,12 @@ interface ResultsInputProps {
   eventId: number;
 }
 
-interface SaveResultProps {
-  loggedUserId: number;
-  matchId: number;
-  firstResult: number;
-  secondResult: number;
-}
+// interface SaveResultProps {
+//   loggedUserId: number;
+//   matchId: number;
+//   firstResult: number;
+//   secondResult: number;
+// }
 
 function ResultInput({ userId, eventId } : ResultsInputProps) {
   const [resultTeamOne, setResultTeamOne] = useState<number>(null);
