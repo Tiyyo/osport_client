@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import levelNumberToString from '../../../utils/levelNumberToString';
-import AuthContext from '../../../context/AuthContext';
 import axiosInstance from '../../../services/axiosInstance';
 import capitalize from '../../../utils/capitalize';
 import type { Sport } from '../../types';
+import AuthContext from '../../../context/AuthContext';
 
 interface ProfileInfosInterface {
 username : string;
