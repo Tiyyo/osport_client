@@ -5,6 +5,7 @@ import ResultLoader from '../ResultLoader/ResultLoader';
 import ResultWin from '../ResultTitle/ResultWin';
 import ResultLose from '../ResultTitle/ResultLose';
 import { Event } from '../../types';
+import ResultDraw from '../ResultTitle/ResultDraw';
 
 function List({ events } : { events : Event[] }) {
   return (
@@ -17,6 +18,7 @@ function List({ events } : { events : Event[] }) {
         >
           <div className="flex justify-between w-full">
             {event.winner_team === event.user_team && <ResultWin />}
+            {event.winner_team === 0 && <ResultDraw />}
             {event.winner_team && event.winner_team !== event.user_team && <ResultLose />}
             {!event.winner_team && <ResultLoader status={event.status} />}
             <div className="text-right">
