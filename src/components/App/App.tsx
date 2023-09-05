@@ -13,6 +13,7 @@ import Event from '../Event/Event';
 import ProtectedRoutes from './ProtectedRoutes';
 import RedirectToProfile from './RedirectToProfile';
 import { EventContextProvider } from '../../context/EventContext';
+import Page404 from '../Page404/Page404';
 
 function App() {
   return (
@@ -37,6 +38,8 @@ function App() {
           />
           <Route path="/event/:id" element={<Event />} />
         </Route>
+
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </AuthContextProvider>
 
