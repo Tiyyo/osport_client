@@ -24,12 +24,16 @@ function ResultInput({ userId, eventId } : ResultsInputProps) {
     secondResult: number,
     ) {
     try {
-      await axiosInstance.patch('event/results', {
+      const result = await axiosInstance.patch('event/results', {
         userId: loggedUserId,
         eventId: matchId,
         scoreTeam1: firstResult,
         scoreTeam2: secondResult,
       });
+
+      if (result.status === 200) {
+        window.location.reload();
+      }
     } catch (error) {
       console.log(error);
     }
