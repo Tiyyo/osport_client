@@ -1,22 +1,34 @@
 import React, { useRef, useId } from 'react';
-import RefresIcon from '../../../assets/Icons/RefresIcon';
 import axiosInstance from '../../../services/axiosInstance';
+
+interface ChatFormProps {
+  eventId: number;
+  userId: number;
+  getMessage: (message: any) => void;
+  username: string;
+  avatar: string;
+}
 
 function ChatForm({
  eventId, userId, getMessage, username, avatar,
-}) {
+}: ChatFormProps) {
 const messageForm = useRef();
 const tempId = useId();
 
 const postMessage = async (data) => {
     try {
       const res = await axiosInstance.post('/chat', data);
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
-};
+  };
 
-  const handleSubmit = (e) => {
+  const refreshChat = () => {
+    window.location.reload();
+  };
+
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     const message = e.target.message.value;
 
@@ -33,25 +45,20 @@ const postMessage = async (data) => {
             created_at: new Date(),
             user: {
               id: userId,
-             username,
+              username,
               avatar,
-},
-});
-      messageForm.current?.reset();
-};
-
-const handleClick = () => {
-    window.location.reload();
-};
+      },
+    });
+    // messageForm.current?.reset();
+    refreshChat();
+  };
 
   return (
-    <div className="flex w-full justify-center gap-3">
-      <form onSubmit={handleSubmit} className="w-[90%]" ref={messageForm}>
-        <input name="message" id="message" type="text" placeholder="Type here" className="input input-bordered w-full rounded-t-none" />
+    <div className="flex w-full justify-center gap-3 border-t-2 border-neutral-focus">
+      <form autoComplete="off" onSubmit={handleSubmit} className="w-full" ref={messageForm}>
+        <input name="message" id="message" type="text" placeholder="Type here" className="input w-[85%] border-2 border-neutral-focus rounded-t-none" />
+        <button type="submit" className="btn btn-ghost w-[15%]">Send</button>
       </form>
-      <button type="button" onClick={handleClick} className=" ">
-        <RefresIcon />
-      </button>
     </div>
   );
 }
