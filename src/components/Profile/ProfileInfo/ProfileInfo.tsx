@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import levelNumberToString from '../../../utils/levelNumberToString';
 import AuthContext from '../../../context/AuthContext';
 import axiosInstance from '../../../services/axiosInstance';
@@ -16,13 +17,15 @@ function ProfileInfo({ username, avatar, sports } : ProfileInfosInterface) {
 const { setIsAuth } = useContext(AuthContext);
 const [sportChosen, setSportChosen] = useState<'Football' | 'BasketBall'>('Football');
 
-const logout = async () => {
+const Logout = async () => {
     setIsAuth(false);
     await axiosInstance.post('/logout');
+    const [cookie, removeCookie] = useCookies(['user']);
+    removeCookie('user', '/');
 };
 
 const handleClickLogout = () => {
-    logout();
+    Logout();
 };
 
 const handleChangeSport = (e) => {
