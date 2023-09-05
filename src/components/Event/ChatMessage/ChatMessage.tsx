@@ -35,7 +35,7 @@ function ChatMessage({
           <time className="text-xs p-1 opacity-50">{formatDate(createdAt)}</time>
         )}
       </div>
-      <div className="chat-bubble">{message}</div>
+      <div className="chat-bubble px-4">{message}</div>
     </div>
   );
 }
