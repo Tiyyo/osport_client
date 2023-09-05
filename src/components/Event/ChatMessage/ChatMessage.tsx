@@ -17,9 +17,12 @@ function ChatMessage({
   userIdMessage,
   userId,
 } : ChatConfig) {
+  // Fonction pour formater la date
   const formatDate = (date: string) => new Date(date).toLocaleString();
 
   return (
+    // Si l'userId est le même que l'userIdMessage, on affiche le message à gauche (start)
+    // Et inversement, on affiche le message à droite (end) si l'auteur est différent
     <div className={`chat ${userIdMessage === userId ? 'chat-start' : 'chat-end'} px-4 py-2`}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">

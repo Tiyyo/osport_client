@@ -5,7 +5,6 @@ import ChatForm from '../ChatForm/ChatForm';
 import ChatMessage from '../ChatMessage/ChatMessage';
 import RefresIcon from '../../../assets/Icons/RefresIcon';
 
-
 function Chat({ eventId }: { eventId: number }) {
   const { user: { userInfos: { userId } } } = useContext(AuthContext);
   const { data: userInfos } = useFetch(`user/${userId}`, 'GET');
@@ -24,6 +23,7 @@ function Chat({ eventId }: { eventId: number }) {
     });
   };
 
+  // Fonction pour rafraichir la page
   const handleClick = () => {
     window.location.reload();
   };
