@@ -64,12 +64,6 @@ const handleSubmit = (e) => {
 
       {/* Première équipe */}
 
-      {/* // Nested ternary pour afficher le composant qui affiche l'équipe avec la bonne couleur
-      // Si les scores sont égaux, on affiche <TeamDraw />
-      // Si le score n'est pas égal et que le score de la première équipe est supérieur,
-      // on affiche <TeamWin />
-      // sinon on affiche <TeamLose /> */}
-
       <TeamResult scoreTeam1={firstTeamScore} scoreTeam2={secondTeamScore} team="Team 1" />
 
       {/* La classe de la <div> changera automatiquement selon le nombre de joueurs max. */}

@@ -74,12 +74,11 @@ console.log(event);
           {/* Composants pour afficher les avatars des joueurs */}
 
           {/* Si pas de vainqueur et statut open => Affichage des participants */}
-          {!event.winner_team && event.status === 'open' && <PlayerList players={participants} />}
+          {event.status === 'open' && <PlayerList players={participants} />}
           {/* Si pas de vainqueur et statut diffèrent de open => Liste des joueurs des 2 équipes */}
-          {!event.winner_team && event.status !== 'open' && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
+          {event.status === 'full' && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
           {/* Si le match a un vainqueur enregistré => Liste des joueurs + notation */}
-          {event.winner_team
-            && (event.status === 'finished' || 'closed')
+          {event.status === 'finished'
             && (
             <PlayerListRating
               players={participants}
