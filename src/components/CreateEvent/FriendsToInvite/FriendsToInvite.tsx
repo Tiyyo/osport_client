@@ -12,8 +12,6 @@ function FriendsToInvite() {
   const { eventData, setEventData } = useContext(EventContext);
   const { data: friends, error: friendsError, loading: friendsLoading } = useFetch(`user_friends/accepted/${id}`, 'GET');
 
-  const baseUrl = import.meta.env.VITE_SERVER_URL;
-
   const handleCheckboxChange = (friendId, friendUsername, avatarUrl) => {
     const isFriendSelected = eventData.friends.some((friend) => friend.id === friendId);
 

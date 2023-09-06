@@ -76,10 +76,9 @@ function SendInvitations() {
           </div>
         ))}
       </div>
-
       <button
         type="button"
-        className="btn btn-wide btn-ghost border-gray-500"
+        className={`btn-wide btn-ghost border-gray-500 ${eventData.friends.length === eventData.nbMaxParticipant ? 'btn' : 'btn btn-disabled'}`}
         disabled={eventData.friends.length > eventData.nbMaxParticipant}
         onClick={handleCreateEvent}
       >
