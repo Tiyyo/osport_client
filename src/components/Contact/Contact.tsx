@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/AuthContext';
 import useFetch from '../hooks/useFetch';
-
 import ContactList from './ContactList/ContactList';
 import SearchContact from './SearchContact/SearchContact';
 import Header from '../Header/Header';

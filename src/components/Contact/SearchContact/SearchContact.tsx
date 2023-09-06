@@ -9,6 +9,9 @@ function SearchContact({ userId }: { userId: number }) {
   async function addContact(id: number, contactUsername: string) {
     try {
       const res = await axiosInstance.post('user_friends/add', { userId: id, username: contactUsername });
+      if (res.status === 201) {
+        window.location.reload();
+      }
       console.log('Server Response:', res);
       } catch (error) {
       console.log(error);

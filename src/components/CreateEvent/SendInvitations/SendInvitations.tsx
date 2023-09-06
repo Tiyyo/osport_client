@@ -6,6 +6,7 @@ import { EventContext } from '../../../context/EventContext';
 // import useFetch from '../../hooks/useFetch';
 import AuthContext from '../../../context/AuthContext';
 import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
+import OriginAvatarUrl from '../../../utils/originAvatarUrl';
 
 function SendInvitations() {
   // On recupere l'id de l'user connecté
@@ -51,19 +52,34 @@ function SendInvitations() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 py-8 px-4 bg-neutral-focus shadow-xl border rounded-xl border-base-300 sm:w-1/2 sm:h-fit">
       <h2 className="text-sm flex items-center">
-        {eventData.friends.length === eventData.nbMaxParticipant && (
+        {/* +1 to include the creator */}
+        {eventData.friends.length + 1 === eventData.nbMaxParticipant && (
           <img src="https://img.icons8.com/?size=512&id=63312&format=png" className="w-7" alt="valid" />
         )}
-        {eventData.friends.length > eventData.nbMaxParticipant && (
+        {eventData.friends.length + 1 > eventData.nbMaxParticipant && (
           <img src="https://img.icons8.com/?size=512&id=63690&format=png" className="w-7" alt="valid" />
         )}
-        <span className="badge badge-base-100 badge-lg mx-2 p-2">{eventData.friends.length}</span>
+        <span className="badge badge-base-100 badge-lg mx-2 p-2">{eventData.friends.length + 1}</span>
         players on
         <span className="badge badge-base-100 badge-lg mx-2 p-2">{eventData.nbMaxParticipant}</span>
         required
       </h2>
 
       <div className="flex flex-wrap gap-8 my-5 justify-center max-w-[500px]">
+
+        {/* One individual div for the creator */}
+        <div key={eventData.creator.id} className="flex items-center gap-2 flex-col">
+          <div className="avatar">
+            <div className="w-12 sm:w-16 rounded-full">
+              <img
+                src={OriginAvatarUrl(eventData.creator.avatar)}
+                alt={`${eventData.creator.username} avatar`}
+              />
+            </div>
+          </div>
+          <span>{eventData.creator.username}</span>
+        </div>
+
         {eventData.friends.map((friend) => (
           <div key={friend.id} className="flex items-center gap-2 flex-col">
             <div className="avatar">
@@ -72,15 +88,14 @@ function SendInvitations() {
               </div>
             </div>
             <span>{friend.username}</span>
-
           </div>
         ))}
       </div>
 
       <button
         type="button"
-        className="btn btn-wide btn-ghost border-gray-500"
-        disabled={eventData.friends.length > eventData.nbMaxParticipant}
+        className="btn btn-wide"
+        disabled={eventData.friends.length + 1 > eventData.nbMaxParticipant}
         onClick={handleCreateEvent}
       >
         Create the event

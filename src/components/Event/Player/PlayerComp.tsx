@@ -2,6 +2,10 @@ import React from 'react';
 import CircleEllipsis from '../../../assets/Icons/CircleEllipsis';
 import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
 import ValidCheck from '../../../assets/Icons/ValidCheck';
+import AuthContext from '../../../context/AuthContext';
+// We accept only picsum url for faker user or
+// pixabay for user without avatar
+import userAvatarOrigin from '../../../utils/regex';
 
 type Status = 'pending' | 'accepted' | 'rejected';
 
@@ -30,7 +34,9 @@ const handleClick = () => {
     >
       <div className="w-12 aspect-square rounded-full sm:w-16 overflow-hidden">
         {avatar
-          ? <img src={avatar} alt={username} className="object-cover w-full" />
+          // Without the import url, it search with front url, and the
+          // image is stocked in back public folder
+          ? <img src={userAvatarOrigin.test(avatar) ? avatar : import.meta.env.VITE_SERVER_URL + avatar} alt={username} className="object-cover w-full" />
           : <img src={PlayerDefaultIcon} alt={username} />}
       </div>
       <p className="flex text-center text-xs gap-1 items-center justify-center">

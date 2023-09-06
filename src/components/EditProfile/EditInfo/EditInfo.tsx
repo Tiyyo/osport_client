@@ -3,12 +3,12 @@ import React, {
 } from 'react';
 import DOMPurify from 'dompurify';
 import axios from 'axios';
-//
 import useMutation from '../../hooks/useMutation';
 import AuthContext from '../../../context/AuthContext';
 import useFetch from '../../hooks/useFetch';
+import OriginAvatarUrl from '../../../utils/originAvatarUrl';
 
-function EditInfo() {
+function EditInfo({ avatar }) {
   const { userId } = useContext(AuthContext).user.userInfos;
   const imageRef = useRef<HTMLInputElement>(null);
 
@@ -32,14 +32,13 @@ function EditInfo() {
   useEffect(() => {
     setNewEmail(user?.email);
       setNewUsername(user?.username);
-  }, [loading]);
+  }, [loading, user?.email, user?.username]);
 
   useEffect(() => {
-    if (!user?.image_url) return;
-    setUserImage(import.meta.env.VITE_SERVER_URL + user?.image_url);
-  }, [user?.image_url, loading]);
+    setUserImage(avatar);
+  }, [setUserImage, avatar]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleChange = (/* e: React.ChangeEvent<HTMLFormElement> */) => {
     setBody(null); // Reset messages
     if (!isValidUsername || !isValidEmail) {
       setErrorMessage('Votre nom d\'utilisateur doit contenir au moins 2 caractères et votre email doit être valide.');
@@ -82,11 +81,6 @@ function EditInfo() {
     }
 
     setBody(body);
-  };
-
-  const handleChangeImage = (e : any) => {
-    e.preventDefault();
-    imageRef.current.click();
   };
 
   const handleChangeImageFile = async (e : any) => {
@@ -153,8 +147,21 @@ function EditInfo() {
 
         <div className="avatar flex flex-col items-center gap-6 px-6">
           <div className="w-20 rounded-full">
-            <label htmlFor="image" className="cursor-pointer" onClick={handleChangeImage}>{userImage ? <img src={userImage} alt="user_image" /> : <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="user_avatar" />}</label>
-            <input type="file" hidden ref={imageRef} className="input input-sm input-bordered" id="image" name="image" onChange={handleChangeImageFile} />
+            <label htmlFor="image" className="cursor-pointer">
+              <img
+                src={OriginAvatarUrl(userImage)}
+                alt={`${newUsername} avatar`}
+              />
+            </label>
+            <input
+              type="file"
+              hidden
+              ref={imageRef}
+              className="input input-sm input-bordered"
+              id="image"
+              name="image"
+              onChange={handleChangeImageFile}
+            />
           </div>
         </div>
         <p className="text-xs px-4 mb-10 sm:text-sm">Click on your profile picture to chose a new one</p>
