@@ -3,7 +3,7 @@ import axiosInstance from '../../../services/axiosInstance';
 import Ban from '../../../assets/Icons/Ban';
 import CheckedSquare from '../../../assets/Icons/CheckedSquare';
 
-function ResponseInvitation({ eventId, userId }) {
+function ResponseInvitation({ eventId, userId } : { eventId: number, userId: number }) {
   const acceptInvitation = async () => {
      await axiosInstance.patch('participant/event', {
         status: 'accepted',

@@ -57,6 +57,8 @@ function SportRanking({ sportSelected, ownRank } : SportRankingProps) {
           case 'Basketball':
             sportId = 2;
             break;
+            default:
+              break;
         }
         console.log(`Body : ${userId}`, sportId, level);
         const body = {

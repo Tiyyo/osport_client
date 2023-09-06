@@ -4,28 +4,14 @@ import formDate from '../../../utils/formatDate';
 import ResultLoader from '../ResultLoader/ResultLoader';
 import ResultWin from '../ResultTitle/ResultWin';
 import ResultLose from '../ResultTitle/ResultLose';
+import { Event } from '../../types';
+import ResultDraw from '../ResultTitle/ResultDraw';
 
-interface ListProps {
-  events: EventObject[];
-  userId: number;
-}
-
-interface EventObject {
-  map(arg0: (event: EventObject) => React.JSX.Element): React.ReactNode;
-  id: number;
-  winner_team?: number;
-  status: string;
-  date: string;
-  sport_name: string;
-  score_team_1?: number;
-  score_team_2?: number;
-}
-
-function List({ events } : ListProps) {
+function List({ events } : { events : Event[] }) {
   return (
     <ul className="w-full px-5">
       {/* Si events existe, on map dessus */}
-      {events && events.map((event: EventObject) => (
+      { events && events.map((event: Event) => (
         <li
           className="bg-neutral-focus flex flex-col items-center gap-2 pb-10 shadow-xl border border-base-300 rounded-xl py-2 px-6 my-4 sm:items-center sm:justify-between"
           key={event.id}

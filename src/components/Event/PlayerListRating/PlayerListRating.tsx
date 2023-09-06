@@ -21,24 +21,37 @@ interface PlayersListProps {
   sportId: number;
 }
 
-function PlayerListRating({ players, nbPlayers, firstTeamScore, secondTeamScore, sportId }: PlayersListProps) {
+function PlayerListRating({
+players,
+nbPlayers,
+firstTeamScore,
+secondTeamScore,
+ sportId }: PlayersListProps) {
+    // Fonction pour définir le nombre de colonnes à indiquer dans la classe de la <div>
+  // en fonction du nombre de joueurs max. (qu'on divise par 2)
+
   const { user: { userInfos: { userId } } } = useContext(AuthContext);
   const [userIdToRate, setUserIdToRate] = useState<number>(null);
-  const formModal = useRef(null);
+  const formModal = useRef<HTMLFormElement>(null);
 
-  function openModal(state) {
-    window.ratingModal.showModal();
+  function colsNumber(nbOfPlayers: number) {
+    return `grid grid-cols-${nbOfPlayers / 2} gap-8 p-5`;
   }
 
-  function getUserToRateId(userIdToRate) {
-    setUserIdToRate(userIdToRate);
+  function openModal() {
+   (window as any).ratingModal.showModal();
   }
 
   function closeModal() {
-    window.ratingModal.close();
+    (window as any).ratingModal.close();
+  }
+  // get userIdToRate from child component
+  // state is the id of the user to rate
+  function getUserToRateId(state : number) {
+    setUserIdToRate(state);
   }
 
-  async function rateUser(userRating: number, playerToRateId: number, sportId: number, userId: number) {
+  async function rateUser(userRating: number, playerToRateId: number) {
     try {
       const res = await axiosInstance.patch(
   'user/sport',
@@ -53,14 +66,16 @@ function PlayerListRating({ players, nbPlayers, firstTeamScore, secondTeamScore,
     }
   }
 
-const handleSubmit = (e) => {
+const handleSubmit = (e : React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userRating = e.target.userRating.value;
-    rateUser(userRating, userIdToRate, sportId, userId);
-    formModal.current.reset();
     closeModal();
-  };
+    if (!userRating) return;
+    rateUser(userRating, userIdToRate);
+    formModal.current.reset();
+};
 
+console.log(players);
   return (
     <div className="flex flex-col items-center py-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border border-base-300 w-full h-full">
 
@@ -83,7 +98,6 @@ const handleSubmit = (e) => {
               avatar={player.user.avatar}
               status={player.status}
               username={player.user.username}
-              sportId={sportId}
               getUserToRateId={getUserToRateId}
               isConfirmed
             />
@@ -160,6 +174,7 @@ const handleSubmit = (e) => {
           </div>
           <p
             className="text-sm pt-8"
+            onClick={closeModal}
           >
             Press ESC key or click on ✕ button to close
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import capitalize from '../../../utils/capitalize';
 import formDateNumeric from '../../../utils/formatDateNumeric';
 
 interface NextEventProps {

@@ -1,11 +1,8 @@
 import React from 'react';
 import NextEvent from './NextEvent';
+import { Event } from '../../types';
 
-interface NextEventsProps {
-  nextEvents : any;
-}
-
-function NextEvents({ nextEvents } : any) {
+function NextEvents({ nextEvents } : { nextEvents : Event[] }) {
   return (
     <div className="flex flex-col gap-y-2 shadow-md">
       {nextEvents && nextEvents.length > 0 ? nextEvents.map((event) => (

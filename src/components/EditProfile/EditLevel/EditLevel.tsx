@@ -11,8 +11,7 @@ function EditLevel() {
   const userSport = useFetch(`/user/own_rating/${userId}`, 'GET');
 
   useEffect(() => {
-  const sports = (userSport.data);
-  const ownRank = sports?.filter((sport: any) => sport.gb_rating !== 0 && sport.gb_rating !== null && sport.name === sportSelected).map((sport: any) => sport.rating).pop();
+  const ownRank = userSport.data?.filter((sport: any) => sport.gb_rating !== 0 && sport.gb_rating !== null && sport.name === sportSelected).map((sport: any) => sport.rating).pop();
   setRank(ownRank);
   }, [userSport.loading, sportSelected]);
 
