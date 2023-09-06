@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState, useContext, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
@@ -61,7 +62,7 @@ const SignUp: React.FC = () => {
           }
         }
       } catch (error) {
-        setErrorMessage('Une erreur inattendue s\'est produite lors de la connexion au serveur.');
+        setErrorMessage('Unexpected error occured, please try again later');
         setIsServerValid(false);
       }
     }
@@ -69,161 +70,175 @@ const SignUp: React.FC = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      handleSubmit(e as unknown as FormEvent);  // Casting nécessaire pour satisfaire les types
+      handleSubmit(e as unknown as FormEvent); // Casting nécessaire pour satisfaire les types
     }
   };
-  
 
   return (
-    <div className="flex flex-col items-center">
-
-      <div className="flex justify-center m-1">
-        <img
-          className="w-24 h-24"
-          src="/imageedit_3_3008038748.png"
-          alt="logo"
-        />
+    <div className="flex flex-col items-center gap-6 py-6 px-4 mb-10">
+      <div className="flex flex-col items-center gap-10">
+        <h1 className="text-6xl">O'sport</h1>
+        <div className="text-xl">Welcome on O'Sport</div>
       </div>
 
-      <div className="text-2xl font-bold text-center m-1 mb-6">
-        S'inscrire sur O'Sport
-      </div>
-
-      <form className="flex flex-col items-center w-96 bg-base-100 shadow-xl border border-gray-700 m-1 mb-6 rounded-xl">
-        <div className="form-control w-full max-w-xs m-1">
+      <form className="flex flex-col w-full min-[820px]:w-1/2 items-center p-6 gap-4 bg-neutral-focus shadow-xl border border-gray-500 rounded-xl">
+        <div className="form-control w-full">
           <label className="label" htmlFor="username">
-            <span className="label-text">Nom d'utilisateur : </span>
+            <span className="label-text text-lg">Username : </span>
           </label>
           <input
             id="username"
             type="text"
-            placeholder="Tapez ici"
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Type here"
+            className="input input-bordered text-sm"
             value={username}
             onChange={(e) => {
-              setUsername(e.target.value)
+              setUsername(e.target.value);
               // validateUsername(e.target.value, 'username');
             }}
             onKeyDown={handleKeyDown}
           />
+          <span className="flex gap-2 m-1.5 text-neutral-content text-xs">
+            Only letters, numbers and underscores.
+          </span>
+          {!isUsernameValid && (
+            <span className="text-error flex gap-2 text-xs mt-1 ml-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+              Minimum length of 2 and only letters, numbers and underscores.
+            </span>
+          )}
         </div>
 
-        {!isUsernameValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          Votre nom d'utilisateur doit contenir au moins 2 caractères et uniquement des lettres, des chiffres et des underscores.
-          </span> : null }
-
-        <div className="form-control w-full max-w-xs m-1">
+        <div className="form-control w-full">
           <label className="label" htmlFor="email">
-            <span className="label-text">Email : </span>
+            <span className="label-text text-lg">Email : </span>
           </label>
           <input
             id="email"
             type="email"
-            placeholder="Tapez ici"
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Type here"
+            className="input input-bordered text-sm"
             value={email}
             onChange={(e) => {
-              setEmail(e.target.value)
+              setEmail(e.target.value);
               // validateEmail(e.target.value, 'email');
             }}
             onKeyDown={handleKeyDown}
           />
+          {!isEmailValid ? (
+            <span className="text-error flex gap-2 text-xs mt-1 ml-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+              This doesn't appear to be a valid email address.
+            </span>
+          ) : null}
         </div>
 
-        {!isEmailValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          Votre email doit être valide.
-          </span> : null}
 
-        <div className="form-control w-full max-w-xs m-1">
+        <div className="form-control w-full">
           <label className="label" htmlFor="password">
-            <span className="label-text">Mot de passe : </span>
+            <span className="label-text text-lg">Password : </span>
           </label>
           <input
             id="password"
             type="password"
-            placeholder="Tapez ici"
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Type here"
+            className="input input-bordered text-sm"
             value={password}
             onChange={(e) => {
-              setPassword(e.target.value)
+              setPassword(e.target.value);
               setErrorMessage('');
               // validatePassword(e.target.value, 'password');
             }}
             onKeyDown={handleKeyDown}
           />
+          <span className="flex gap-2 m-1.5 text-neutral-content text-xs">
+            Password must contains at least 8 characters
+          </span>
+          {!isPasswordValid && (
+            <span className="text-error flex gap-2 text-xs mt-1 ml-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+              Minimum length of 8, at least one letter, one number and a special character
+            </span>
+          )}
         </div>
 
-        {!isPasswordValid ? <span className='text-red-600 text-xs italic mx-4 text-center mb-2'>
-          Votre mot de passe doit contenir au moins 8 caractères, une lettre et un chiffre et un caractère spécial.
-          </span> : null}
 
-        <div className='flex flex-col items-start'>
+        <div className="flex flex-col w-full">
           <div className="form-control">
             <label className="label cursor-pointer flex justify-start">
-              <input 
-              onChange={(e) => {
-                setCguChecked(e.target.checked)
-                setIsCguChecked(true)
+              <input
+                onChange={(e) => {
+                setCguChecked(e.target.checked);
+                setIsCguChecked(true);
               }}
-              type="checkbox" 
-              checked= {cguChecked}
-              name = 'cgu'
-              className="checkbox me-2" />
-              <span className="label-text text-xs">
-                J'accepte les
+                type="checkbox"
+                checked={cguChecked}
+                name="cgu"
+                className="checkbox checkbox-sm me-2"
+              />
+              <span className="label-text text-xs sm:text-sm">
+                Accept
                 <Link to="..." className="link link-info m-1">
-                  Conditions Générales d'Utilisation
+                  Terms of use
                 </Link>
               </span>
             </label>
+            {!isCguChecked && (
+              <span className="flex gap-2 m-1.5 text-error text-xs">
+                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                You must accept the Terms of Use
+              </span>
+            )}
           </div>
 
-          {!isCguChecked ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-            Vous devez accepter les Conditions Générales d'Utilisation.
-          </span> : null}
 
           <div className="form-control">
             <label className="label cursor-pointer flex justify-start">
-              <input 
-              onChange={(e) => setNewsletterChecked(e.target.checked)}
-              type="checkbox" 
-              checked= {newsletterChecked}
-              className="checkbox me-2"
-              name = 'newsletter' />
-              <span className="label-text text-xs">
-                J'accepte de recevoir des emails de la part d'O'Sport
+              <input
+                onChange={(e) => setNewsletterChecked(e.target.checked)}
+                type="checkbox"
+                checked={newsletterChecked}
+                className="checkbox checkbox-sm me-2"
+                name="newsletter"
+              />
+              <span className="label-text text-xs sm:text-sm">
+                Accept to receive mail from O'sport
               </span>
             </label>
           </div>
         </div>
 
-        {!isServerValid ? <span className='text-red-600 text-xs italic mx-4 text-center'>
-          {errorMessage}
-          </span> : null }
+        {!isServerValid && (
+          <span className="text-error text-xs text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            {errorMessage}
+          </span>
+        )}
 
-        <button type="submit" className="btn btn-outline btn-success m-1 mb-4" onClick={handleSubmit}>
-          S'inscrire
+        <button type="submit" className="btn btn-ghost btn-wide border-2 border-gray-500 sm:btn-md" onClick={handleSubmit}>
+          Sign up
         </button>
       </form>
 
-      <div className="container text-center w-96 border border-white rounded-lg m-1 p-3 mb-3 text-sm">
-      Déjà inscrit ? &nbsp;
-        <Link to="/login" className="link link-info">
-          Se connecter
+      <div className="text-center text-sm sm:text-md w-full min-[820px]:w-1/2 bg-neutral-focus p-4 border border-gray-500 rounded-lg">
+        {' '}
+        Already have an account ? &nbsp;
+        <Link to="/login" className="link link-info font-bold">
+          Sign In
         </Link>
       </div>
 
-      <div className="max-w-max text-xs mb-4">
-        En savoir plus sur notre
+      <div className="text-xs mb-4">
+        More about
         {' '}
-        <Link to="..." className="link link-info">Politique de Confidentialité</Link>
+        <Link to="..." className="link link-info">Terms of Use</Link>
         {' '}
-        et l'
-        <Link to="/" className="link link-info">Utilisation des cookies</Link>
+        and the
+        <Link to="/" className="link link-info"> Privacy Policy</Link>
       </div>
 
     </div>
   );
-}
+};
 
 export default SignUp;

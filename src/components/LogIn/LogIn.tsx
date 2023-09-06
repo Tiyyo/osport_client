@@ -32,7 +32,7 @@ const LogIn: React.FC = () => {
     resetValidationStates();
 
     if (!cleanUsername || !password) {
-      setErrorMessage('Veuillez remplir tous les champs.');
+      setErrorMessage('All fields are required');
       setIsServerValid(false);
       return;
     }
@@ -52,22 +52,21 @@ const LogIn: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="flex justify-center m-1">
-        <img className="w-24 h-24" src="/imageedit_3_3008038748.png" alt="logo" />
+    <div className="flex flex-col items-center gap-6 py-6 px-4 mb-10">
+      <div className="flex flex-col items-center gap-10">
+        <h1 className="text-6xl">O'sport</h1>
+        <div className="text-xl">Welcome on O'Sport</div>
       </div>
 
-      <div className="text-2xl font-bold text-center m-1 mb-6">Se connecter à O'Sport</div>
-
-      <form className="flex flex-col items-center w-96 bg-base-100 shadow-xl border border-gray-700 m-1 mb-6 rounded-xl">
-        <div className="form-control w-full max-w-xs m-1 mt-4">
+      <form className="flex flex-col w-full min-[820px]:w-1/2 items-center p-6 gap-4 bg-neutral-focus shadow-xl border border-gray-500 rounded-xl">
+        <div className="form-control w-full">
           <label className="label" htmlFor="first-name">
-            <span className="label-text">Nom d'utilisateur : </span>
+            <span className="label-text text-lg">Username : </span>
           </label>
           <input
             id="first-name"
             type="text"
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered"
             name="username"
             placeholder=""
             value={username}
@@ -76,15 +75,15 @@ const LogIn: React.FC = () => {
           />
         </div>
 
-        <div className="form-control w-full max-w-xs m-1">
+        <div className="form-control w-full">
           <label className="label" htmlFor="password">
-            <span className="label-text">Mot de passe : </span>
+            <span className="label-text text-lg">Password : </span>
           </label>
           <input
             id="password"
             type="password"
             placeholder=""
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered"
             name="password"
             value={password}
             onChange={(e) => handleInputChange(setPassword, e)}
@@ -92,27 +91,28 @@ const LogIn: React.FC = () => {
           />
         </div>
 
-        {!isServerValid ? (
-          <span className="text-red-600 text-xs italic mx-4 text-center">
+        {!isServerValid && (
+          <span className="flex gap-2 text-error text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
             {errorMessage}
           </span>
-) : null }
+        )}
 
-        <div className="flex w-full justify-end max-w-xs m-1">
-          <Link to="/" className="link link-info text-sm bloc ">
-            Mot de passe oublié ?
+        <div className="flex self-end">
+          <Link to="/" className="link link-info text-sm">
+            Password forgotten ?
           </Link>
         </div>
 
-        <button type="button" className="btn btn-outline btn-success m-4" onClick={handleSubmit}>
-          Se connecter
+        <button type="button" className="btn btn-ghost btn-wide border-2 border-gray-500 sm:btn-md" onClick={handleSubmit}>
+          Sign in
         </button>
       </form>
 
-      <div className="container text-center w-96 border border-white rounded-lg m-1 p-3 text-sm">
-        Nouveau sur O'Sport ? &nbsp;
+      <div className="text-center w-full min-[820px]:w-1/2 bg-neutral-focus p-4 border border-gray-500 rounded-lg text-sm sm:text-md">
+        New on O'Sport ? &nbsp;
         <Link to="/signup" className="link link-info">
-          Créer un compte
+          Create an account
         </Link>
       </div>
     </div>
