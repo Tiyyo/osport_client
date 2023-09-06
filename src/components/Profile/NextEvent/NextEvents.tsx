@@ -1,11 +1,8 @@
 import React from 'react';
 import NextEvent from './NextEvent';
+import { Event } from '../../types';
 
-interface NextEventsProps {
-  nextEvents : any;
-}
-
-function NextEvents({ nextEvents } : any) {
+function NextEvents({ nextEvents } : { nextEvents : Event[] }) {
   return (
     <>
       <h2 className="text-center">Next games</h2>
