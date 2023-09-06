@@ -4,7 +4,7 @@ import type { Players } from '../interface';
 
 function PlayerListConfirmed({ players, nbPlayers }: Players) {
   return (
-    <div className="flex flex-col items-center gap-2 bg-neutral-focus py-8 shadow-xl rounded-xl border border-base-300 w-full h-full">
+    <div className="flex flex-col items-center gap-2 bg-neutral-focus py-8 shadow-sm rounded-xl border border-base-300 w-full h-full">
 
       {/* Première équipe */}
       <h2 className="text-2xl text-center py-2">Team 1</h2>

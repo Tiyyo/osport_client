@@ -44,7 +44,7 @@ function Contact() {
     <>
       <Header />
       <Menu />
-      <div className="m-4 mb-24 sm:w-3/5 sm:p-4 sm:m-auto sm:shadow-xl sm:border sm:rounded-xl sm:border-gray-700 sm:pb-4 sm:mt-4">
+      <div className="m-4 mb-24 sm:w-3/5 sm:p-4 sm:m-auto sm:pb-4 sm:mt-4">
         <SearchContact userId={id} />
         <ContactList
           accepted={accepted}

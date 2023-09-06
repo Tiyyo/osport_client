@@ -42,7 +42,7 @@ useEffect(() => {
 }, [participants]);
 
   return (
-    <div className="bg-neutral-focus p-4 shadow-xl border rounded-xl border-base-300 w-full text-center">
+    <div className="bg-neutral-focus p-4 shadow-sm border rounded-xl border-base-300 w-full text-center">
       {/* Bouton qui exécutera la fonction handleClick avec les paramètres userId et eventId */}
 
       {status === 'open' && userId === creatorId

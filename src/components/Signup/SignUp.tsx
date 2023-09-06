@@ -81,7 +81,7 @@ const SignUp: React.FC = () => {
         <div className="text-xl">Welcome on O'Sport</div>
       </div>
 
-      <form className="flex flex-col w-full min-[820px]:w-1/2 items-center p-6 gap-4 bg-neutral-focus shadow-xl border border-gray-500 rounded-xl">
+      <form className="flex flex-col w-full min-[820px]:w-1/2 items-center p-6 gap-4 bg-neutral-focus shadow-sm border border-gray-500 rounded-xl">
         <div className="form-control w-full">
           <label className="label" htmlFor="username">
             <span className="label-text text-lg">Username : </span>
@@ -217,7 +217,7 @@ const SignUp: React.FC = () => {
         </button>
       </form>
 
-      <div className="text-center text-sm sm:text-md w-full min-[820px]:w-1/2 bg-neutral-focus p-4 border border-gray-500 rounded-lg">
+      <div className="text-center text-sm sm:text-md shadow-sm w-full min-[820px]:w-1/2 bg-neutral-focus p-4 border border-gray-500 rounded-lg">
         {' '}
         Already have an account ? &nbsp;
         <Link to="/login" className="link link-info font-bold">

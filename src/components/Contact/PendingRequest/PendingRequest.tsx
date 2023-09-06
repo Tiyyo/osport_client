@@ -13,7 +13,7 @@ function PendingRequest({
 }: PendingRequestProps) {
   return (
     <li
-      className="bg-neutral-focus flex flex-col gap-6 shadow-xl border border-base-300 rounded-xl py-2 px-6 my-4 sm:flex-row sm:items-center sm:justify-between"
+      className="bg-neutral-focus flex flex-col gap-6 shadow-md border border-base-300 rounded-xl py-2 px-6 my-4 sm:flex-row sm:items-center sm:justify-between"
     >
       <div className="avatar flex self-start items-center gap-6 w-full">
         <div className="w-12 rounded-full sm:w-14">

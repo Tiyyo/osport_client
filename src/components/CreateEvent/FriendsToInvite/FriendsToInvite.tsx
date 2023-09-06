@@ -53,12 +53,12 @@ function FriendsToInvite() {
   }, [id, superInfos, setEventData]);
 
   return (
-    <div className="flex flex-col gap-3 w-full sm:w-1/2 sm:self-start bg-neutral-focus p-4 shadow-xl border rounded-xl border-base-300 max-h-[500px] overflow-y-scroll">
+    <div className="flex flex-col gap-3 w-full sm:w-1/2 sm:self-start bg-neutral-focus p-4 shadow-sm border rounded-xl border-base-300 max-h-[500px] overflow-y-scroll">
       <h2 className="text-xl pb-6 sm:text-3xl">Chose participants</h2>
       <ul className="w-full flex flex-col gap-4">
 
         {friends && friends.map((item) => (
-          <li key={item.friend.username} className="flex justify-between items-center bg-neutral  shadow-xl border border-gray-700 rounded-xl p-2">
+          <li key={item.friend.username} className="flex justify-between items-center bg-neutral-focus shadow-md border border-base-100 rounded-xl p-2 px-3">
             <div className="avatar">
               <div className="w-8 rounded-full sm:w-14">
                 <img
@@ -70,7 +70,7 @@ function FriendsToInvite() {
             <h1 className="text-xl">{item.friend.username}</h1>
             <input
               type="checkbox"
-              className="checkbox checkbox-sm"
+              className="checkbox checkbox-sm border-2"
               value={item.friend.id}
               onChange={(e) => handleCheckboxChange(
                 e.target.value,

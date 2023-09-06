@@ -41,7 +41,7 @@ function EditInfo({ avatar }) {
   const handleChange = (/* e: React.ChangeEvent<HTMLFormElement> */) => {
     setBody(null); // Reset messages
     if (!isValidUsername || !isValidEmail) {
-      setErrorMessage('Votre nom d\'utilisateur doit contenir au moins 2 caractères et votre email doit être valide.');
+      setErrorMessage('Invalid username or email adress');
     } else {
       setErrorMessage('');
     }
@@ -51,7 +51,6 @@ function EditInfo({ avatar }) {
     e.preventDefault();
     setErrorMessage('');
 
-    console.log(newUsername);
 
     const cleanNewUsername = DOMPurify.sanitize(newUsername);
     const body = {
@@ -61,22 +60,22 @@ function EditInfo({ avatar }) {
     };
 
     if (!cleanNewUsername) {
-      setErrorMessage('Veuillez saisir un nom d\'utilisateur.');
+      setErrorMessage('Type a username');
       return;
     }
 
     if (!isValidUsername) {
-      setErrorMessage('Votre nom d\'utilisateur doit contenir au moins 2 caractères.');
+      setErrorMessage('Username must be at least 2 characters long.');
       return;
     }
 
     if (!newEmail) {
-      setErrorMessage('Veuillez saisir un email.');
+      setErrorMessage('Type an email adress');
       return;
     }
 
     if (!isValidEmail) {
-      setErrorMessage('Votre email doit être valide.');
+      setErrorMessage('Email must be valid');
       return;
     }
 
@@ -112,7 +111,7 @@ function EditInfo({ avatar }) {
     const { data, error } = useMutation('/user', body, 'PATCH');
 
   return (
-    <div className="flex flex-col shadow-xl bg-neutral-focus border border-base-300 rounded-xl items-center text-left sm:w-1/2">
+    <div className="flex flex-col shadow- bg-neutral-focus border border-base-300 rounded-xl items-center text-left sm:w-1/2">
       <form className="w-full flex flex-col items-center gap-6 py-4" onChange={handleChange}>
         <h1 className="text-2xl">Edit profile</h1>
         <div className="w-full px-6 sm:flex sm:flex-col">
@@ -128,18 +127,17 @@ function EditInfo({ avatar }) {
             <input id="email" name="email" type="email" className="input input-sm input-bordered w-3/4" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
             <button type="button" className="btn btn-sm btn-ghost border-gray-500" onClick={handleSubmit}>Save</button>
           </div>
+          {errorMessage ? (
+            <div className="text-error text-sm ml-2 mt-6">
+              {errorMessage}
+            </div>
+          ) : null }
+          {data ? (
+            <div className="text-success text-sm ml-2 mt-6">
+              Modifications saved
+            </div>
+          ) : null}
         </div>
-
-        {errorMessage ? (
-          <div className="text-red-600 text-xs italic mx-4 text-center">
-            {errorMessage}
-          </div>
-) : null }
-        {data ? (
-          <div className="text-green-500 text-xs italic mx-4 text-center">
-            Votre changement a bien été pris en compte
-          </div>
-) : null}
 
       </form>
 

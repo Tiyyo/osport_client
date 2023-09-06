@@ -29,7 +29,7 @@ function Chat({ eventId }: { eventId: number }) {
   };
 
   return (
-    <div className="bg-neutral-focus shadow-xl border rounded-xl border-base-300 w-full">
+    <div className="bg-neutral-focus shadow-sm border rounded-xl border-base-300 w-full">
       <div className="w-full flex justify-between bg-base-100 border-2 border-neutral-focus rounded-xl rounded-b-none">
         <h2 className="text-2xl p-4">Messages</h2>
         <button type="button" onClick={handleClick}>

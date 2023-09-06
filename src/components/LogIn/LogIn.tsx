@@ -58,7 +58,7 @@ const LogIn: React.FC = () => {
         <div className="text-xl">Welcome on O'Sport</div>
       </div>
 
-      <form className="flex flex-col w-full min-[820px]:w-1/2 items-center p-6 gap-4 bg-neutral-focus shadow-xl border border-gray-500 rounded-xl">
+      <form className="flex flex-col w-full min-[820px]:w-1/2 items-center p-6 gap-4 bg-neutral-focus shadow-sm border border-gray-500 rounded-xl">
         <div className="form-control w-full">
           <label className="label" htmlFor="first-name">
             <span className="label-text text-lg">Username : </span>
@@ -109,7 +109,7 @@ const LogIn: React.FC = () => {
         </button>
       </form>
 
-      <div className="text-center w-full min-[820px]:w-1/2 bg-neutral-focus p-4 border border-gray-500 rounded-lg text-sm sm:text-md">
+      <div className="text-center w-full min-[820px]:w-1/2 shadow-sm bg-neutral-focus p-4 border border-gray-500 rounded-lg text-sm sm:text-md">
         New on O'Sport ? &nbsp;
         <Link to="/signup" className="link link-info">
           Create an account

@@ -35,9 +35,9 @@ function SearchContact({ userId }: { userId: number }) {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Type a username..."
-        className="input input-bordered border-gray-500 w-3/4"
+        className="input input-bordered border-neutral w-3/4 shadow-md"
       />
-      <button type="submit" className="btn btn-ghost border border-gray-500 w-1/5 text-xs">Add a friend</button>
+      <button type="submit" className="btn shadow-md w-1/5 text-xs">Add a friend</button>
     </form>
   );
 }

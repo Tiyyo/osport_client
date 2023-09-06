@@ -75,9 +75,8 @@ const handleSubmit = (e : React.ChangeEvent<HTMLFormElement>) => {
     formModal.current.reset();
 };
 
-console.log(players);
   return (
-    <div className="flex flex-col items-center py-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border border-base-300 w-full h-full">
+    <div className="flex flex-col items-center py-8 bg-neutral-focus p-4 shadow-sm border rounded-xl border border-base-300 w-full h-full">
 
       {/* Première équipe */}
 
@@ -136,7 +135,7 @@ console.log(players);
       </div>
       )}
 
-      <p className="bg-neutral p-4 shadow-xl border rounded-xl border-gray-700 text-center mx-1 my-4 sm:m-4">
+      <p className="bg-neutral-focus p-4 shadow-md text-base rounded-xl text-center mx-1 my-4 sm:m-4">
         You can rate other players by clicking their profile pictures
       </p>
       <dialog id="ratingModal" className="modal">

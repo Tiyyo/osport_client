@@ -13,7 +13,7 @@ function List({ events }: { events: Event[] }) {
       {/* Si events existe, on map dessus */}
       {events && events.map((event: Event) => (
         <li
-          className="bg-neutral-focus flex flex-col items-center gap-2 pb-10 shadow-xl border border-base-300 rounded-xl py-2 px-6 my-4 sm:items-center sm:justify-between"
+          className="bg-neutral-focus flex flex-col items-center gap-2 pb-10 shadow-sm border border-base-300 rounded-xl py-2 px-6 my-4 sm:items-center sm:justify-between"
           key={event.id}
         >
           <div className="flex justify-between w-full">

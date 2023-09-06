@@ -50,7 +50,7 @@ function SendInvitations() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6 py-8 px-4 bg-neutral-focus shadow-xl border rounded-xl border-base-300 sm:w-1/2 sm:h-fit">
+    <div className="flex flex-col items-center justify-center gap-6 py-8 px-4 bg-neutral-focus shadow-sm border rounded-xl border-base-300 sm:w-1/2 sm:h-fit">
       <h2 className="text-sm flex items-center">
         {/* +1 to include the creator */}
         {eventData.friends.length + 1 === eventData.nbMaxParticipant && (
@@ -93,7 +93,7 @@ function SendInvitations() {
       </div>
       <button
         type="button"
-        className="btn btn-wide"
+        className={`btn ${eventData.friends.length + 1 === eventData.nbMaxParticipant ? 'btn-wide btn-ghost border-gray-500 shadow-sm' : 'btn-disabled'}`}
         disabled={eventData.friends.length + 1 > eventData.nbMaxParticipant}
         onClick={handleCreateEvent}
       >
