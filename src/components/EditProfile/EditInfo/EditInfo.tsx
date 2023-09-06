@@ -125,7 +125,6 @@ function EditInfo() {
           <label htmlFor="username" className="label-text text-base">Change your username</label>
           <div className="flex gap-2 justify-between items-center mt-4">
             <input id="username" name="username" type="text" className="input input-sm input-bordered w-3/4" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
-            {/* <button type="button" className="btn btn-ghost border-gray-500 btn-sm" onClick={handleSubmitUsername}>Save</button> */}
           </div>
         </div>
 
