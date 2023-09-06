@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
@@ -40,9 +41,7 @@ return convertedRating;
 };
 
   return (
-    <div className="flex flex-col h-content gap-4 pb-4 px-5 m-auto w-full h-80
-      shadow-xl border border-gray-700 rounded-xl mb-2 bg-neutral-focus sm:mb-0"
-    >
+    <div className="flex flex-col h-content gap-4 pb-4 px-5 m-auto w-full h-80 shadow-xl border border-base-300 rounded-xl mb-2 bg-neutral-focus sm:mb-0">
       <div className="flex flex-col items-center justify-between w-full">
 
         <div className="flex items-center gap-4 p-4 sm:self-start">
@@ -58,9 +57,9 @@ return convertedRating;
         </div>
         <div className="px-4 flex justify-center sm:self-end">
           <Link to="/edit_profile">
-            <button type="button" className="btn btn-xs m-2">Edit profile</button>
+            <button type="button" className="btn btn-ghost border-gray-500 btn-xs m-2">Edit profile</button>
           </Link>
-          <button type="button" className="btn btn-xs m-2" onClick={handleClickLogout}>Logout</button>
+          <button type="button" className="btn btn-ghost border-gray-500 btn-xs m-2" onClick={handleClickLogout}>Logout</button>
         </div>
       </div>
       <div className="w-full h-full flex flex-col justify-evenly items-center gap-4">

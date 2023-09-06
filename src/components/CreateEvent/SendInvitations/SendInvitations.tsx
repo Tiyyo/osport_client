@@ -49,7 +49,7 @@ function SendInvitations() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6 py-8 px-4 bg-neutral-focus shadow-xl border rounded-xl border-gray-700 sm:w-1/2 sm:h-fit">
+    <div className="flex flex-col items-center justify-center gap-6 py-8 px-4 bg-neutral-focus shadow-xl border rounded-xl border-base-300 sm:w-1/2 sm:h-fit">
       <h2 className="text-sm flex items-center">
         {eventData.friends.length === eventData.nbMaxParticipant && (
           <img src="https://img.icons8.com/?size=512&id=63312&format=png" className="w-7" alt="valid" />
@@ -79,7 +79,7 @@ function SendInvitations() {
 
       <button
         type="button"
-        className="btn btn-wide"
+        className="btn btn-wide btn-ghost border-gray-500"
         disabled={eventData.friends.length > eventData.nbMaxParticipant}
         onClick={handleCreateEvent}
       >

@@ -28,7 +28,7 @@ const handleClick = () => {
       className="flex flex-col items-center justify-center gap-y-1"
       onClick={handleClick}
     >
-      <div className="w-12 aspect-square rounded-full sm:w-14 overflow-hidden">
+      <div className="w-12 aspect-square rounded-full sm:w-16 overflow-hidden">
         {avatar
           ? <img src={avatar} alt={username} className="object-cover w-full" />
           : <img src={PlayerDefaultIcon} alt={username} />}

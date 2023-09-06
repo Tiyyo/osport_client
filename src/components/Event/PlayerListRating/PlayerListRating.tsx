@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable object-curly-newline */
 /* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
@@ -41,7 +43,6 @@ secondTeamScore,
   }
 
   function closeModal() {
-    console.log('is ok');
     (window as any).ratingModal.close();
   }
   // get userIdToRate from child component
@@ -76,21 +77,15 @@ const handleSubmit = (e : React.ChangeEvent<HTMLFormElement>) => {
 
 console.log(players);
   return (
-    <div className="flex flex-col items-center py-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 w-full h-full">
+    <div className="flex flex-col items-center py-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border border-base-300 w-full h-full">
 
       {/* Première équipe */}
-
-      {/* // Nested ternary pour afficher le composant qui affiche l'équipe avec la bonne couleur
-      // Si les scores sont égaux, on affiche <TeamDraw />
-      // Si le score n'est pas égal et que le score de la première équipe est supérieur,
-      // on affiche <TeamWin />
-      // sinon on affiche <TeamLose /> */}
 
       <TeamResult scoreTeam1={firstTeamScore} scoreTeam2={secondTeamScore} team="Team 1" />
 
       {/* La classe de la <div> changera automatiquement selon le nombre de joueurs max. */}
       {nbPlayers && (
-      <div className={colsNumber(nbPlayers)}>
+      <div className="flex gap-7 flex-wrap justify-center p-4 py-6">
 
         {/* On filtre les joueurs pour n'afficher que ceux de la l'équipe 1
         On map sur le tableau qui a été filter pour générer les avatars */}
@@ -122,7 +117,7 @@ console.log(players);
 
       {/* Même procédé que pour la première équipe */}
       {nbPlayers && (
-      <div className={colsNumber(nbPlayers)}>
+      <div className="flex gap-7 flex-wrap justify-center p-4 py-6">
         {players && players
         .filter((player) => player.team === 2)
         .map((player) => (
@@ -144,7 +139,6 @@ console.log(players);
       <p className="bg-neutral p-4 shadow-xl border rounded-xl border-gray-700 text-center mx-1 my-4 sm:m-4">
         You can rate other players by clicking their profile pictures
       </p>
-
       <dialog id="ratingModal" className="modal">
         <form
           method="dialog"
@@ -155,7 +149,10 @@ console.log(players);
           {/* Le button pour fermer ne fonctionne pas avec le type="button" (modal DaisyUI)  */}
           {/* eslint-disable-next-line react/button-has-type */}
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-          <h3 className="font-bold text-lg mb-2">Chose a note between 1 to 10</h3>
+          <h3 className="font-bold text-lg mb-2">
+            {/* Le texte change si l'id de l'utilisateur à noter est le même que celui de l'utilisateur connecté */}
+            {userIdToRate === userId ? 'You are not allowed to rate yourself !' : 'Chose a note between 1 to 10'}
+          </h3>
           <div className="flex justify-center w-full">
             <input
               type="number"
@@ -163,9 +160,17 @@ console.log(players);
               id="userRating"
               min={1}
               max={10}
-              className="p-4 bg-neutral shadow-xl border rounded-xl rounded-r-none border-gray-700 w-24 text-center text-xl font-bold"
+              // Si l'id de l'utilisateur à noter est le même que celui de l'utilisateur connecté, on désactive le bouton et l'input
+              className={userIdToRate === userId
+                ? 'p-4 bg-neutral btn-disabled shadow-xl border rounded-xl rounded-r-none border-gray-700 w-24 text-center text-xl font-bold'
+                : 'p-4 bg-neutral shadow-xl border rounded-xl rounded-r-none border-gray-700 w-24 text-center text-xl font-bold'}
             />
-            <button type="submit" className="btn btn-lg m-0 rounded-l-none">Rate</button>
+            <button
+              type="submit"
+              className={userIdToRate === userId ? 'btn btn-disabled btn-lg m-0 rounded-l-none' : 'btn btn-lg m-0 rounded-l-none'}
+            >
+              Rate
+            </button>
           </div>
           <p
             className="text-sm pt-8"
@@ -176,7 +181,6 @@ console.log(players);
           </p>
         </form>
       </dialog>
-
     </div>
   );
 }

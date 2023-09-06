@@ -30,14 +30,14 @@ function AcceptDeclineButton({ askedId, askerId }: AcceptDeclineButtonProps) {
       <button
         type="button"
         onClick={() => addContact(askedId, askerId)}
-        className="btn btn-xs text-success"
+        className="btn btn-ghost border-gray-500 btn-xs text-success"
       >
         Accept
       </button>
       <button
         type="button"
         onClick={() => refuseContact(askedId, askerId)}
-        className="btn btn-xs text-error"
+        className="btn btn-ghost border-gray-500 btn-xs text-error"
       >
         Decline
       </button>
