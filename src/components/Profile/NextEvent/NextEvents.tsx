@@ -4,8 +4,8 @@ import { Event } from '../../types';
 
 function NextEvents({ nextEvents } : { nextEvents : Event[] }) {
   return (
-    <div className="flex flex-col gap-y-2">
-      <h2 className="text-xl pl-2">Next events</h2>
+    <div className="flex flex-col gap-4 mb-24">
+      <h2 className="text-2xl pl-2">Next events</h2>
       {nextEvents && nextEvents.length > 0 ? nextEvents.map((event) => (
         <NextEvent
           date={event.date}

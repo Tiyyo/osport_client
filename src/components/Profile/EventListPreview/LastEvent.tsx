@@ -30,7 +30,7 @@ function LastEvent({
   return (
     <div className="flex stat justify-around items-center w-full p-2">
       <div className="stat-desc font-bold w-1/6">{displayResult(winnerTeam, userTeam)}</div>
-      <div className="stat-value text-sm sm:text-base m-auto flex justify-center">
+      <div className="stat-value text-xs sm:text-base m-auto flex justify-center">
         <span>
           {scoreTeam1}
           {' '}
@@ -39,9 +39,9 @@ function LastEvent({
           {scoreTeam2}
         </span>
       </div>
-      <div className="stat-desc text-xs w-1/4 text-center">{sportName}</div>
+      <div className="stat-desc text-sm w-1/4 text-center">{sportName}</div>
       <Link to={`/event/${id}`}>
-        <div className="link stat-desc text-sm  w-1/3 font-bold text-center">See event</div>
+        <div className="link stat-value text-sm w-1/3 font-bold text-center">See event</div>
       </Link>
     </div>
   );

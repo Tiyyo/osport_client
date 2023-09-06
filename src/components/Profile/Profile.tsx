@@ -22,7 +22,7 @@ const eventOpen = events?.filter((event: Event) => event.status === 'open');
     <>
       <Header />
       <Menu />
-      <div className="flex flex-col px-4 my-auto sm:w-4/5 sm:m-auto sm:my-4 sm:pb-4">
+      <div className="flex flex-col px-4 my-auto sm:w-[90%] sm:m-auto sm:my-4 sm:pb-4">
         <div className="flex flex-col gap-4 py-4 sm:flex-row">
           <ProfileInfo
             username={userInfos?.username}

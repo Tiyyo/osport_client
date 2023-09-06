@@ -70,10 +70,10 @@ return convertedRating;
           <select className="select select-bordered select-sm" onChange={handleChangeSport}>
             <option disabled selected>{sportChosen}</option>
             <option>Football</option>
-            <option>Basketball</option>
+            <option>Basket-ball</option>
           </select>
         </div>
-        {sports && (<div className="badge badge-base p-5 font-bold sm:badge-lg">{displayCurrentSport(sports)}</div>)}
+        {sports && (<div className="text-xl text-base bg-neutral-focus rounded-xl shadow-md p-5 font-bold">{displayCurrentSport(sports)}</div>)}
       </div>
 
     </div>

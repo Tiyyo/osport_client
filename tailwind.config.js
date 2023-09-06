@@ -7,7 +7,7 @@ export default {
     themes: [
       "dracula",
       {
-        'emerald': {
+        'custom-light': {
           'primary' : '#66cc8a',
           'primary-focus' : '#41be6d',
           'primary-content' : '#f9fafb',
