@@ -1,7 +1,6 @@
 import React, {
  createContext, useState, FunctionComponent, ReactNode, useEffect,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import axiosInstance from '../services/axiosInstance';
 

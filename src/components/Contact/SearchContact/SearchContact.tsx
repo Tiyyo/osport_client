@@ -28,7 +28,6 @@ function SearchContact({ userId }: { userId: number }) {
   return (
     <form
       onSubmit={handleSubmit}
-      // className="lg:flex justify-evenly gap-4 shadow-xl border border-gray-700 rounded-xl p-4"
       className="flex flex gap-4"
     >
       <input
@@ -36,9 +35,9 @@ function SearchContact({ userId }: { userId: number }) {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Type a username..."
-        className="input input-bordered w-3/4"
+        className="input input-bordered border-gray-500 w-3/4"
       />
-      <button type="submit" className="btn w-1/5 text-xs">Add a friend</button>
+      <button type="submit" className="btn btn-ghost border border-gray-500 w-1/5 text-xs">Add a friend</button>
     </form>
   );
 }

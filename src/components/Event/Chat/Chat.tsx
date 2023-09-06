@@ -3,77 +3,51 @@ import AuthContext from '../../../context/AuthContext';
 import useFetch from '../../hooks/useFetch';
 import ChatForm from '../ChatForm/ChatForm';
 import ChatMessage from '../ChatMessage/ChatMessage';
-import isDateEquals from '../../../utils/isDateEquals';
+import RefresIcon from '../../../assets/Icons/RefresIcon';
 
-function Chat({ eventId }) {
+function Chat({ eventId }: { eventId: number }) {
   const { user: { userInfos: { userId } } } = useContext(AuthContext);
   const { data: userInfos } = useFetch(`user/${userId}`, 'GET');
   const { data: historic } = useFetch(`chat/event/${eventId}`, 'GET');
-  const [messages, setMessages] = useState();
-
-  console.log(userInfos);
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-if (!historic) return;
-setMessages(historic);
-}, [historic]);
+    if (!historic) return;
+    setMessages(historic);
+  }, [historic]);
 
-const getMessage = (message) => {
-  console.log(message);
-  setMessages((prev) => {
-    const newMessages = [message, ...prev];
-    return newMessages;
-});
-console.log(messages);
-};
+  const getMessage = (message) => {
+    setMessages((prev) => {
+      const newMessages = [message, ...prev];
+      return newMessages;
+    });
+  };
 
-console.log(historic);
+  // Fonction pour rafraichir la page
+  const handleClick = () => {
+    window.location.reload();
+  };
 
   return (
-    <div className="bg-neutral-focus shadow-xl border rounded-xl border-gray-700 w-full">
-      <h2 className="text-2xl p-4">Messages</h2>
+    <div className="bg-neutral-focus shadow-xl border rounded-xl border-base-300 w-full">
+      <div className="w-full flex justify-between bg-base-100 border-2 border-neutral-focus rounded-xl rounded-b-none">
+        <h2 className="text-2xl p-4">Messages</h2>
+        <button type="button" onClick={handleClick}>
+          <RefresIcon />
+        </button>
+      </div>
       <div className="flex flex-col-reverse gap-2 p-2 overflow-y-auto w-full min-h-0 bg-neutral-focus h-[60vh] shadow-xl rounded-xl border-gray-700 rounded-b-none rounded-t-none border-t-0 sm:h-[50vh]">
-        {
-messages && messages.map((message, index) => {
-            let sameDate = false;
-            let sameAuthor = false;
-            if (index >= 1) {
-              sameDate = isDateEquals(
-                message.date,
-                historic[index - 1].createdAt,
-              );
-              sameAuthor = message.userId === historic[index - 1].userId;
-         return (
-           <ChatMessage
-             author={message.user.username}
-             message={message.message}
-             key={message.id}
-             avatar={message.user.avatar}
-             createdAt={message.createdAt}
-             userIdMessage={message.user.id}
-             displayDateMessage={sameDate}
-            //  displayAuthor={sameAuthor}
-             userId={userId}
-
-           />
-         );
-     }
-       return (
-         <ChatMessage
-           author={message.user.username}
-           message={message.message}
-           key={message.id}
-           avatar={message.user.avatar}
-           createdAt={message.createdAt}
-           userIdMessage={message.user.id}
-           displayDateMessage={sameDate}
-           displayAuthor={sameAuthor}
-           userId={userId}
-
-         />
-       );
-})
-}
+        {messages && messages.map((message) => (
+          <ChatMessage
+            author={message.user.username}
+            message={message.message}
+            key={message.id}
+            avatar={message.user.avatar}
+            createdAt={message.created_at}
+            userIdMessage={message.user.id}
+            userId={userId}
+          />
+        ))}
       </div>
       <ChatForm
         eventId={eventId}

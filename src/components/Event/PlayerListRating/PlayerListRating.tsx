@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable object-curly-newline */
 /* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
@@ -19,69 +21,71 @@ interface PlayersListProps {
   sportId: number;
 }
 
-function PlayerListRating({ players, nbPlayers, firstTeamScore, secondTeamScore, sportId }: PlayersListProps) {
+function PlayerListRating({
+players,
+nbPlayers,
+firstTeamScore,
+secondTeamScore,
+ sportId }: PlayersListProps) {
     // Fonction pour définir le nombre de colonnes à indiquer dans la classe de la <div>
   // en fonction du nombre de joueurs max. (qu'on divise par 2)
 
   const { user: { userInfos: { userId } } } = useContext(AuthContext);
   const [userIdToRate, setUserIdToRate] = useState<number>(null);
-  const formModal = useRef(null);
+  const formModal = useRef<HTMLFormElement>(null);
 
   function colsNumber(nbOfPlayers: number) {
     return `grid grid-cols-${nbOfPlayers / 2} gap-8 p-5`;
   }
 
-  function openModal(state) {
-    window.ratingModal.showModal();
+  function openModal() {
+   (window as any).ratingModal.showModal();
   }
 
-  function getUserToRateId(userIdToRate) {
-    setUserIdToRate(userIdToRate);
-}
-
   function closeModal() {
-    window.ratingModal.close();
-}
+    (window as any).ratingModal.close();
+  }
+  // get userIdToRate from child component
+  // state is the id of the user to rate
+  function getUserToRateId(state : number) {
+    setUserIdToRate(state);
+  }
 
-  async function rateUser(userRating: number, playerToRateId: number, sportId: number, userId: number) {
+  async function rateUser(userRating: number, playerToRateId: number) {
     try {
       const res = await axiosInstance.patch(
-'user/sport',
+  'user/sport',
          { rating: Number(userRating),
            user_id: playerToRateId,
            sport_id: sportId,
            rater_id: userId },
-);
+  );
       console.log('Server Response:', res);
       } catch (error) {
       console.log(error);
     }
   }
 
-const handleSubmit = (e) => {
+const handleSubmit = (e : React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userRating = e.target.userRating.value;
-    rateUser(userRating, userIdToRate, sportId, userId);
-    formModal.current.reset();
     closeModal();
+    if (!userRating) return;
+    rateUser(userRating, userIdToRate);
+    formModal.current.reset();
 };
 
+console.log(players);
   return (
-    <div className="flex flex-col items-center py-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border-gray-700 w-full h-full">
+    <div className="flex flex-col items-center py-8 bg-neutral-focus p-4 shadow-xl border rounded-xl border border-base-300 w-full h-full">
 
       {/* Première équipe */}
-
-      {/* // Nested ternary pour afficher le composant qui affiche l'équipe avec la bonne couleur
-      // Si les scores sont égaux, on affiche <TeamDraw />
-      // Si le score n'est pas égal et que le score de la première équipe est supérieur,
-      // on affiche <TeamWin />
-      // sinon on affiche <TeamLose /> */}
 
       <TeamResult scoreTeam1={firstTeamScore} scoreTeam2={secondTeamScore} team="Team 1" />
 
       {/* La classe de la <div> changera automatiquement selon le nombre de joueurs max. */}
       {nbPlayers && (
-      <div className={colsNumber(nbPlayers)}>
+      <div className="flex gap-7 flex-wrap justify-center p-4 py-6">
 
         {/* On filtre les joueurs pour n'afficher que ceux de la l'équipe 1
         On map sur le tableau qui a été filter pour générer les avatars */}
@@ -94,7 +98,6 @@ const handleSubmit = (e) => {
               avatar={player.user.avatar}
               status={player.status}
               username={player.user.username}
-              sportId={sportId}
               getUserToRateId={getUserToRateId}
               isConfirmed
             />
@@ -114,7 +117,7 @@ const handleSubmit = (e) => {
 
       {/* Même procédé que pour la première équipe */}
       {nbPlayers && (
-      <div className={colsNumber(nbPlayers)}>
+      <div className="flex gap-7 flex-wrap justify-center p-4 py-6">
         {players && players
         .filter((player) => player.team === 2)
         .map((player) => (
@@ -136,7 +139,6 @@ const handleSubmit = (e) => {
       <p className="bg-neutral p-4 shadow-xl border rounded-xl border-gray-700 text-center mx-1 my-4 sm:m-4">
         You can rate other players by clicking their profile pictures
       </p>
-
       <dialog id="ratingModal" className="modal">
         <form
           method="dialog"
@@ -147,7 +149,10 @@ const handleSubmit = (e) => {
           {/* Le button pour fermer ne fonctionne pas avec le type="button" (modal DaisyUI)  */}
           {/* eslint-disable-next-line react/button-has-type */}
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-          <h3 className="font-bold text-lg mb-2">Chose a note between 1 to 10</h3>
+          <h3 className="font-bold text-lg mb-2">
+            {/* Le texte change si l'id de l'utilisateur à noter est le même que celui de l'utilisateur connecté */}
+            {userIdToRate === userId ? 'You are not allowed to rate yourself !' : 'Chose a note between 1 to 10'}
+          </h3>
           <div className="flex justify-center w-full">
             <input
               type="number"
@@ -155,21 +160,27 @@ const handleSubmit = (e) => {
               id="userRating"
               min={1}
               max={10}
-              // onChange={(e) => setInputValue(e.target.value)}
-              className="p-4 bg-neutral shadow-xl border rounded-xl rounded-r-none border-gray-700 w-24 text-center text-xl font-bold"
+              // Si l'id de l'utilisateur à noter est le même que celui de l'utilisateur connecté, on désactive le bouton et l'input
+              className={userIdToRate === userId
+                ? 'p-4 bg-neutral btn-disabled shadow-xl border rounded-xl rounded-r-none border-gray-700 w-24 text-center text-xl font-bold'
+                : 'p-4 bg-neutral shadow-xl border rounded-xl rounded-r-none border-gray-700 w-24 text-center text-xl font-bold'}
             />
-            <button type="submit" className="btn btn-lg m-0 rounded-l-none">Rate</button>
+            <button
+              type="submit"
+              className={userIdToRate === userId ? 'btn btn-disabled btn-lg m-0 rounded-l-none' : 'btn btn-lg m-0 rounded-l-none'}
+            >
+              Rate
+            </button>
           </div>
           <p
             className="text-sm pt-8"
-            // onClick={closeModal}
+            onClick={closeModal}
           >
             Press ESC key or click on ✕ button to close
 
           </p>
         </form>
       </dialog>
-
     </div>
   );
 }

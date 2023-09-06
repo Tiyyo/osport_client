@@ -60,11 +60,11 @@ function Event() {
     <>
       <Header />
       <Menu />
-      {isInvited && (<ResponseInvitation eventId={event.id} userId={userId} />) }
+      {isInvited && (<ResponseInvitation eventId={event?.id} userId={userId} />) }
 
       {event
       && (
-      <div className="flex flex-col w-full p-4 mx-auto mb-24 sm:flex-row sm:gap-4 sm:w-10/12 sm:m-auto sm:shadow-xl sm:rounded-xl sm:border-gray-700 sm:my-4 sm:mb-10 sm:pb-4 sm:border-2">
+      <div className="flex flex-col w-full p-4 mx-auto mb-24 sm:flex-row sm:gap-4 sm:w-10/12 sm:m-auto sm:shadow-xl sm:rounded-xl sm:border-gray-700 sm:my-4 sm:mb-10 sm:pb-4 sm:border">
 
         <div className="flex flex-col gap-4 mb-4 sm:w-1/2 items-center ">
 
@@ -81,13 +81,12 @@ function Event() {
 
           {/* Composants pour afficher les avatars des joueurs */}
 
-          {/* Si pas de vainqueur et statut open => Affichage des participants */}
-          {!event.winner_team && event.status === 'open' && <PlayerList players={participants} />}
-          {/* Si pas de vainqueur et statut diffèrent de open => Liste des joueurs des 2 équipes */}
-          {!event.winner_team && event.status !== 'open' && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
-          {/* Si le match a un vainqueur enregistré => Liste des joueurs + notation */}
-          {event.winner_team
-            && (event.status === 'finished' || 'closed')
+          {/* Si statut open => Affichage des participants */}
+          {event.status === 'open' && <PlayerList players={participants} />}
+          {/* Si status full => Liste des joueurs des 2 équipes */}
+          {event.status === 'full' && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
+          {/* Si stattus finished => Liste des joueurs + notation */}
+          {event.status === 'finished'
             && (
             <PlayerListRating
               players={participants}
@@ -107,27 +106,21 @@ function Event() {
           {/* Composants pour afficher soit le bouton de confirmation du match,
           soit l'input pour saisir le résultat ou le résultat final */}
 
-          {/* Si pas de vainqueur et statut open => Bouton pour confirmer le match */}
-          {!event.winner_team && event.status === 'open' && (
-            <ConfirmEventButton
-              userId={userId}
-              eventId={eventId}
-            />
-          )}
-          {/* Si pas de vainqueur et statut diffèrent de open => Input pour saisir le résultat */}
-          {!event.winner_team && event.status !== 'open' && (
-            <ResultInput
-              userId={userId}
-              eventId={eventId}
-            />
-          )}
-          {/* Si le match a un vainqueur enregistré => Affichage du score final */}
-          {event.winner_team && (
-            <FinalScore
-              firstTeamScore={event.score_team_1}
-              secondTeamScore={event.score_team_2}
-            />
-          )}
+          {/* Si statut open => Bouton pour confirmer le match */}
+          {event.status === 'open' && (
+          <ConfirmEventButton
+            userId={userId}
+            creatorId={event.creator_id}
+            eventId={eventId}
+            status={event.status}
+            requiredPlayers={event.nb_max_participant}
+            participants={participants}
+          />
+)}
+          {/* Si statut full => Input pour saisir le résultat */}
+          {event.status === 'full' && <ResultInput userId={userId} creatorId={event.creator_id} eventId={eventId} />}
+          {/* Si statut finished => Affichage du score final */}
+          {event.status === 'finished' && <FinalScore firstTeamScore={event.score_team_1} secondTeamScore={event.score_team_2} />}
         </div>
       </div>
       )}

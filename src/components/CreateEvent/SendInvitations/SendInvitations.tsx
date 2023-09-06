@@ -50,7 +50,7 @@ function SendInvitations() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6 py-8 px-4 bg-neutral-focus shadow-xl border rounded-xl border-gray-700 sm:w-1/2 sm:h-fit">
+    <div className="flex flex-col items-center justify-center gap-6 py-8 px-4 bg-neutral-focus shadow-xl border rounded-xl border-base-300 sm:w-1/2 sm:h-fit">
       <h2 className="text-sm flex items-center">
         {/* +1 to include the creator */}
         {eventData.friends.length + 1 === eventData.nbMaxParticipant && (

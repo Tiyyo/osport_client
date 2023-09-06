@@ -3,21 +3,15 @@ import PlayerComp from '../Player/PlayerComp';
 import type { Players } from '../interface';
 
 function PlayerListConfirmed({ players, nbPlayers }: Players) {
-  // Fonction pour définir le nombre de colonnes à indiquer dans la classe de la <div>
-  // en fonction du nombre de joueurs max. (qu'on divise par 2)
-  function colsNumber(nbOfPlayers: number) {
-    return `grid grid-cols-${nbOfPlayers / 2} gap-8 p-5`;
-  }
-
   return (
-    <div className="flex flex-col items-center gap-2 bg-neutral-focus py-8 shadow-xl border rounded-xl border-gray-700 w-full h-full">
+    <div className="flex flex-col items-center gap-2 bg-neutral-focus py-8 shadow-xl rounded-xl border border-base-300 w-full h-full">
 
       {/* Première équipe */}
       <h2 className="text-2xl text-center py-2">Team 1</h2>
 
       {/* La classe de la <div> changera automatiquement selon le nombre de joueurs max. */}
       {players && (
-      <div className={colsNumber(nbPlayers)}>
+      <div className="flex gap-7 flex-wrap justify-center p-4 py-6">
 
         {/* On filtre les joueurs pour n'afficher que ceux de la l'équipe 1
         On map sur le tableau qui a été filter pour générer les avatars */}
@@ -43,7 +37,7 @@ function PlayerListConfirmed({ players, nbPlayers }: Players) {
 
       {/* Même procédé que pour la première équipe */}
       {nbPlayers && (
-      <div className={colsNumber(nbPlayers)}>
+      <div className="flex gap-7 flex-wrap justify-center p-4 py-6">
 
         {players && players
         .filter((player) => player.team === 2)

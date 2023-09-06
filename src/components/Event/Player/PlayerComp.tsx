@@ -1,6 +1,4 @@
-import React, {
- useContext, useRef, useState, useId,
-} from 'react';
+import React from 'react';
 import CircleEllipsis from '../../../assets/Icons/CircleEllipsis';
 import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
 import ValidCheck from '../../../assets/Icons/ValidCheck';
@@ -16,15 +14,13 @@ interface PlayerProps {
   avatar : string;
   username : string;
   status : Status;
-  sportId?: number;
   isConfirmed?: boolean;
+  getUserToRateId?: (state : number) => void;
 }
 
 function PlayerComp({
- id, avatar, username, status, sportId, isConfirmed, getUserToRateId,
+ id, avatar, username, status, isConfirmed, getUserToRateId,
 } : PlayerProps) {
-  const { user: { userInfos: { userId } } } = useContext(AuthContext);
-
 const handleClick = () => {
   if (isConfirmed) {
     getUserToRateId(id);
@@ -33,11 +29,10 @@ const handleClick = () => {
 
   return (
     <div
-      key={id}
       className="flex flex-col items-center justify-center gap-y-1"
       onClick={handleClick}
     >
-      <div className="w-12 aspect-square rounded-full sm:w-14 overflow-hidden">
+      <div className="w-12 aspect-square rounded-full sm:w-16 overflow-hidden">
         {avatar
           // Without the import url, it search with front url, and the
           // image is stocked in back public folder
