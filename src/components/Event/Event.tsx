@@ -83,8 +83,8 @@ function Event() {
 
           {/* Si statut open => Affichage des participants */}
           {event.status === 'open' && <PlayerList players={participants} />}
-          {/* Si status full => Liste des joueurs des 2 équipes */}
-          {event.status === 'full' && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
+          {/* Si status closed => Liste des joueurs des 2 équipes */}
+          {(event.status === 'closed' || event.status === 'full') && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
           {/* Si stattus finished => Liste des joueurs + notation */}
           {event.status === 'finished'
             && (
@@ -117,8 +117,8 @@ function Event() {
             participants={participants}
           />
 )}
-          {/* Si statut full => Input pour saisir le résultat */}
-          {event.status === 'full' && <ResultInput userId={userId} creatorId={event.creator_id} eventId={eventId} />}
+          {/* Si statut closed => Input pour saisir le résultat */}
+          {(event.status === 'closed' || event.status === 'full') && <ResultInput userId={userId} creatorId={event.creator_id} eventId={eventId} />}
           {/* Si statut finished => Affichage du score final */}
           {event.status === 'finished' && <FinalScore firstTeamScore={event.score_team_1} secondTeamScore={event.score_team_2} />}
         </div>
