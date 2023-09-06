@@ -133,7 +133,6 @@ const SignUp: React.FC = () => {
           ) : null}
         </div>
 
-
         <div className="form-control w-full">
           <label className="label" htmlFor="password">
             <span className="label-text text-lg">Password : </span>
@@ -162,7 +161,6 @@ const SignUp: React.FC = () => {
           )}
         </div>
 
-
         <div className="flex flex-col w-full">
           <div className="form-control">
             <label className="label cursor-pointer flex justify-start">
@@ -190,7 +188,6 @@ const SignUp: React.FC = () => {
               </span>
             )}
           </div>
-
 
           <div className="form-control">
             <label className="label cursor-pointer flex justify-start">

@@ -17,7 +17,7 @@ function CreateEventForm() {
               setEventData({ ...eventData, sportId: Number(e.target.value) });
             }}
           >
-            <option disabled selected className="hidden">Pick one</option>
+            <option className="hidden">Pick one</option>
             <option value={1}>Football</option>
             <option value={2}>BasketBall</option>
           </select>
@@ -30,9 +30,10 @@ function CreateEventForm() {
             onChange={(e) => {
               setEventData({ ...eventData, nbMaxParticipant: Number(e.target.value) });
             }}
+            defaultValue={6}
           >
-            <option disabled selected className="hidden">Chose Option</option>
-            <option selected value={6}>3v3</option>
+            <option className="hidden">Chose Option</option>
+            <option value={6}>3v3</option>
             <option value={10}>5v5</option>
           </select>
         </div>

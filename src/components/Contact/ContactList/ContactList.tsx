@@ -1,17 +1,17 @@
 import React from 'react';
-import AcceptDeclineButton from '../AcceptDeclineButton/AcceptDeclineButton';
-import InvitationLoader from '../InvitationLoader/InvitationLoader';
-import ContactAdded from '../ContactAdded/ContactAdded';
+// import AcceptDeclineButton from '../AcceptDeclineButton/AcceptDeclineButton';
+// import InvitationLoader from '../InvitationLoader/InvitationLoader';
+// import ContactAdded from '../ContactAdded/ContactAdded';
 import AcceptedRequest from '../AcceptedRequest/AcceptedRequest';
 import SentRequest from '../SentRequest/SentRequest';
 import PendingRequest from '../PendingRequest/PendingRequest';
+import OriginAvatarUrl from '../../../utils/originAvatarUrl';
 
 interface ContactsProps {
   userId: number;
   accepted: any;
   pendings: any;
   sents: any;
-
 }
 
 function ContactList({
@@ -22,7 +22,7 @@ function ContactList({
       {pendings && pendings.length > 0 && pendings.map((el) => (
         <PendingRequest
           key={el.friend.id}
-          avatar={el.friend.avatar}
+          avatar={OriginAvatarUrl(el.friend.avatar)}
           username={el.friend.username}
           userId={userId}
           friendId={el.friend.id}
@@ -32,7 +32,7 @@ function ContactList({
       { accepted && accepted.length > 0 && accepted.map((el) => (
         <AcceptedRequest
           key={el.friend.id}
-          avatar={el.friend.avatar}
+          avatar={OriginAvatarUrl(el.friend.avatar)}
           username={el.friend.username}
           userId={userId}
         />
@@ -40,7 +40,7 @@ function ContactList({
       {sents && sents.length > 0 && sents.map((el) => (
         <SentRequest
           key={el.friend.id}
-          avatar={el.friend.avatar}
+          avatar={OriginAvatarUrl(el.friend.avatar)}
           username={el.friend.username}
           userId={userId}
         />

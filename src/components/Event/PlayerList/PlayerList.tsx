@@ -1,6 +1,9 @@
 import React from 'react';
 import PlayerComp from '../Player/PlayerComp';
 import { Player, Players } from '../interface';
+// We accept only picsum url for faker user or
+// pixabay for user without avatar
+import userAvatarOrigin from '../../../utils/regex';
 
 function PlayerList({ players }: Players) {
   return (
@@ -16,7 +19,9 @@ function PlayerList({ players }: Players) {
               return (
                 <PlayerComp
                   key={player.user.id}
-                  avatar={player.user.avatar}
+                  avatar={userAvatarOrigin.test(player.user.avatar)
+                    ? player.user.avatar
+                    : import.meta.env.VITE_SERVER_URL + player.user.avatar}
                   username={player.user.username}
                   status={player.status}
                   id={player.user.id}

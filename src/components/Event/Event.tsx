@@ -1,6 +1,5 @@
-/* eslint-disable max-len */
 import React, { useContext, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import formDate from '../../utils/formatDate';
 import AuthContext from '../../context/AuthContext';
 import useFetch from '../hooks/useFetch';
@@ -17,36 +16,45 @@ import FinalScore from './FinalScore/FinalScore';
 import ResponseInvitation from './ResponseInvitation/ResponseInvitation';
 
 function Event() {
-// On recupère l'id de l'utilisateur connecté dans le AuthContext
-const { user } = useContext(AuthContext);
-const userId = user?.userInfos.userId;
-const [isInvited, setIsInvited] = useState(false);
+  // On recupère l'id de l'utilisateur connecté dans le AuthContext
+  const { user } = useContext(AuthContext);
+  const userId = user?.userInfos.userId;
+  const [isInvited, setIsInvited] = useState(false);
+  const navigate = useNavigate();
 
-// Fonction pour récuperer l'id de l'event dans l'url
-function GetEventId() {
-    const { id } = useParams();
-    return parseInt(id, 10);
+  // Fonction pour récuperer l'id de l'event dans l'url
+  function GetEventId() {
+      const { id } = useParams();
+      return parseInt(id, 10);
   }
-const eventId = GetEventId();
 
-// On utilise le hook personnalisé pour récupérer les infos de l'event et les particpants d'un match
-const { data: event, error: eventsError } = useFetch(`event/details/${eventId}`, 'GET');
-const { data: participants, error: participantsError } = useFetch(`participant/event/${eventId}`, 'GET');
+  const eventId = GetEventId();
 
-const checkIfInvited = (userId) => {
-if (!participants) return;
-participants.forEach((participant) => {
-if (participant.user.id === userId && participant.status === 'pending') {
-  setIsInvited(true);
-}
-});
-};
+  // On utilise le hook personnalisé pour récupérer les infos de l'event et les
+  // particpants d'un match
+  const { data: event/* , error: eventsError */ } = useFetch(`event/details/${eventId}`, 'GET');
+  const { data: participants/* , error: participantsError */ } = useFetch(`participant/event/${eventId}`, 'GET');
 
-useEffect(() => {
-checkIfInvited(userId);
-}, [participants, userId]);
+  useEffect(() => {
+    const checkIfInvited = () => {
+      if (!participants) return;
 
-console.log(event);
+      participants.forEach((participant) => {
+        if (participant.user.id === userId && participant.status === 'pending') {
+          setIsInvited(true);
+        }
+      });
+    };
+
+    const checkIfPresent = () => {
+      if (participants && !participants.some((participant) => participant.user.id === userId)) {
+        navigate('/event_list');
+      }
+    };
+
+    checkIfPresent();
+    checkIfInvited();
+  }, [participants, userId, navigate]);
 
   return (
     <>
@@ -75,8 +83,8 @@ console.log(event);
 
           {/* Si statut open => Affichage des participants */}
           {event.status === 'open' && <PlayerList players={participants} />}
-          {/* Si status full => Liste des joueurs des 2 équipes */}
-          {event.status === 'full' && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
+          {/* Si status closed => Liste des joueurs des 2 équipes */}
+          {(event.status === 'closed' || event.status === 'full') && <PlayerListConfirmed players={participants} nbPlayers={event.nb_max_participant} />}
           {/* Si stattus finished => Liste des joueurs + notation */}
           {event.status === 'finished'
             && (
@@ -95,7 +103,8 @@ console.log(event);
           {/* Composant qui affiche le chat */}
           <Chat eventId={eventId} />
 
-          {/* Composants pour afficher soit le bouton de confirmation du match, soit l'input pour saisir le résultat ou le résultat final */}
+          {/* Composants pour afficher soit le bouton de confirmation du match,
+          soit l'input pour saisir le résultat ou le résultat final */}
 
           {/* Si statut open => Bouton pour confirmer le match */}
           {event.status === 'open' && (
@@ -108,8 +117,8 @@ console.log(event);
             participants={participants}
           />
 )}
-          {/* Si statut full => Input pour saisir le résultat */}
-          {event.status === 'full' && <ResultInput userId={userId} creatorId={event.creator_id} eventId={eventId} />}
+          {/* Si statut closed => Input pour saisir le résultat */}
+          {(event.status === 'closed' || event.status === 'full') && <ResultInput userId={userId} creatorId={event.creator_id} eventId={eventId} />}
           {/* Si statut finished => Affichage du score final */}
           {event.status === 'finished' && <FinalScore firstTeamScore={event.score_team_1} secondTeamScore={event.score_team_2} />}
         </div>

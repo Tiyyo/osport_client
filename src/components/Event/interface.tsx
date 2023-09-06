@@ -9,10 +9,12 @@ export interface Player {
   status: Status;
   user?: User;
   team?: number;
+  image_url?: string;
 }
 
 export interface User {
   id: number;
   avatar: string;
   username: string;
+  image_url?: string;
 }

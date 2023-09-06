@@ -7,6 +7,7 @@ import axiosInstance from '../../../services/axiosInstance';
 import capitalize from '../../../utils/capitalize';
 import type { Sport } from '../../types';
 import AuthContext from '../../../context/AuthContext';
+import OriginAvatarUrl from '../../../utils/originAvatarUrl';
 
 interface ProfileInfosInterface {
 username : string;
@@ -47,10 +48,10 @@ return convertedRating;
         <div className="flex items-center gap-4 p-4 sm:self-start">
           <div className="avatar">
             <div className="w-14 rounded-full">
-              {
-                avatar ? <img src={avatar} alt={`${username} avatar`} />
-              : <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt={`${username} avatar`} />
-            }
+              <img
+                src={OriginAvatarUrl(avatar)}
+                alt={`${username} avatar`}
+              />
             </div>
           </div>
           { username && (<h1 className="text-3xl">{capitalize(username)}</h1>)}
