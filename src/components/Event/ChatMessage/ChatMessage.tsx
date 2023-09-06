@@ -1,4 +1,5 @@
 import React from 'react';
+import OriginalAvatarUrl from '../../../utils/originAvatarUrl';
 
 interface ChatConfig {
   author: string;
@@ -26,7 +27,7 @@ function ChatMessage({
     <div className={`chat ${userIdMessage === userId ? 'chat-start' : 'chat-end'} px-4 py-2`}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
-          <img src={avatar} alt="author" />
+          <img src={OriginalAvatarUrl(avatar)} alt="author" />
         </div>
       </div>
       <div className="chat-header">
