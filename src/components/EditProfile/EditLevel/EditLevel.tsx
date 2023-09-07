@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState, useContext, useEffect } from 'react';
 import useFetch from '../../hooks/useFetch';
 import AuthContext from '../../../context/AuthContext';

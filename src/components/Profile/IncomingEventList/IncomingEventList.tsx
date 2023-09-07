@@ -2,7 +2,7 @@ import React from 'react';
 import NextEvent from './NextEvent';
 import { Event } from '../../types';
 
-function NextEvents({ nextEvents } : { nextEvents : Event[] }) {
+function IncomingEventList({ nextEvents } : { nextEvents : Event[] }) {
   return (
     <div className="flex flex-col gap-4 mb-24">
       <h2 className="text-2xl pl-2">Next events</h2>
@@ -19,4 +19,4 @@ function NextEvents({ nextEvents } : { nextEvents : Event[] }) {
   );
 }
 
-export default NextEvents;
+export default IncomingEventList;

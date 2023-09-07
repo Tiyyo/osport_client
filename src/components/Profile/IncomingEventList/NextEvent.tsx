@@ -1,7 +1,6 @@
 import React from 'react';
-import capitalize from '../../../utils/capitalize';
-import formDateNumeric from '../../../utils/formatDateNumeric';
 import { Link } from 'react-router-dom';
+import formDateNumeric from '../../../utils/formatDateNumeric';
 
 interface NextEventProps {
   id: number;

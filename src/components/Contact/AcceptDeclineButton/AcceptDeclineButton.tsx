@@ -10,6 +10,7 @@ function AcceptDeclineButton({ askedId, askerId }: AcceptDeclineButtonProps) {
   async function addContact(askedUserId: number, userToAddId: number) {
     try {
       const response = await axiosInstance.patch('user_friends/accept', { userId: askedUserId, friendId: userToAddId });
+      if (response.status === 204) window.location.reload();
       console.log('Server Response:', response);
     } catch (error) {
       console.log(error);
@@ -19,6 +20,7 @@ function AcceptDeclineButton({ askedId, askerId }: AcceptDeclineButtonProps) {
   async function refuseContact(askedUserId: number, userToAddId: number) {
     try {
       const response = await axiosInstance.patch('user_friends/reject', { userId: askedUserId, friendId: userToAddId });
+      if (response.status === 204) window.location.reload();
       console.log('Server Response:', response);
     } catch (error) {
       console.log(error);

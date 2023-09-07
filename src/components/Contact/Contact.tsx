@@ -21,7 +21,6 @@ function Contact() {
 
   // Le useEffect permet de mettre à jour la liste des contacts à chaque fois que
   // les listes d'amis sont mises à jour
-  // On fusionne les 3 listes d'amis en une seule
 
  useEffect(() => {
   if (!acceptedList) return;

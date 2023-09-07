@@ -107,7 +107,7 @@ function Event() {
           soit l'input pour saisir le résultat ou le résultat final */}
 
           {/* Si statut open => Bouton pour confirmer le match */}
-          {event.status === 'open' && (
+          {(event.status === 'open' || event.status === 'full') && (
           <ConfirmEventButton
             userId={userId}
             creatorId={event.creator_id}
@@ -116,9 +116,9 @@ function Event() {
             requiredPlayers={event.nb_max_participant}
             participants={participants}
           />
-)}
+     )}
           {/* Si statut closed => Input pour saisir le résultat */}
-          {(event.status === 'closed' || event.status === 'full') && <ResultInput userId={userId} creatorId={event.creator_id} eventId={eventId} />}
+          {event.status === 'closed' && <ResultInput userId={userId} creatorId={event.creator_id} eventId={eventId} />}
           {/* Si statut finished => Affichage du score final */}
           {event.status === 'finished' && <FinalScore firstTeamScore={event.score_team_1} secondTeamScore={event.score_team_2} />}
         </div>

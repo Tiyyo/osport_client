@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import CircleEllipsis from '../../../assets/Icons/CircleEllipsis';
 import PlayerDefaultIcon from '../../../assets/PlayerDefaultIcon.svg';
 import ValidCheck from '../../../assets/Icons/ValidCheck';
-import AuthContext from '../../../context/AuthContext';
 // We accept only picsum url for faker user or
 // pixabay for user without avatar
 import userAvatarOrigin from '../../../utils/regex';
@@ -28,23 +29,25 @@ const handleClick = () => {
 };
 
   return (
-    <div
-      className="flex flex-col items-center justify-center gap-y-1"
-      onClick={handleClick}
-    >
-      <div className="w-12 aspect-square rounded-full sm:w-16 overflow-hidden">
-        {avatar
+    <div className="indicator">
+      <div
+        className="flex flex-col items-center justify-center gap-y-1"
+        onClick={handleClick}
+      >
+        {status === 'pending'
+        ? <span className="indicator-item badge bg-blue-400 text-black font-bold aspect-square mt-1 mr-2 border border-neutral pb-2">...</span>
+        : <span className="indicator-item badge bg-green-400 font-bold text-black aspect-square mt-1 mr-2 border border-neutral">✓</span>}
+        <div className="w-12 aspect-square rounded-full sm:w-16 overflow-hidden">
+          {avatar
           // Without the import url, it search with front url, and the
           // image is stocked in back public folder
           ? <img src={userAvatarOrigin.test(avatar) ? avatar : import.meta.env.VITE_SERVER_URL + avatar} alt={username} className="object-cover w-full" />
           : <img src={PlayerDefaultIcon} alt={username} />}
+        </div>
+        <p className="flex text-center text-xs gap-1 items-center justify-center">
+          {username}
+        </p>
       </div>
-      <p className="flex text-center text-xs gap-1 items-center justify-center">
-        {username}
-        <span>
-          {status === 'pending' ? <CircleEllipsis /> : <ValidCheck /> }
-        </span>
-      </p>
     </div>
 
   );

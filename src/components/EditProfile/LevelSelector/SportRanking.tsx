@@ -41,13 +41,13 @@ function SportRanking({ sportSelected, ownRank } : SportRankingProps) {
 
     const handleSubmit = async () => {
       if (sportSelected === 'Choice' && level === 'Choice') {
-        console.log('Tu dois choisir un sport et un niveau');
+        console.log('Chose a sport and a level');
       } else if (sportSelected === 'Choice') {
-        console.log('Tu dois choisir un sport');
+        console.log('Chose a sport');
       } else if (level === 'Choice') {
-        console.log('Tu dois choisir un niveau');
+        console.log('Chose a level');
       } else {
-        console.log(`Tu est ${level} en ${sportSelected}`);
+        console.log(`${level} in ${sportSelected}`);
         setIsDisabled(true);
         let sportId: number;
         switch (sportSelected) {

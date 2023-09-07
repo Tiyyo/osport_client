@@ -32,16 +32,12 @@ const handleClickReject = () => {
     <div className="flex flex-col items-center text-sm">
       <p>You are invited to this event</p>
       <p> Do you want to confirm your participation ?</p>
-      <div className="flex gap-3">
-        <button type="button" className="flex gap-2 items-center justify-center" onClick={handleClickAccept}>
+      <div className="flex gap-3 pt-4">
+        <button type="button" className="btn btn-neutral btn-sm flex gap-2 items-center justify-center text-success" onClick={handleClickAccept}>
           Yes
-          {' '}
-          <CheckedSquare />
         </button>
-        <button type="button" className="flex gap-2 items-center justify-center" onClick={handleClickReject}>
+        <button type="button" className="btn btn-neutral btn-sm flex gap-2 items-center justify-center text-error" onClick={handleClickReject}>
           No
-          {' '}
-          <Ban />
         </button>
       </div>
     </div>

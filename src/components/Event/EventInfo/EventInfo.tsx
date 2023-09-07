@@ -5,25 +5,28 @@ interface EventInfoProps {
   sport: number;
   nbPlayers: number;
   status: string;
-  winner: number;
   duration: number;
   location : string;
 }
 
 function EventInfo({
- date, sport, nbPlayers, status, winner, duration, location,
+ date, sport, nbPlayers, status, duration, location,
 }: EventInfoProps) {
   return (
-    <div className="flex flex-col gap-3 w-full bg-neutral-focus p-4 shadow-sm rounded-xl border border-base-300">
-      <h1 className="text-3xl font-bold self-start">
-        {/* Si statut open => 'New Event' */}
-        {status === 'open' && 'New Event'}
-        {/* Si status full => 'Playing' */}
-        {status === 'full' && 'Playing'}
-        {/* Si status finished => 'Full Time' */}
-        {status === 'finished' && 'Full Time'}
-      </h1>
-      <div className="flex gap-4 py-6 flex-wrap">
+    <div className="flex flex-col items-center gap-3 w-full bg-neutral-focus p-4 shadow-sm rounded-xl border border-base-300">
+
+      <ul className="steps w-full">
+        <li className="step step-info" data-content="⏳">Preparation</li>
+        <li className={`step ${status !== 'open' ? 'step-info' : 'step'}`} data-content="✔">Confirmation</li>
+        <li
+          className={`step ${status === 'closed' || status === 'finished' ? 'step-info' : 'step'}`}
+          data-content={sport === 1 ? '⚽' : '🏀'}
+        >
+          Playing
+        </li>
+        <li className={`step ${status === 'finished' ? 'step-info' : 'step'}`} data-content="🏆">Full Time</li>
+      </ul>
+      <div className="flex gap-4 py-6 flex-wrap justify-center">
         <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">{date}</div>
         <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">
           {/* Si l'id du sport est 1 => Football, si 2 => Basketball */}
