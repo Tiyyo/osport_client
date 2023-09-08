@@ -13,20 +13,20 @@ function EventInfo({
  date, sport, nbPlayers, status, duration, location,
 }: EventInfoProps) {
   return (
-    <div className="flex flex-col items-center gap-3 w-full bg-neutral-focus p-4 shadow-sm rounded-xl border border-base-300">
+    <div className="flex flex-col items-center gap-3 w-full bg-neutral-focus py-4 shadow-sm rounded-xl border border-base-300">
 
-      <ul className="steps w-full">
-        <li className="step step-info" data-content="⏳">Preparation</li>
-        <li className={`step ${status !== 'open' ? 'step-info' : 'step'}`} data-content="✔">Confirmation</li>
+      <ul className="steps w-full py-6">
+        <li className="step text-xs min-[900px]:text-sm step-info" data-content="⏳">Preparation</li>
+        <li className={`step text-xs min-[900px]:text-sm ${status !== 'open' ? 'step-info' : 'step'}`} data-content="✔">Confirmation</li>
         <li
-          className={`step ${status === 'closed' || status === 'finished' ? 'step-info' : 'step'}`}
+          className={`step text-xs min-[800px]:text-sm ${status === 'closed' || status === 'finished' ? 'step-info' : 'step'}`}
           data-content={sport === 1 ? '⚽' : '🏀'}
         >
           Playing
         </li>
-        <li className={`step ${status === 'finished' ? 'step-info' : 'step'}`} data-content="🏆">Full Time</li>
+        <li className={`step text-xs min-[900px]:text-sm ${status === 'finished' ? 'step-info' : 'step'}`} data-content="🏆">Full Time</li>
       </ul>
-      <div className="flex gap-4 py-6 flex-wrap justify-center">
+      <div className="flex gap-4 p-2 flex-wrap justify-center">
         <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">{date}</div>
         <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">
           {/* Si l'id du sport est 1 => Football, si 2 => Basketball */}

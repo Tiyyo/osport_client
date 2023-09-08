@@ -11,6 +11,7 @@ const SignUp: React.FC = () => {
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [cguChecked, setCguChecked] = useState(false);
   const [newsletterChecked, setNewsletterChecked] = useState(false);
@@ -43,7 +44,7 @@ const SignUp: React.FC = () => {
 
     setIsCguChecked(cguChecked);
 
-    if (isValidUsername && isValidPassword && isValidEmail && cguChecked) {
+    if (isValidUsername && isValidPassword && isValidEmail && cguChecked && (password === confirmPassword)) {
       const cleanUsername = DOMPurify.sanitize(username);
       const cleanEmail = DOMPurify.sanitize(email);
 
@@ -66,6 +67,8 @@ const SignUp: React.FC = () => {
         setIsServerValid(false);
       }
     }
+    setPassword('');
+    setConfirmPassword('');
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -94,7 +97,7 @@ const SignUp: React.FC = () => {
             value={username}
             onChange={(e) => {
               setUsername(e.target.value);
-              // validateUsername(e.target.value, 'username');
+              validateUsername(e.target.value, 'username');
             }}
             onKeyDown={handleKeyDown}
           />
@@ -121,7 +124,7 @@ const SignUp: React.FC = () => {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              // validateEmail(e.target.value, 'email');
+              validateEmail(e.target.value, 'email');
             }}
             onKeyDown={handleKeyDown}
           />
@@ -146,7 +149,7 @@ const SignUp: React.FC = () => {
             onChange={(e) => {
               setPassword(e.target.value);
               setErrorMessage('');
-              // validatePassword(e.target.value, 'password');
+              validatePassword(e.target.value, 'password');
             }}
             onKeyDown={handleKeyDown}
           />
@@ -157,6 +160,34 @@ const SignUp: React.FC = () => {
             <span className="text-error flex gap-2 text-xs mt-1 ml-1">
               <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
               Minimum length of 8, at least one letter, one number and a special character
+            </span>
+          )}
+        </div>
+
+        <div className="form-control w-full">
+          <label className="label" htmlFor="confirmPassword">
+            <span className="label-text text-lg">Password Confirmation: </span>
+          </label>
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Type here"
+            className="input input-bordered text-sm"
+            value={confirmPassword}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+              setErrorMessage('');
+              // validatePassword(e.target.value, 'password');
+            }}
+            onKeyDown={handleKeyDown}
+          />
+          <span className="flex gap-2 m-1.5 text-neutral-content text-xs">
+            Reenter your password and ensure that it matches the one above.
+          </span>
+          {password !== confirmPassword && confirmPassword !== '' && (
+            <span className="text-error flex gap-2 text-xs mt-1 ml-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+              'Password Confirmation' and 'Password' do not match.
             </span>
           )}
         </div>

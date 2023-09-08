@@ -64,9 +64,9 @@ function Event() {
 
       {event
       && (
-      <div className="flex flex-col w-full p-4 mx-auto mb-24 sm:flex-row sm:gap-4 sm:w-10/12 sm:m-auto sm:my-4 sm:mb-10 sm:pb-4">
+      <div className="flex flex-col w-full p-4 mx-auto mb-24 min-[800px]:flex-row sm:gap-4 sm:w-10/12 sm:m-auto sm:my-4 sm:mb-10 sm:pb-4">
 
-        <div className="flex flex-col gap-4 mb-4 sm:w-1/2 items-center ">
+        <div className="flex flex-col gap-4 mb-4 min-[800px]:w-1/2 items-center ">
 
           {/* On envoie les infos nécessaires au composant d'affichage des informations du match */}
           <EventInfo
@@ -98,7 +98,7 @@ function Event() {
           )}
         </div>
 
-        <div className="flex flex-col-reverse gap-4 mb-4 sm:w-1/2 items-center sm:flex-col">
+        <div className="flex flex-col-reverse gap-4 mb-4 min-[800px]:w-1/2 items-center sm:flex-col">
 
           {/* Composant qui affiche le chat */}
           <Chat eventId={eventId} />

@@ -75,7 +75,6 @@ return convertedRating;
         </div>
         {sports && (<div className="text-xl text-base bg-neutral-focus rounded-xl shadow-md p-5 font-bold">{displayCurrentSport(sports)}</div>)}
       </div>
-
     </div>
   );
 }

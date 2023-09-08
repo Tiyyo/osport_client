@@ -31,13 +31,31 @@ const LogIn: React.FC = () => {
     const cleanUsername = DOMPurify.sanitize(username);
     resetValidationStates();
 
-    if (!cleanUsername || !password) {
+    if (!cleanUsername && !password) {
       setErrorMessage('All fields are required');
       setIsServerValid(false);
       return;
     }
 
+    if (cleanUsername && !password) {
+      setErrorMessage('Password required');
+      setIsServerValid(false);
+      return;
+    }
+
+    if (!cleanUsername && password) {
+      setErrorMessage('Username required');
+      setIsServerValid(false);
+      return;
+    }
+
     const result = await logUser(cleanUsername, password);
+
+    if (!result) {
+      setErrorMessage('Username or password incorrect');
+      setIsServerValid(false);
+      return;
+    }
 
     if (result) {
       setErrorMessage(result);
