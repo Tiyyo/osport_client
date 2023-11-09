@@ -14,36 +14,39 @@ interface ContactsProps {
   sents: any;
 }
 
-function ContactList({
- userId, accepted, pendings, sents,
-} : ContactsProps) {
+function ContactList({ userId, accepted, pendings, sents }: ContactsProps) {
   return (
     <ul className="w-full">
-      {pendings && pendings.length > 0 && pendings.map((el) => (
-        <PendingRequest
-          key={el.friend.id}
-          avatar={OriginAvatarUrl(el.friend.avatar)}
-          username={el.friend.username}
-          userId={userId}
-          friendId={el.friend.id}
-        />
+      {pendings &&
+        pendings.length > 0 &&
+        pendings.map((el) => (
+          <PendingRequest
+            key={el.friend.id}
+            avatar={OriginAvatarUrl(el.friend.avatar)}
+            username={el.friend.username}
+            userId={userId}
+            friendId={el.friend.id}
+          />
         ))}
       {/* Si contacts existe, on map dessus */}
-      { accepted && accepted.length > 0 && accepted.map((el) => (
-        <AcceptedRequest
-          key={el.friend.id}
-          avatar={OriginAvatarUrl(el.friend.avatar)}
-          username={el.friend.username}
-          userId={userId}
-        />
-      ))}
-      {sents && sents.length > 0 && sents.map((el) => (
-        <SentRequest
-          key={el.friend.id}
-          avatar={OriginAvatarUrl(el.friend.avatar)}
-          username={el.friend.username}
-          userId={userId}
-        />
+      {accepted &&
+        accepted.length > 0 &&
+        accepted.map((el) => (
+          <AcceptedRequest
+            key={el.friend.id}
+            avatar={OriginAvatarUrl(el.friend.avatar)}
+            username={el.friend.username}
+            // userId={userId}
+          />
+        ))}
+      {sents &&
+        sents.length > 0 &&
+        sents.map((el) => (
+          <SentRequest
+            key={el.friend.id}
+            avatar={OriginAvatarUrl(el.friend.avatar)}
+            username={el.friend.username}
+          />
         ))}
     </ul>
   );

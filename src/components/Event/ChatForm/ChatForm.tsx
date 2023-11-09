@@ -10,7 +10,11 @@ interface ChatFormProps {
 }
 
 function ChatForm({
- eventId, userId, getMessage, username, avatar,
+  eventId,
+  userId,
+  getMessage,
+  username,
+  avatar,
 }: ChatFormProps) {
   // Input pour définir la valeur de l'input, si null, le bouton d'envoi est désacivé
   const [inputValue, setInputValue] = useState(null);
@@ -18,43 +22,50 @@ function ChatForm({
   const tempId = useId();
 
   const postMessage = async (data) => {
-      try {
-        const res = await axiosInstance.post('/chat', data);
-        console.log(res);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    try {
+      const res = await axiosInstance.post('/chat', data);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const message = inputValue;
 
-      const data = {
-            message,
-            user_id: userId,
-            event_id: eventId,
-        };
-      postMessage(data).then((res) => console.log(res));
-      getMessage({
-            id: tempId,
-            event_id: eventId,
-            message,
-            created_at: new Date(),
-            user: {
-              id: userId,
-              username,
-              avatar,
+    const data = {
+      message,
+      user_id: userId,
+      event_id: eventId,
+    };
+    postMessage(data).then((res) => console.log(res));
+    getMessage({
+      id: tempId,
+      event_id: eventId,
+      message,
+      created_at: new Date(),
+      user: {
+        id: userId,
+        username,
+        avatar,
       },
     });
-    messageForm.current?.reset();
+    if (messageForm.current) {
+      // @ts-ignore
+      messageForm.current.reset();
+    }
     // On réinitialise la valeur de l'input à 'null'
     setInputValue(null);
   };
 
   return (
     <div className="flex w-full justify-center gap-3 border-t-2 border-neutral-focus">
-      <form autoComplete="off" onSubmit={handleSubmit} className="w-full" ref={messageForm}>
+      <form
+        autoComplete="off"
+        onSubmit={handleSubmit}
+        className="w-full"
+        ref={messageForm}>
         <input
           name="message"
           id="message"
@@ -64,7 +75,13 @@ function ChatForm({
           onChange={(e) => setInputValue(e.target.value)}
           className="input w-[85%] border-2 border-neutral-focus rounded-t-none"
         />
-        <button type="submit" className={`w-[15%] ${inputValue === null ? 'btn-disabled' : 'btn'} btn-ghost`}>Send</button>
+        <button
+          type="submit"
+          className={`w-[15%] ${
+            inputValue === null ? 'btn-disabled' : 'btn'
+          } btn-ghost`}>
+          Send
+        </button>
       </form>
     </div>
   );

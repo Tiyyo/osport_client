@@ -6,28 +6,52 @@ interface EventInfoProps {
   nbPlayers: number;
   status: string;
   duration: number;
-  location : string;
+  location: string;
+  winner: number;
 }
 
 function EventInfo({
- date, sport, nbPlayers, status, duration, location,
+  date,
+  sport,
+  nbPlayers,
+  status,
+  duration,
+  location,
 }: EventInfoProps) {
   return (
     <div className="flex flex-col items-center gap-3 w-full bg-neutral-focus py-4 shadow-sm rounded-xl border border-base-300">
-
       <ul className="steps w-full py-6">
-        <li className="step text-xs min-[900px]:text-sm step-info" data-content="⏳">Preparation</li>
-        <li className={`step text-xs min-[900px]:text-sm ${status !== 'open' ? 'step-info' : 'step'}`} data-content="✔">Confirmation</li>
         <li
-          className={`step text-xs min-[800px]:text-sm ${status === 'closed' || status === 'finished' ? 'step-info' : 'step'}`}
-          data-content={sport === 1 ? '⚽' : '🏀'}
-        >
+          className="step text-xs min-[900px]:text-sm step-info"
+          data-content="⏳">
+          Preparation
+        </li>
+        <li
+          className={`step text-xs min-[900px]:text-sm ${
+            status !== 'open' ? 'step-info' : 'step'
+          }`}
+          data-content="✔">
+          Confirmation
+        </li>
+        <li
+          className={`step text-xs min-[800px]:text-sm ${
+            status === 'closed' || status === 'finished' ? 'step-info' : 'step'
+          }`}
+          data-content={sport === 1 ? '⚽' : '🏀'}>
           Playing
         </li>
-        <li className={`step text-xs min-[900px]:text-sm ${status === 'finished' ? 'step-info' : 'step'}`} data-content="🏆">Full Time</li>
+        <li
+          className={`step text-xs min-[900px]:text-sm ${
+            status === 'finished' ? 'step-info' : 'step'
+          }`}
+          data-content="🏆">
+          Full Time
+        </li>
       </ul>
       <div className="flex gap-4 p-2 flex-wrap justify-center">
-        <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">{date}</div>
+        <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">
+          {date}
+        </div>
         <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">
           {/* Si l'id du sport est 1 => Football, si 2 => Basketball */}
           {sport === 1 ? 'Football' : 'Basketball'}
@@ -37,16 +61,16 @@ function EventInfo({
           {nbPlayers === 6 ? '3v3' : '5v5'}
         </div>
         {duration && (
-        <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">
-          {duration}
-          <span className="pl-1">min</span>
-        </div>
-          )}
+          <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">
+            {duration}
+            <span className="pl-1">min</span>
+          </div>
+        )}
         {location && (
-        <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">
-          {location}
-        </div>
-          )}
+          <div className="badge badge-neutral sm:badge-lg shadow-xl border border-gray-70 p-4">
+            {location}
+          </div>
+        )}
       </div>
     </div>
   );
